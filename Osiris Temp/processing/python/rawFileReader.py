@@ -62,3 +62,8 @@ class fileReader():
        if thisTDC<5:
            self.evtBuilder.addTDCRead(thisTDC, thisTime, tdcReadData, p)
        return True
+   
+    def reload_event_builder(self):
+        importlib.reload(rawEventBuilder)
+        self.evtBuilder = rawEventBuilder.eventBuilder()
+        return self.evtBuilder.tdcEventBuffer

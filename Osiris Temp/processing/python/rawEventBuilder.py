@@ -21,7 +21,7 @@ class eventBuilder():
         self.missItr = [[0,0] for tdc in activeTDCs]
         self.eventCounts = [-1 for tdc in activeTDCs]
         self.headerMask = 0x400000
-        self.EOBMask = 0x200000
+        self.EOBMask = 0x200000 
         self.HEADER = 0
         self.EOB = 1
         self.DATA = 2
