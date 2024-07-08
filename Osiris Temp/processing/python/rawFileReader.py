@@ -4,6 +4,7 @@ import struct
 import datetime
 import os
 import importlib
+import Analysis_tools as aTools
 
 def readTimeStamp(tsData):
     ts = struct.iter_unpack("I", tsData)
@@ -26,6 +27,9 @@ class fileReader():
         stDat = self.data.read(2*self.wordSize)
         self.st = readTimeStamp(stDat)
         self.leadWords = []
+        self.adjustment = 0
+        self.lastWasBad = False
+        self.global_alignment = True
 
     def doneReading(self):
         return self.bytesRead==(self.fsizeBytes-2*self.wordSize)
@@ -38,7 +42,85 @@ class fileReader():
         for event in range(len(self.evtBuilder.events)):
             evts.append(self.evtBuilder.events.pop(0))
         return evts
+    
+    def get_aligned_events(self, order = [[0,1], [1,2], [2,3], [3,4]], interval = 100):
+        evts_chunk = []
+        i = 0
+        while i < interval:
+            if not self.readBlock():
+                    print("Bad Block Read")
+                    break
+            if(self.hasEvents()):
+                for event in range(len(self.evtBuilder.events)):
+                    evts_chunk.append(self.evtBuilder.events.pop(0))
+                    i += 1
+        aligned, realigned = self.doRealign(evts_chunk, order)
+        self.check_alignment_status(aligned, realigned) 
+        self.update_adjustment_window(realigned)    
+        if self.global_alignment == True:
+            return evts_chunk
+        else:
+            return None
+                                
+    def doRealign(self, event_chunk, order, skipChans=[0]):
+        aligned = True
+        realigned = False
+        offsetlist = [p for o in range(1, (4 + self.adjustment)) for p in (o, -o)]
+        updates = [0 for _ in range(len(order))]
+        for idx, item in enumerate(order):
+            i, j = item
+            x, y, l, m = aTools.find_tdc_alignment_metric(i, j)
+            alignMet = aTools.calcAvgAlign(event_chunk, offSet=0, i=x, j=y, k=l, l=m, tdc1=i, tdc0=j, processedEvents=0, skipChans=skipChans)#ProcessedEvents is required for class object RPCHit. I know its redundency, but hard to fix
+            if alignMet > 15 and alignMet < 100:
+                aligned = False
+                for testOffset in offsetlist:
+                    testAlignMet = aTools.calcAvgAlign(event_chunk, offSet=testOffset, i=x, j=y, k=l, l=m, tdc1=i, tdc0=j, processedEvents=0, skipChans=skipChans)
+                    if testAlignMet < 15:
+                        updates[idx] += (testOffset)
+                        realigned = True
+                        break
+        insertion_list = aTools.ConstructEventInsertionList(updates, order)
+        if not all(x == 0 for x in insertion_list):
+            self.InsertFakeEvents(insertion_list)
 
+        return aligned, realigned
+    
+    
+    def check_alignment_status(self, aligned, realigned):
+        if not aligned and not realigned:
+            self.lastWasBad = True
+            self.global_alignment = False
+        elif not aligned and realigned:
+            self.lastWasBad = False
+            self.global_alignment = False
+        elif aligned and not realigned:
+            self.lastWasBad = False
+            self.global_alignment = True
+        else:
+            print(f'alignment error, realigned events already aligned, proicessed event')
+    
+    
+    def update_adjustment_window(self, realigned):
+        if self.lastWasBad and not realigned:
+            if self.adjustment < 35:
+                self.adjustment += 1
+        else:
+            self.adjustment = 0
+        
+
+    def InsertFakeEvents(self, insertion_list):
+        for tdc, insertion in enumerate(insertion_list):
+            for fakeEvent in range(insertion):
+                self.evtBuilder.insertFakeEvent(tdc = tdc)
+            
+
+    
+    
+    
+    
+    
+    
+    
     def readBlock(self,p=False):
        tsDat = self.data.read(2*self.wordSize)
        thisTime = readTimeStamp(tsDat)
