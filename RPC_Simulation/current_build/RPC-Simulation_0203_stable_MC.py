@@ -165,52 +165,67 @@ class muon:
                 #Break out of the loop, muon has decayed and can no longer be detected.
                 break
 
-    def stripped_check_hit(self, sorted_rpc_list, initial_time):
-    
-        t_half = self.gamma*(2200) #in ns
-        rate = np.log(2)/t_half
 
-        if len(self.times)==0:
+    def stripped_check_hit(self, sorted_rpc_list, initial_time):
+        
+        if len(self.times) == 0:
             init_time = initial_time
         else:
             init_time = self.times[0]
 
-        times_to_rpcs = [0]
+        times_to_rpcs = [200]
         
-        for x,rpc in enumerate(sorted_rpc_list):
+        for x, rpc in enumerate(sorted_rpc_list):
             
             success = "Y" if np.random.rand() < rpc.efficiency else "N"
-            time_to_rpc = (rpc.height - max(rpc.height for rpc in sorted_rpc_list)) / (self.velocity[2]*speed_of_light) if self.velocity[2] != 0 else float('inf')
+            time_to_rpc = ((rpc.height - max(rpc.height for rpc in sorted_rpc_list)) / 
+                        (self.velocity[2] * speed_of_light) if self.velocity[2] != 0 else float('inf'))
             times_to_rpcs.append(time_to_rpc)
 
-            if np.exp(-rate*(times_to_rpcs[x+1]-times_to_rpcs[x])) > np.random.rand():
-                
-                if 0 < self.position[0] + self.velocity[0] * time_to_rpc*speed_of_light < rpc.dimensions[0] and 0 < self.position[1] + self.velocity[1] * time_to_rpc*speed_of_light < rpc.dimensions[1]:
-                    self.x_spacing = rpc.dimensions[0] / (rpc.strips[0] - 1)
-                    self.y_spacing = rpc.dimensions[1] / (rpc.strips[1] - 1)
-                                # Calculate position at the time of potential detection
-                    x_pos = self.position[0] + self.velocity[0] * time_to_rpc*speed_of_light
-                    y_pos = self.position[1] + self.velocity[1] * time_to_rpc*speed_of_light
+            if 1 == 1:
+                if 0 < self.position[0] + self.velocity[0] * time_to_rpc * speed_of_light < rpc.dimensions[0] and 0 < self.position[1] + self.velocity[1] * time_to_rpc * speed_of_light < rpc.dimensions[1]:
+                    self.x_spacing = rpc.dimensions[0] / rpc.strips[0]
+                    self.y_spacing = rpc.dimensions[1] / rpc.strips[1]
+                    # Calculate position at the time of potential detection
+                    x_pos = self.position[0] + self.velocity[0] * time_to_rpc * speed_of_light
+                    y_pos = self.position[1] + self.velocity[1] * time_to_rpc * speed_of_light
                     # Adjust position to nearest strip point
-                    x_strip = round(x_pos / self.x_spacing) * self.x_spacing
-                    y_strip = round(y_pos / self.y_spacing) * self.y_spacing
-                    self.detected_5vector.append([x_strip, y_strip, rpc.height, init_time + time_to_rpc, success])
-                else:
-                    self.x_spacing = rpc.dimensions[0] / (rpc.strips[0] - 1)
-                    self.y_spacing = rpc.dimensions[1] / (rpc.strips[1] - 1)
-                                # Calculate position at the time of potential detection
-                    x_pos = self.position[0] + self.velocity[0] * time_to_rpc*speed_of_light
-                    y_pos = self.position[1] + self.velocity[1] * time_to_rpc*speed_of_light
-                    # Adjust position to nearest strip point
-                    x_strip = round(x_pos / self.x_spacing) * self.x_spacing
-                    y_strip = round(y_pos / self.y_spacing) * self.y_spacing
+                    x_channel = int(x_pos / self.x_spacing)
+                    y_channel = int(y_pos / self.y_spacing)
                     
-                    self.detected_5vector.append([x_strip, y_strip, rpc.height, init_time + time_to_rpc, f'Missed RPC {x+1}'])
+                    x_cluster_size, y_cluster_size = self.determine_cluster_sizes()
+                    x_channels = self.calculate_cluster_channels(x_channel, x_cluster_size, rpc.strips[0])
+                    y_channels = self.calculate_cluster_channels(y_channel, y_cluster_size, rpc.strips[1])
+                    
+                    for xc in x_channels:
+                        for yc in y_channels:
+                            x_strip = xc * self.x_spacing
+                            y_strip = yc * self.y_spacing
+                            self.detected_5vector.append([x_strip, y_strip, rpc.height, init_time + time_to_rpc, success])
+                            self.stripped_detected_5vector.append([xc, yc, rpc.height, init_time + time_to_rpc, success])
+                else:
+                    self.detected_5vector.append([self.position[0] + self.velocity[0] * time_to_rpc * speed_of_light, self.position[1] + self.velocity[1] * time_to_rpc * speed_of_light, rpc.height, init_time + time_to_rpc, f'Missed RPC {x+1}'])
+                    self.stripped_detected_5vector.append([-1, -1, rpc.height, init_time + time_to_rpc, f'Missed RPC {x+1}'])
             else:
-                ###Muon decays between previous RPC and current RPC.
-                self.detected_5vector.append([float('inf'),float('inf'),float('inf'),init_time + time_to_rpc,f"Muon decayed between RPCs {x} and {x+1}"])
-                #Break out of the loop, muon has decayed and can no longer be detected.
+                # Muon decays between previous RPC and current RPC.
+                self.detected_5vector.append([float('inf'), float('inf'), float('inf'), init_time + time_to_rpc, f"Muon decayed between RPCs {x} and {x+1}"])
+                # Break out of the loop, muon has decayed and can no longer be detected.
                 break
+
+    def determine_cluster_sizes(self):
+        # Probabilities for cluster sizes
+        # cluster_probs = [0.68, 0.23, 0.04, 0.05]
+        # cluster_sizes = [1, 2, 3, 4]
+        cluster_probs = [1]
+        cluster_sizes = [1]
+        x_cluster_size = np.random.choice(cluster_sizes, p=cluster_probs)
+        y_cluster_size = np.random.choice(cluster_sizes, p=cluster_probs)
+        return x_cluster_size, y_cluster_size
+
+    def calculate_cluster_channels(self, channel, cluster_size, max_strips):
+        start = max(0, channel - cluster_size // 2)
+        end = min(channel + cluster_size // 2 + 1, max_strips)
+        return range(start, end)
                     
     def simulate_path(self,rpc_list, initial_time,time_step):
         #Simulate path of muon, given time_step and initial_time in nanoseconds
@@ -284,11 +299,14 @@ class RPCSimulatorApp:
         self.nanoscale_sim_desc.grid(row=2, column=0, columnspan=2, pady=10)
 
         self.simulation_var = tk.BooleanVar(value=True)
-        self.simulation_nano_checkbox = ttk.Radiobutton(self.frame, text='Nanoseconds scale simulation', variable=self.simulation_var, value=True)
-        self.simulation_nano_checkbox.grid(row=3, column=0, columnspan=2, pady=5)
+        # self.simulation_nano_checkbox = ttk.Radiobutton(self.frame, text='Nanoseconds scale simulation', variable=self.simulation_var, value=True)
+        # self.simulation_nano_checkbox.grid(row=3, column=0, columnspan=2, pady=5)
 
         self.simulation_norm_checkbox = ttk.Radiobutton(self.frame, text='Seconds scale simulation', variable=self.simulation_var, value=False)
-        self.simulation_norm_checkbox.grid(row=4, column=0, columnspan=2, pady=10)
+        self.simulation_norm_checkbox.grid(row=3, column=0, columnspan=2, pady=10)
+        
+        self.simulation_event_checkbox = ttk.Radiobutton(self.frame, text='event scale simulation', variable=self.simulation_var, value=True)
+        self.simulation_event_checkbox.grid(row=4, column=0, columnspan=2, pady=10)
 
         self.simulate_button = ttk.Button(self.frame, text="Run cosmic ray muon simulation", style='success.TButton', command=self.run_simulation)
         self.simulate_button.grid(row=5, column=0, columnspan=2, pady=10)
@@ -309,7 +327,7 @@ class RPCSimulatorApp:
         else:
             #Choose simulation type depending on the User's input.
             if self.simulation_var.get():
-                self.run_simulation_window_nano()
+                self.run_simulation_window_event()
             else:
                 self.run_simulation_window_norm()
    
@@ -407,13 +425,13 @@ class RPCSimulatorApp:
         self.voltage_var_entry.grid(row=1, column=1, pady=5)
 
         # Dimensions of RPC (assumed rectangular)
-        self.x_var_label = ttk.Label(rpc_window, text="Width of RPC (m): ")
+        self.x_var_label = ttk.Label(rpc_window, text="x of RPC (m): ")
         self.x_var_label.grid(row=2, column=0, pady=5)
         self.x_var = tk.DoubleVar()
         self.x_var_entry = ttk.Entry(rpc_window, textvariable=self.x_var)
         self.x_var_entry.grid(row=2, column=1, pady=5)
 
-        self.y_var_label = ttk.Label(rpc_window, text="Length of RPC (m): ")
+        self.y_var_label = ttk.Label(rpc_window, text="y of RPC (m): ")
         self.y_var_label.grid(row=3, column=0, pady=5)
         self.y_var = tk.DoubleVar()
         self.y_var_entry = ttk.Entry(rpc_window, textvariable=self.y_var)
@@ -487,8 +505,8 @@ class RPCSimulatorApp:
         current_y = float(current_rpc.dimensions[1]) if current_rpc.dimensions[1] else 0.0
         current_t = float(current_rpc.dimensions[2]*1000) if current_rpc.dimensions[2] else 0.0 
         current_darkcount = float(current_rpc.darkcount) if current_rpc.darkcount else 0.0
-        current_x_strips = int(current_rpc.strips[1]) if current_rpc.strips[0] else 0
-        current_y_strips = int(current_rpc.strips[0]) if current_rpc.strips[1] else 0
+        current_x_strips = int(current_rpc.strips[0]) if current_rpc.strips[0] else 0
+        current_y_strips = int(current_rpc.strips[1]) if current_rpc.strips[1] else 0
 
         #UI Elements for entering the attributes of the RPC being added.
 
@@ -509,14 +527,14 @@ class RPCSimulatorApp:
         self.voltage_var_entry.grid(row=1, column= 1, pady = 5)
         
         # Dimensions of RPC (assumed rectangular)
-        self.x_var_label = ttk.Label(edit_window, text="Width of RPC (m): ")
+        self.x_var_label = ttk.Label(edit_window, text="x ")
         self.x_var_label.grid(row=2, column= 0, pady = 5)
         self.x_var = tk.DoubleVar()
         self.x_var.set(current_x)
         self.x_var_entry = ttk.Entry(edit_window, textvariable=self.x_var)
         self.x_var_entry.grid(row=2, column= 1, pady = 5)
         
-        self.y_var_label = ttk.Label(edit_window, text="Length of RPC (m): ")
+        self.y_var_label = ttk.Label(edit_window, text="y ")
         self.y_var_label.grid(row=3, column= 0, pady = 5)
         self.y_var = tk.DoubleVar()
         self.y_var.set(current_y)
@@ -1150,17 +1168,184 @@ class RPCSimulatorApp:
 
 ###################################################################################################################
 ###################################################################################################################
+#Event Simulations
+###################################################################################################################
+
+    def run_simulation_window_event(self):
+
+        simulation_window = tk.Toplevel(self.master)
+        simulation_window.title("event Simulation Settings")
+
+        # Number of muons
+        self.muon_event_label = ttk.Label(simulation_window, text="Number of events")
+        self.muon_event_label.pack(pady=5)
+        self.muon_event_var = tk.DoubleVar()
+        self.muon_event_var.set(1000) #Ground level muon flux cm^2/s
+        self.muon_event_entry = ttk.Entry(simulation_window, textvariable=self.muon_event_var)
+        self.muon_event_entry.pack(pady=5)
+
+        #check if you need to simulate Path
+        self.use_paths_var = tk.BooleanVar(value=False)
+        self.use_paths_check = ttk.Checkbutton(simulation_window, text="Use paths", variable=self.use_paths_var)
+        self.use_paths_check.pack(pady=5)
+
+        # Checkbox for using strips
+        self.use_strips_var = tk.BooleanVar()
+        self.use_strips_check = ttk.Checkbutton(simulation_window, text="Use strips", variable=self.use_strips_var)
+        self.use_strips_check.pack(pady=5)
+
+        #Add checkbox for enabling dark counts
+        self.use_darkcount_var = tk.BooleanVar()
+        self.use_darkcount_check = ttk.Checkbutton(simulation_window, text="Use darkcount", variable=self.use_darkcount_var)
+        self.use_darkcount_check.pack(pady=5)
+
+        # Start simulation button
+        self.start_sim_button = ttk.Button(simulation_window, text="Start Simulation", command=self.start_simulation_event)
+        self.start_sim_button.pack(pady=5)
+        
+        
+    def start_simulation_event(self):
+
+        Max_events = self.muon_event_var.get() #Simulation time in seconds
+        detected_muons = []
+        detected_channels = []
+        muons = []
+        muon_index = 0
+        current_event = 0 #Start counting time
+
+        def energy_dist(E):
+            #E In units of GeV
+            #Parameterise the distribution.
+
+            E_0 = 4.29
+            eps = 854
+            n = 3.01
+
+            #Energy dist from paper.
+            p = ((E_0+E)**(-n))* ((1+ E / eps)**(-1))
+        
+            return p
+
+        energy_vals = np.linspace(muon_mass+0.01,300,10000) #sampling 0.01 above muon_mass to avoid infinite time between rpcs.
+        energy_probs = [energy_dist(x) for x in energy_vals]
+        norm_energy_probs = np.multiply(1/(np.sum(energy_probs)),energy_probs)
+
+        # muons_flux = self.muon_flux_var.get() #Muon flux, muon_flux_var is measured in /cm^2/s
+        area_m2 = max(rpc.dimensions[0] for rpc in self.rpc_list)*max(rpc.dimensions[1] for rpc in self.rpc_list)*1.1025  
+        # rate = muons_flux*area_m2*(1e4) #Rate /s
+
+        
+        def generate_theta():
+            #GENERATE MUON ZENITH ANGLE FROM MC Accept/Reject algorithm.
+            def pdf(x):
+                return 3*np.sin(x)* np.cos(x)**2
+            
+            while True:
+
+                #This is now invertible, perhaps it might be worth changing this to inverse transform sampling at some point... 
+                theta = np.random.uniform(0,np.pi/2)
+                p = np.random.uniform(0, max(pdf(np.linspace(0, np.pi/2, 1000)))) 
+                
+                if p < pdf(theta):
+                    theta_generated = theta
+                    break
+                    
+            return theta_generated
+
+        traj_time_step = min(rpc.dimensions[2] for rpc in self.rpc_list) / (0.299792458)
+
+        #Calculate necessary parameters outside of while loop.
+        max_z = max(rpc.height for rpc in self.rpc_list)
+        min_z = min(rpc.height for rpc in self.rpc_list)
+        h = max_z - min_z
+
+        def sort_func(x):
+            return x.height
+        
+        self.rpc_list.sort(key=sort_func,reverse=True)
+        sorted_rpc_list = self.rpc_list
+
+        while current_event < Max_events:
+
+            u = np.random.uniform() #Luckily np.random.uniform() excludes 1
+            current_event += 1
+            
+            theta = generate_theta()
+            energy = np.random.choice(energy_vals, p=norm_energy_probs)
+            muon_instance = self.generate_muon_at_time(theta=theta,h=h,energy = energy) 
+
+            if self.use_paths_var.get() == True:   
+                muon_instance.simulate_path(self.rpc_list, initial_time=(200), time_step=traj_time_step) 
+            if self.use_strips_var.get() == True:
+                muon_instance.stripped_check_hit(self.rpc_list, initial_time=(200))
+            else:
+                muon_instance.check_hit(sorted_rpc_list, initial_time=(200))
+
+            for x in muon_instance.detected_5vector:
+                detected_muons.append({
+                "velocity": muon_instance.velocity,
+                "muon_index": muon_index,
+                "detected_x_position":x[0],
+                "detected_y_position":x[1],
+                "detected_z_position": x[2],
+                "event_time": x[3],
+                "Outcome":x[4],
+                "Energy/GeV": muon_instance.energy,
+                    })
+            
+            for x in muon_instance.stripped_detected_5vector:
+                detected_channels.append({
+                "velocity": muon_instance.velocity,
+                "muon_index": muon_index,
+                "detected_x_position":x[0],
+                "detected_y_position":x[1],
+                "detected_z_position": x[2],
+                "event_time": x[3],
+                "Outcome":x[4],
+                "Energy/GeV": muon_instance.energy,
+                    })
+            muon_index += 1
+            muons.append(muon_instance)
+    
+        df_detected_muons = pd.DataFrame(detected_muons)
+        df_detected_channels = pd.DataFrame(detected_channels)
+        
+        # detected_muons = []
+        # detected_dark_muons = pd.DataFrame({            
+        #     "velocity": [np.nan],
+        #     "muon_index": [np.nan],
+        #     "detected_x_position": [np.nan],
+        #     "detected_y_position": [np.nan],
+        #     "detected_z_position": [np.nan],
+        #     "detection_time": [np.nan],
+        #     "Outcome": [np.nan]
+        #     })
+    
+        # if self.use_darkcount_var.get() == True:
+        #     for rpc in self.rpc_list:  
+        #         dark = pd.DataFrame(RPC.generate_dark_stripped(rpc, sim_time))
+        #         detected_dark_muons = pd.concat([dark, detected_dark_muons], ignore_index=True)            
+        #     df_detected_muons = pd.concat([detected_dark_muons, df_detected_muons], ignore_index=True)
+            
+        self.simulation_finished_dialog(df_detected_muons,muons, df_detected_channels)
+
+
+###################################################################################################################
+###################################################################################################################
 #Simulation result section
 ###################################################################################################################
-    def simulation_finished_dialog(self, df_selected_muons,muons):
+    def simulation_finished_dialog(self, df_selected_muons,muons, df_detected_channels = []):
 
         dialog_window = tk.Toplevel(self.master)
         dialog_window.title(f"Simulation Finished")
 
         dialog_window_desc = tk.Label(dialog_window, text=f'{len(muons)} muons generated')
-        dialog_window_desc.pack(padx=30, pady=30)
+        dialog_window_desc.pack(padx=30, pady=35)
 
         view_data_button = ttk.Button(dialog_window, text="View Data", command=lambda: self.view_data(df_selected_muons))
+        view_data_button.pack(pady=5)
+        
+        view_data_button = ttk.Button(dialog_window, text="View Data in Channels", command=lambda: self.view_data(df_detected_channels))
         view_data_button.pack(pady=5)
 
         # Button to plot data on 3D plot
@@ -1168,7 +1353,7 @@ class RPCSimulatorApp:
         plot_data_button.pack(pady=5)
 
         # Button to save data into a CSV
-        save_data_button = ttk.Button(dialog_window, text="Save Data Again", command=lambda: self.save_data_again(df_selected_muons))
+        save_data_button = ttk.Button(dialog_window, text="Save Data Again", command=lambda: self.save_data_again(df_detected_channels))
         save_data_button.pack(pady=5)
         
         play_video_button = ttk.Button(dialog_window, text="Play Video",command=lambda: self.play_video(muons,df_selected_muons))
