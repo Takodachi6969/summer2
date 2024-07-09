@@ -17,8 +17,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from PIL import ImageTk, Image
 # import requests
 import threading
+import math
 from io import BytesIO
 import queue
+import pickle
 
 # Setting the Seaborn theme
 sns.set_theme(style="darkgrid")
@@ -90,7 +92,7 @@ class RPC:
         
 class muon:
 
-    def __init__(self,position,velocity,gamma,energy,theta):
+    def __init__(self,position,velocity,gamma,energy,theta, phi):
 
         #[x,y,z] coordinates of muon
         self.position = np.array(position)
@@ -122,6 +124,7 @@ class muon:
         #Muon velocity, zenith angle.
 
         self.theta = theta
+        self.phi = phi
 
     def update_position(self,time_step):
 
@@ -314,8 +317,8 @@ class RPCSimulatorApp:
         self.nanoscale_sim_desc2 = tk.Label(self.frame, text='Simulate decaying LLNP (WIP)', font=30)
         self.nanoscale_sim_desc2.grid(row=6, column=0, columnspan=2, pady=10) 
         
-        #???, is this for multicore threading?
-        self.queue = queue.Queue()
+        self.solid_theta_histogram = np.zeros(361)
+        self.solid_phi_histogram = np.zeros(361)
 
     def run_simulation(self):
         
@@ -858,7 +861,7 @@ class RPCSimulatorApp:
         self.start_sim_button = ttk.Button(simulation_window, text="Start Simulation", command=self.start_simulation_combinednano)
         self.start_sim_button.pack(pady=5)
     
-    def generate_muon_at_time(self,theta,h,energy):
+    def generate_muon_at_time(self,theta,h,energy, p = -1):
 
         E = energy #GeV
         gamma = E / muon_mass
@@ -867,9 +870,15 @@ class RPCSimulatorApp:
         # gamma = np.sqrt(1/(1-beta**2))
 
         #Could alternate phi such that it always points towards atleast one RPC.
-        phi = np.random.uniform(0, 2 * np.pi)
+        if p == 0:
+            phi = np.random.uniform(0, 2 * np.pi)
+        else:
+            phi = p
+            
+        theta = math.radians(theta)
+        phi = math.radians(phi)
         
-        velocity = np.multiply(beta,[np.sin(theta) * np.cos(phi), np.sin(theta) * np.sin(phi), -np.cos(theta)])
+        velocity = np.multiply(beta,[-np.sin(theta) * np.cos(phi), np.sin(theta) * np.sin(phi), -np.cos(theta)])
         time_of_travel = np.abs(h / velocity[2])
 
         #This feels wrong, will change soon....
@@ -878,7 +887,7 @@ class RPCSimulatorApp:
         extension = np.multiply(velocity, time_of_travel)
         position = [np.random.uniform(0,max(rpc.dimensions[0] for rpc in self.rpc_list)),np.random.uniform(0,max(rpc.dimensions[1] for rpc in self.rpc_list)) , max(rpc.height for rpc in self.rpc_list)]
         
-        return muon(position= position, velocity= velocity, gamma = gamma, energy=E, theta= theta)
+        return muon(position= position, velocity= velocity, gamma = gamma, energy=E, theta= theta, phi = phi)
 
     def start_simulation_combinednano(self):
 
@@ -1172,7 +1181,6 @@ class RPCSimulatorApp:
 ###################################################################################################################
 
     def run_simulation_window_event(self):
-
         simulation_window = tk.Toplevel(self.master)
         simulation_window.title("event Simulation Settings")
 
@@ -1199,135 +1207,238 @@ class RPCSimulatorApp:
         self.use_darkcount_check = ttk.Checkbutton(simulation_window, text="Use darkcount", variable=self.use_darkcount_var)
         self.use_darkcount_check.pack(pady=5)
 
+       # Load Angular Distribution button
+        self.load_angular_dist_button = ttk.Button(simulation_window, text="Load Angular Distribution", command=self.load_angular_dist)
+        self.load_angular_dist_button.pack(pady=5)
+        
         # Start simulation button
         self.start_sim_button = ttk.Button(simulation_window, text="Start Simulation", command=self.start_simulation_event)
         self.start_sim_button.pack(pady=5)
         
-        
+    
+    def load_angular_dist(self):
+        filename = filedialog.askopenfilename(title="Select Histogram File", filetypes=(("Pickle files", "*.pkl"), ("All files", "*.*")))
+        if filename:
+            self.load_histograms(filename)
+            print("Angular distribution histograms loaded from:", filename)
+    
+    def load_histograms(self, filename):
+        with open(filename, 'rb') as f:
+            histograms = pickle.load(f)
+            self.solid_theta_histogram = histograms['solid_theta_histogram']
+            self.solid_phi_histogram = histograms['solid_phi_histogram']
+            
+    def generate_real_theta(self):
+        solid_theta_prob = self.solid_theta_histogram / np.sum(self.solid_theta_histogram)
+        solid_theta_bin_edges = np.arange(-180, 182, 1)
+        return np.random.choice(solid_theta_bin_edges[:-1], p=solid_theta_prob)
+
+    def generate_real_phi(self):
+        solid_phi_prob = self.solid_phi_histogram / np.sum(self.solid_phi_histogram)
+        solid_phi_bin_edges = np.arange(-180, 182, 1)
+        return np.random.choice(solid_phi_bin_edges[:-1], p=solid_phi_prob)
+    
     def start_simulation_event(self):
+        if np.all(self.solid_theta_histogram == 0) and np.all(self.solid_phi_histogram == 0):
+            Max_events = self.muon_event_var.get() #Simulation time in seconds
+            detected_muons = []
+            detected_channels = []
+            muons = []
+            muon_index = 0
+            current_event = 0 #Start counting time
 
-        Max_events = self.muon_event_var.get() #Simulation time in seconds
-        detected_muons = []
-        detected_channels = []
-        muons = []
-        muon_index = 0
-        current_event = 0 #Start counting time
+            def energy_dist(E):
+                #E In units of GeV
+                #Parameterise the distribution.
 
-        def energy_dist(E):
-            #E In units of GeV
-            #Parameterise the distribution.
+                E_0 = 4.29
+                eps = 854
+                n = 3.01
 
-            E_0 = 4.29
-            eps = 854
-            n = 3.01
-
-            #Energy dist from paper.
-            p = ((E_0+E)**(-n))* ((1+ E / eps)**(-1))
-        
-            return p
-
-        energy_vals = np.linspace(muon_mass+0.01,300,10000) #sampling 0.01 above muon_mass to avoid infinite time between rpcs.
-        energy_probs = [energy_dist(x) for x in energy_vals]
-        norm_energy_probs = np.multiply(1/(np.sum(energy_probs)),energy_probs)
-
-        # muons_flux = self.muon_flux_var.get() #Muon flux, muon_flux_var is measured in /cm^2/s
-        area_m2 = max(rpc.dimensions[0] for rpc in self.rpc_list)*max(rpc.dimensions[1] for rpc in self.rpc_list)*1.1025  
-        # rate = muons_flux*area_m2*(1e4) #Rate /s
-
-        
-        def generate_theta():
-            #GENERATE MUON ZENITH ANGLE FROM MC Accept/Reject algorithm.
-            def pdf(x):
-                return 3*np.sin(x)* np.cos(x)**2
+                #Energy dist from paper.
+                p = ((E_0+E)**(-n))* ((1+ E / eps)**(-1))
             
-            while True:
+                return p
 
-                #This is now invertible, perhaps it might be worth changing this to inverse transform sampling at some point... 
-                theta = np.random.uniform(0,np.pi/2)
-                p = np.random.uniform(0, max(pdf(np.linspace(0, np.pi/2, 1000)))) 
+            energy_vals = np.linspace(muon_mass+0.01,300,10000) #sampling 0.01 above muon_mass to avoid infinite time between rpcs.
+            energy_probs = [energy_dist(x) for x in energy_vals]
+            norm_energy_probs = np.multiply(1/(np.sum(energy_probs)),energy_probs)
+
+            # muons_flux = self.muon_flux_var.get() #Muon flux, muon_flux_var is measured in /cm^2/s
+            area_m2 = max(rpc.dimensions[0] for rpc in self.rpc_list)*max(rpc.dimensions[1] for rpc in self.rpc_list)*1.1025  
+            # rate = muons_flux*area_m2*(1e4) #Rate /s
+
+            
+            def generate_theta():
+                #GENERATE MUON ZENITH ANGLE FROM MC Accept/Reject algorithm.
+                def pdf(x):
+                    return 3*np.sin(x)* np.cos(x)**2
                 
-                if p < pdf(theta):
-                    theta_generated = theta
-                    break
+                while True:
+
+                    #This is now invertible, perhaps it might be worth changing this to inverse transform sampling at some point... 
+                    theta = np.random.uniform(0,np.pi/2)
+                    p = np.random.uniform(0, max(pdf(np.linspace(0, np.pi/2, 1000)))) 
                     
-            return theta_generated
+                    if p < pdf(theta):
+                        theta_generated = theta
+                        break
+                        
+                return theta_generated
 
-        traj_time_step = min(rpc.dimensions[2] for rpc in self.rpc_list) / (0.299792458)
+            traj_time_step = min(rpc.dimensions[2] for rpc in self.rpc_list) / (0.299792458)
 
-        #Calculate necessary parameters outside of while loop.
-        max_z = max(rpc.height for rpc in self.rpc_list)
-        min_z = min(rpc.height for rpc in self.rpc_list)
-        h = max_z - min_z
+            #Calculate necessary parameters outside of while loop.
+            max_z = max(rpc.height for rpc in self.rpc_list)
+            min_z = min(rpc.height for rpc in self.rpc_list)
+            h = max_z - min_z
 
-        def sort_func(x):
-            return x.height
+            def sort_func(x):
+                return x.height
+            
+            self.rpc_list.sort(key=sort_func,reverse=True)
+            sorted_rpc_list = self.rpc_list
+
+            while current_event < Max_events:
+
+                u = np.random.uniform() #Luckily np.random.uniform() excludes 1
+                current_event += 1
+                
+                theta = generate_theta()
+                energy = np.random.choice(energy_vals, p=norm_energy_probs)
+                muon_instance = self.generate_muon_at_time(theta=theta,h=h,energy = energy) 
+
+                if self.use_paths_var.get() == True:   
+                    muon_instance.simulate_path(self.rpc_list, initial_time=(200), time_step=traj_time_step) 
+                if self.use_strips_var.get() == True:
+                    muon_instance.stripped_check_hit(self.rpc_list, initial_time=(200))
+                else:
+                    muon_instance.check_hit(sorted_rpc_list, initial_time=(200))
+
+                for x in muon_instance.detected_5vector:
+                    detected_muons.append({
+                    "velocity": muon_instance.velocity,
+                    "muon_index": muon_index,
+                    "detected_x_position":x[0],
+                    "detected_y_position":x[1],
+                    "detected_z_position": x[2],
+                    "event_time": x[3],
+                    "Outcome":x[4],
+                    "Energy/GeV": muon_instance.energy,
+                        })
+                
+                for x in muon_instance.stripped_detected_5vector:
+                    detected_channels.append({
+                    "velocity": muon_instance.velocity,
+                    "muon_index": muon_index,
+                    "detected_x_position":x[0],
+                    "detected_y_position":x[1],
+                    "detected_z_position": x[2],
+                    "event_time": x[3],
+                    "Outcome":x[4],
+                    "Energy/GeV": muon_instance.energy,
+                        })
+                muon_index += 1
+                muons.append(muon_instance)
         
-        self.rpc_list.sort(key=sort_func,reverse=True)
-        sorted_rpc_list = self.rpc_list
-
-        while current_event < Max_events:
-
-            u = np.random.uniform() #Luckily np.random.uniform() excludes 1
-            current_event += 1
+            df_detected_muons = pd.DataFrame(detected_muons)
+            df_detected_channels = pd.DataFrame(detected_channels)
+                
+            self.simulation_finished_dialog(df_detected_muons,muons, df_detected_channels)
             
-            theta = generate_theta()
-            energy = np.random.choice(energy_vals, p=norm_energy_probs)
-            muon_instance = self.generate_muon_at_time(theta=theta,h=h,energy = energy) 
+        else:
+            Max_events = self.muon_event_var.get()
+            detected_muons = []
+            detected_channels = []
+            muons = []
+            muon_index = 0
+            current_event = 0 
 
-            if self.use_paths_var.get() == True:   
-                muon_instance.simulate_path(self.rpc_list, initial_time=(200), time_step=traj_time_step) 
-            if self.use_strips_var.get() == True:
-                muon_instance.stripped_check_hit(self.rpc_list, initial_time=(200))
-            else:
-                muon_instance.check_hit(sorted_rpc_list, initial_time=(200))
+            def energy_dist(E):
+                #E In units of GeV
+                #Parameterise the distribution.
 
-            for x in muon_instance.detected_5vector:
-                detected_muons.append({
-                "velocity": muon_instance.velocity,
-                "muon_index": muon_index,
-                "detected_x_position":x[0],
-                "detected_y_position":x[1],
-                "detected_z_position": x[2],
-                "event_time": x[3],
-                "Outcome":x[4],
-                "Energy/GeV": muon_instance.energy,
-                    })
+                E_0 = 4.29
+                eps = 854
+                n = 3.01
+
+                #Energy dist from paper.
+                p = ((E_0+E)**(-n))* ((1+ E / eps)**(-1))
             
-            for x in muon_instance.stripped_detected_5vector:
-                detected_channels.append({
-                "velocity": muon_instance.velocity,
-                "muon_index": muon_index,
-                "detected_x_position":x[0],
-                "detected_y_position":x[1],
-                "detected_z_position": x[2],
-                "event_time": x[3],
-                "Outcome":x[4],
-                "Energy/GeV": muon_instance.energy,
-                    })
-            muon_index += 1
-            muons.append(muon_instance)
-    
-        df_detected_muons = pd.DataFrame(detected_muons)
-        df_detected_channels = pd.DataFrame(detected_channels)
+                return p
+
+            energy_vals = np.linspace(muon_mass+0.01,300,10000) #sampling 0.01 above muon_mass to avoid infinite time between rpcs.
+            energy_probs = [energy_dist(x) for x in energy_vals]
+            norm_energy_probs = np.multiply(1/(np.sum(energy_probs)),energy_probs)
+
+            # muons_flux = self.muon_flux_var.get() #Muon flux, muon_flux_var is measured in /cm^2/s
+            # area_m2 = max(rpc.dimensions[0] for rpc in self.rpc_list)*max(rpc.dimensions[1] for rpc in self.rpc_list)*1.1025  
+            # rate = muons_flux*area_m2*(1e4) #Rate /s
+
+            
+
+
+            traj_time_step = min(rpc.dimensions[2] for rpc in self.rpc_list) / (0.299792458)
+
+            #Calculate necessary parameters outside of while loop.
+            max_z = max(rpc.height for rpc in self.rpc_list)
+            min_z = min(rpc.height for rpc in self.rpc_list)
+            h = max_z - min_z
+
+            def sort_func(x):
+                return x.height
+            
+            self.rpc_list.sort(key=sort_func,reverse=True)
+            sorted_rpc_list = self.rpc_list
+
+            while current_event < Max_events:
+
+                u = np.random.uniform() #Luckily np.random.uniform() excludes 1
+                current_event += 1
+                
+                theta = self.generate_real_theta()
+                phi = self.generate_real_phi()
+                energy = np.random.choice(energy_vals, p=norm_energy_probs)
+                muon_instance = self.generate_muon_at_time(theta=theta,h=h,energy = energy, p = phi) 
+
+                if self.use_paths_var.get() == True:   
+                    muon_instance.simulate_path(self.rpc_list, initial_time=(200), time_step=traj_time_step) 
+                if self.use_strips_var.get() == True:
+                    muon_instance.stripped_check_hit(self.rpc_list, initial_time=(200))
+                else:
+                    muon_instance.check_hit(sorted_rpc_list, initial_time=(200))
+
+                for x in muon_instance.detected_5vector:
+                    detected_muons.append({
+                    "velocity": muon_instance.velocity,
+                    "muon_index": muon_index,
+                    "detected_x_position":x[0],
+                    "detected_y_position":x[1],
+                    "detected_z_position": x[2],
+                    "event_time": x[3],
+                    "Outcome":x[4],
+                    "Energy/GeV": muon_instance.energy,
+                        })
+                
+                for x in muon_instance.stripped_detected_5vector:
+                    detected_channels.append({
+                    "velocity": muon_instance.velocity,
+                    "muon_index": muon_index,
+                    "detected_x_position":x[0],
+                    "detected_y_position":x[1],
+                    "detected_z_position": x[2],
+                    "event_time": x[3],
+                    "Outcome":x[4],
+                    "Energy/GeV": muon_instance.energy,
+                        })
+                muon_index += 1
+                muons.append(muon_instance)
         
-        # detected_muons = []
-        # detected_dark_muons = pd.DataFrame({            
-        #     "velocity": [np.nan],
-        #     "muon_index": [np.nan],
-        #     "detected_x_position": [np.nan],
-        #     "detected_y_position": [np.nan],
-        #     "detected_z_position": [np.nan],
-        #     "detection_time": [np.nan],
-        #     "Outcome": [np.nan]
-        #     })
-    
-        # if self.use_darkcount_var.get() == True:
-        #     for rpc in self.rpc_list:  
-        #         dark = pd.DataFrame(RPC.generate_dark_stripped(rpc, sim_time))
-        #         detected_dark_muons = pd.concat([dark, detected_dark_muons], ignore_index=True)            
-        #     df_detected_muons = pd.concat([detected_dark_muons, df_detected_muons], ignore_index=True)
+            df_detected_muons = pd.DataFrame(detected_muons)
+            df_detected_channels = pd.DataFrame(detected_channels)
+                
+            self.simulation_finished_dialog(df_detected_muons,muons, df_detected_channels)
             
-        self.simulation_finished_dialog(df_detected_muons,muons, df_detected_channels)
 
 
 ###################################################################################################################
@@ -1400,6 +1511,9 @@ class RPCSimulatorApp:
 
         self.plot_zenith_distribution_button = ttk.Button(muon_distributions_window,text="Plot muon zenith angle distribution", command=lambda: self.plot_zenith_angle_distribution(df_selected_muons,muons))
         self.plot_zenith_distribution_button.grid(row=1,column=0,pady=5,padx=20)
+        
+        self.plot_zenith_distribution_button = ttk.Button(muon_distributions_window,text="Plot muon phi angle distribution", command=lambda: self.plot_phi_angle_distribution(df_selected_muons,muons))
+        self.plot_zenith_distribution_button.grid(row=2,column=0,pady=5,padx=20)
 
     def plot_muon_energy_distribution(self,df_selected_muons,muons):
 
@@ -1451,44 +1565,93 @@ class RPCSimulatorApp:
         plt.title("Muon energy distribution")
         plt.show()
 
+    def plot_phi_angle_distribution(self, df_selected_muons, muons):
+        generated_phi_vals = [x.phi for x in muons]
+        # num_points = len(generated_phi_vals)
+
+        # theta_vals = np.linspace(0,np.pi/2,100000,endpoint=False)
+        # probs = [3*np.sin(x) * (np.cos(x))**2 for x in theta_vals]
+        # norm_probs = np.multiply(1/(np.sum(probs)),probs)
+
+        # cdf = np.cumsum(norm_probs)
+        # cdf_spacing = np.pi/2 / 1e5
+
+        plt.figure()
+        
+        generated_phi_vals_degrees = np.degrees(generated_phi_vals)
+
+        # Define the bin edges from -180 to 180 degrees, one degree per bin
+        bin_edges = np.linspace(-180, 180, 361)
+
+        #Plot histogram of data.
+        counts, bin_edges, _ = plt.hist(generated_phi_vals_degrees, bins=bin_edges, alpha=0.7, label='Simulated muon distribution')
+        
+        # bin_midpoints = []
+        # midpoint_freq = []
+
+        # bin_midpoints = [(bin_edges[i] + bin_edges[i + 1]) / 2 for i in range(len(bin_edges) - 1)]
+
+        # for j in range(len(bin_edges)-1):
+        #     start_bin_index = int(np.floor(bin_edges[j]/ cdf_spacing))
+        #     end_bin_index = int(np.floor(bin_edges[j+1]/ cdf_spacing))
+        #     cum_prob = cdf[end_bin_index]-cdf[start_bin_index]
+        #     freq = cum_prob * num_points
+        #     midpoint_freq.append(freq)
+
+        #Plot distribution from literature.
+        # plt.plot(bin_midpoints,midpoint_freq,c='red',label='Generating distribution')
+
+        plt.xlabel("phi Angle/ radians")
+        plt.ylabel("Frequency")
+
+        plt.legend()
+        plt.xlim(-180, 180)
+        plt.title("Muon phi angle distribution")
+        plt.show()
+            
     def plot_zenith_angle_distribution(self,df_selected_muons,muons):
         
         generated_theta_vals = [x.theta for x in muons]
-        num_points = len(generated_theta_vals)
+        # num_points = len(generated_theta_vals)
 
-        theta_vals = np.linspace(0,np.pi/2,100000,endpoint=False)
-        probs = [3*np.sin(x) * (np.cos(x))**2 for x in theta_vals]
-        norm_probs = np.multiply(1/(np.sum(probs)),probs)
+        # theta_vals = np.linspace(0,np.pi/2,100000,endpoint=False)
+        # probs = [3*np.sin(x) * (np.cos(x))**2 for x in theta_vals]
+        # norm_probs = np.multiply(1/(np.sum(probs)),probs)
 
-        cdf = np.cumsum(norm_probs)
-        cdf_spacing = np.pi/2 / 1e5
+        # cdf = np.cumsum(norm_probs)
+        # cdf_spacing = np.pi/2 / 1e5
 
         plt.figure()
 
         #Plot histogram of data.
-        num_bins = 100  # Adjust the number of bins as needed
-        counts, bin_edges, _= plt.hist(generated_theta_vals, bins=num_bins, alpha=0.7, label='Simulated muon distribution')
+        generated_phi_vals_degrees = np.degrees(generated_theta_vals)
+
+        # Define the bin edges from -180 to 180 degrees, one degree per bin
+        bin_edges = np.linspace(-180, 180, 361)
+
+        #Plot histogram of data.
+        counts, bin_edges, _ = plt.hist(generated_phi_vals_degrees, bins=bin_edges, alpha=0.7, label='Simulated muon distribution')
         
-        bin_midpoints = []
-        midpoint_freq = []
+        # bin_midpoints = []
+        # midpoint_freq = []
 
-        bin_midpoints = [(bin_edges[i] + bin_edges[i + 1]) / 2 for i in range(len(bin_edges) - 1)]
+        # bin_midpoints = [(bin_edges[i] + bin_edges[i + 1]) / 2 for i in range(len(bin_edges) - 1)]
 
-        for j in range(len(bin_edges)-1):
-            start_bin_index = int(np.floor(bin_edges[j]/ cdf_spacing))
-            end_bin_index = int(np.floor(bin_edges[j+1]/ cdf_spacing))
-            cum_prob = cdf[end_bin_index]-cdf[start_bin_index]
-            freq = cum_prob * num_points
-            midpoint_freq.append(freq)
+        # for j in range(len(bin_edges)-1):
+        #     start_bin_index = int(np.floor(bin_edges[j]/ cdf_spacing))
+        #     end_bin_index = int(np.floor(bin_edges[j+1]/ cdf_spacing))
+        #     cum_prob = cdf[end_bin_index]-cdf[start_bin_index]
+        #     freq = cum_prob * num_points
+        #     midpoint_freq.append(freq)
 
         #Plot distribution from literature.
-        plt.plot(bin_midpoints,midpoint_freq,c='red',label='Generating distribution')
+        # plt.plot(bin_midpoints,midpoint_freq,c='red',label='Generating distribution')
 
         plt.xlabel("Zenith Angle/ radians")
         plt.ylabel("Frequency")
 
         plt.legend()
-        plt.xlim(left=0)
+        plt.xlim(-180, 180)
         plt.title("Muon zenith angle distribution")
         plt.show()
 

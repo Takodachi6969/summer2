@@ -48,8 +48,8 @@ class fileReader():
         i = 0
         while i < interval:
             if not self.readBlock():
-                    print("Bad Block Read")
-                    break
+                print("Bad Block Read")
+                break
             if(self.hasEvents()):
                 for event in range(len(self.evtBuilder.events)):
                     evts_chunk.append(self.evtBuilder.events.pop(0))
@@ -97,12 +97,12 @@ class fileReader():
             self.lastWasBad = False
             self.global_alignment = True
         else:
-            print(f'alignment error, realigned events already aligned, proicessed event')
+            print(f'alignment error, realigned events already aligned')
     
     
     def update_adjustment_window(self, realigned):
         if self.lastWasBad and not realigned:
-            if self.adjustment < 35:
+            if self.adjustment < 20:
                 self.adjustment += 1
         else:
             self.adjustment = 0
@@ -113,11 +113,6 @@ class fileReader():
             for fakeEvent in range(insertion):
                 self.evtBuilder.insertFakeEvent(tdc = tdc)
             
-
-    
-    
-    
-    
     
     
     
