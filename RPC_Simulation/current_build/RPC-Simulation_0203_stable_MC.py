@@ -1240,6 +1240,7 @@ class RPCSimulatorApp:
     
     def start_simulation_event(self):
         if np.all(self.solid_theta_histogram == 0) and np.all(self.solid_phi_histogram == 0):
+        # if 1== 1:
             Max_events = self.muon_event_var.get() #Simulation time in seconds
             detected_muons = []
             detected_channels = []
