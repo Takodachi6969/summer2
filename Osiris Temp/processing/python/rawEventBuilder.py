@@ -1,5 +1,4 @@
 import struct
-import math
 
 class tdcEvent():
     def __init__(self, header, time, words = [], eob=None, qual=0):
@@ -17,19 +16,19 @@ class eventBuilder():
     def __init__(self, activeTDCs = [0,1,2,3,4]):
         self.events = []
         self.tdcEventBuffer = [[] for tdc in activeTDCs]
+        self.tdcFiveBuffer = []
         self.activeTDCs = activeTDCs
         self.missItr = [[0,0] for tdc in activeTDCs]
         self.eventCounts = [-1 for tdc in activeTDCs]
         self.headerMask = 0x400000
-        self.EOBMask = 0x200000 
+        self.EOBMask = 0x200000
         self.HEADER = 0
         self.EOB = 1
         self.DATA = 2
         self.CORRUPTHEADER = 3
-
         
-    def addTDCRead(self, thisTDC, thisTime, tdcReadData, p=True):
-        if thisTDC not in self.activeTDCs:
+    def addTDCRead(self, thisTDC, thisTime, tdcReadData, p=False):
+        if thisTDC not in self.activeTDCs and thisTDC!=5:
             return
         readData = struct.iter_unpack("I", tdcReadData)
         thisRead = []
@@ -37,14 +36,17 @@ class eventBuilder():
         lastWordType = None
         missedEvts = 0
         maybeMissed = []
-        startCount = self.eventCounts[thisTDC]
+        if thisTDC<5:
+            startCount = self.eventCounts[thisTDC]
         lastHead = 0
         for word in readData:
             thisWord = word[0]
-            if p:
-                print("TDC",thisTDC,hex(thisWord))
+            if p: #and thisTDC!=5:
+                print("TDC",thisTDC,hex(thisWord), (thisWord>>24)&0x7f, thisWord&0xfffff)
             wordType = self.getWordType(thisWord)
-            if wordType==self.HEADER:
+            if thisTDC==5:
+                thisRead.append(thisWord)
+            elif wordType==self.HEADER:
                 #If we get a header, check the previous word to throw out extra headers
                 if lastWordType==self.HEADER or lastWordType==self.CORRUPTHEADER:
                     thisRead[-1].qual = thisRead[-1].qual|0x10
@@ -83,6 +85,8 @@ class eventBuilder():
                 else:
                     thisRead[-1].EOB = thisWord
             else:
+                if len(thisRead)==0:
+                    thisRead.append(tdcEvent(0, thisTime, [], qual=0x1))
                 #Have a data word. Should add them into the event unless we've already got an EOB in the last event, suggesting that we missed a header. 
                 if thisRead[-1].EOB is not None:
                     #If we did miss a header, make a fake one with a quality flag set to show we made one up
@@ -90,7 +94,9 @@ class eventBuilder():
                     self.eventCounts[thisTDC]=self.eventCounts[thisTDC]+1
                 thisRead[-1].words.append(thisWord)
             lastWordType = wordType
-        
+        if thisTDC==5:
+            self.tdcFiveBuffer.append([thisTime,thisRead])
+            return
         #Now that we've read in the new events, want to check if we missed any in between TDC reads by taking the mode of maybeMissed
         if len(maybeMissed)>0:
             missedEvts = max(set(maybeMissed), key=maybeMissed.count)
@@ -146,8 +152,7 @@ class eventBuilder():
                 else:
                     fullEvent.append(tdcEvent(0,0,[],qual=0xff))
             self.events.append(proAnubEvent(fullEvent))
-
-    
+        return
     
     def checkBufferForEvents(self):
         haveAnEvent = True
