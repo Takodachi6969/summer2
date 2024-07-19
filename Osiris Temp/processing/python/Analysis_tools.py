@@ -8,6 +8,8 @@ class rpcHit():
         self.channel = channel
         self.eta = eta
         self.event_num = event_num
+def __str__(self):
+        return f"rpcHit(channel={self.channel}, time={self.time}, eta={self.eta}, event_num={self.event_num}, rpc={self.rpc})"
 
 
 def tdcChanToRPCHit(word, tdc, event_num):
@@ -174,4 +176,4 @@ def ConstructEventInsertionList(updates, order):
     else:
         addition = 0
     return [x + addition for x in insertion_list]
-    
+

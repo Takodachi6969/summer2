@@ -30,6 +30,10 @@ class fileReader():
         self.adjustment = 0
         self.lastWasBad = False
         self.global_alignment = True
+        self.tdcstatus = [True for tdc in range(5)]
+        self.tdc_monitoring_event_buffer = []
+        self.tdc_monitoring_counter = 0
+        self.lasttdcStatus = [True for tdc in range(5)]
 
     def doneReading(self):
         return self.bytesRead==(self.fsizeBytes-2*self.wordSize)
@@ -43,8 +47,10 @@ class fileReader():
             evts.append(self.evtBuilder.events.pop(0))
         return evts
     
-    def get_aligned_events(self, order = [[0,1], [1,2], [2,3], [3,4]], interval = 100):
+    def get_aligned_events(self, order = [[0,1], [1,2], [2,3], [3,4]], interval = 100, extract_tdc_mets = False):
         evts_chunk = []
+        tdc_mets = [0 for tdc in range(5)]
+        TDC_error_time = [[] for tdc in range(5)]
         i = 0
         while i < interval:
             if not self.readBlock():
@@ -54,10 +60,18 @@ class fileReader():
                 for event in range(len(self.evtBuilder.events)):
                     evts_chunk.append(self.evtBuilder.events.pop(0))
                     i += 1
+                    self.tdc_monitoring_counter += 1
         aligned, realigned = self.doRealign(evts_chunk, order)
         self.check_alignment_status(aligned, realigned) 
-        self.update_adjustment_window(realigned)    
-        if self.global_alignment == True:
+        self.update_adjustment_window(realigned)
+        self.tdc_monitoring_event_buffer.extend(evts_chunk)
+        if self.tdc_monitoring_counter >= 250:
+            TDC_error_time, tdc_mets = self.monitor_tdc3_state(recordtimes=True)
+            self.tdc_monitoring_event_buffer.clear()
+            self.tdc_monitoring_counter = 0
+        if extract_tdc_mets:
+            return evts_chunk, tdc_mets, TDC_error_time
+        elif self.global_alignment == True and not extract_tdc_mets:
             return evts_chunk
         else:
             return None
@@ -106,6 +120,47 @@ class fileReader():
                 self.adjustment += 1
         else:
             self.adjustment = 0
+            
+    def monitor_tdc3_state(self, recordtimes=False):
+        TDC_error_time = [[] for tdc in range(5)]
+        tdc_mets = [[] for tdc in range(5)]
+        for tdc in range(5):
+            poor_time_count = 0
+            good_time_count = 0
+            for i, event in enumerate(self.tdc_monitoring_event_buffer[-(2500):]):
+                words = event.tdcEvents[tdc].words
+                times_words = [(word & 0xfffff, word) for word in words if (word >> 24) & 0x7f not in []]
+                if times_words:
+                    min_time, min_word = min(times_words, key=lambda x: x[0])
+                    if recordtimes:
+                        TDC_error_time[tdc].append([(min_time, min_word), i])
+                    if min_time > 300:
+                        poor_time_count += 1
+                    elif 200 < min_time <= 300:
+                        good_time_count += 1
+
+            if good_time_count == 0:
+                tdc_mets[tdc].append(-1)
+                if self.lasttdcStatus[tdc]:
+                    print(f'tdc{tdc} error state through no good time')
+                    self.lasttdcStatus[tdc] = False
+            else:
+                ratio = poor_time_count / good_time_count
+                tdc_mets[tdc].append(ratio)
+
+                if ratio > 0.3:
+                    self.tdcstatus[tdc] = False
+                    if self.lasttdcStatus[tdc]:
+                        print(f'tdc{tdc} enters error state through metric')
+                        self.lasttdcStatus[tdc] = False
+                else:
+                    self.tdcstatus[tdc] = True
+                    if not self.lasttdcStatus[tdc]:
+                        print(f'tdc{tdc} enters nominal state through metric')
+                        self.lasttdc3Status[tdc] = True
+                        buffer = self.reload_event_builder()
+                        print(f'event builder reloaded, proof {buffer}')
+        return TDC_error_time, tdc_mets
         
 
     def InsertFakeEvents(self, insertion_list):
