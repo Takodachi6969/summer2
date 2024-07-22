@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>timing_analyser-documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Timing_Analyser documentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Timing_Analyser documentation_files/libs/quarto-html/quarto.js"></script>
+<script src="Timing_Analyser documentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="Timing_Analyser documentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Timing_Analyser documentation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Timing_Analyser documentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Timing_Analyser documentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Timing_Analyser documentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Timing_Analyser documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Timing_Analyser documentation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="timing_analyser-class-documentation" class="level1">
+<h1><code>Timing_Analyser</code> Class Documentation</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The <code>Timing_Analyser</code> class is designed to process and analyze timing data from event chunks. This class helps in calculating and visualizing time of flight analysis, residuals, and other related metrics for the pro_anubis detectors. It provides functionalities to update events, read TDC (Time-to-Digital Converter) time differences, calculate residuals, check eta trigger, and plot various data for analysis.</p>
+</section>
+<section id="class-definition" class="level2">
+<h2 class="anchored" data-anchor-id="class-definition">Class Definition</h2>
+<section id="initialization" class="level3">
+<h3 class="anchored" data-anchor-id="initialization">Initialization</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, event_chunk, processsed_event, diffHists<span class="op">=</span><span class="va">None</span>, scDiffs<span class="op">=</span><span class="va">None</span>, normDiffs<span class="op">=</span><span class="va">None</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><h3 id="parameters" class="anchored"><strong>Parameters</strong></h3></li>
+<li><code>event_chunk</code>: List of events to be processed.</li>
+<li><code>processsed_event</code>: processed_event_number.</li>
+<li><code>diffHists</code>: (Optional) Dictionary of histograms for storing time differences.</li>
+<li><code>scDiffs</code>: (Optional) List for storing scaled differences.</li>
+<li><code>normDiffs</code>: (Optional) List for storing normalized differences.</li>
+<li><h3 id="attributes" class="anchored"><strong>Attributes</strong>:</h3></li>
+<li><code>totDiffs</code>: Dictionary storing total differences for each RPC.</li>
+<li><code>nDiffs</code>: Dictionary storing the number of differences for each RPC.</li>
+<li><code>diffHists</code>: Dictionary of histograms for storing time differences, initialized if not provided.</li>
+<li><code>scDiffs</code>: List for storing scaled differences, initialized if not provided.</li>
+<li><code>normDiffs</code>: List for storing normalized differences, initialized if not provided.</li>
+<li><code>residEtaLatest</code>: List for storing latest eta residuals.</li>
+<li><code>residPhiLatest</code>: List for storing latest phi residuals.</li>
+<li><code>count</code>: List for storing event counts.</li>
+<li><code>rpc_involvement</code>: Dictionary for tracking RPC involvement in events.</li>
+</ul>
+</section>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods"><strong>Methods</strong></h2>
+<section id="tanalyser.update_event" class="level3">
+<h3 class="anchored" data-anchor-id="tanalyser.update_event">TAnalyser.<code>update_event</code></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_event(<span class="va">self</span>, event_chunk, processed_event):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description"><strong>Description</strong></h3>
+<p>Updates the event data to a new chunk, without changing other stored instances</p>
+</section>
+<section id="parameters-1" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-1"><strong>Parameters</strong>:</h3>
+<ul>
+<li><code>event_chunk</code>: List of new events to be processed.</li>
+<li><code>processed_event</code>: List of new processed events.</li>
+</ul>
+<hr>
+</section>
+<section id="tanalyser.readtdctimediffs" class="level3">
+<h3 class="anchored" data-anchor-id="tanalyser.readtdctimediffs">TAnalyser.<code>readTDCTimeDiffs</code></h3>
+</section>
+<section id="description-1" class="level3">
+<h3 class="anchored" data-anchor-id="description-1"><strong>Description</strong></h3>
+<p>This method processes the event chunk to calculate the time differences between eta and phi hits for each RPC’s stirips and updates the respective histograms and difference lists.</p>
+</section>
+<section id="related_functions" class="level3">
+<h3 class="anchored" data-anchor-id="related_functions"><strong>Related_functions</strong></h3>
+<p><a href="ATools%20documentation.html#class-rpchit">RPC_hit</a><br>
+<a href="Ttools%20documentation.html#tdceventtorpcdata">TTools.<code>tdcEventToRPCData</code></a></p>
+<hr>
+</section>
+<section id="tanalyser.calculate_residual_and_plot_tdc_time_diffs" class="level3">
+<h3 class="anchored" data-anchor-id="tanalyser.calculate_residual_and_plot_tdc_time_diffs">TAnalyser.<code>Calculate_Residual_and_plot_TDC_Time_Diffs</code></h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Calculate_Residual_and_plot_TDC_Time_Diffs(<span class="va">self</span>, outDict, pdf_filename<span class="op">=</span><span class="st">'plots.pdf'</span>, max_itr<span class="op">=</span><span class="dv">1</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description-2" class="level3">
+<h3 class="anchored" data-anchor-id="description-2"><strong>Description</strong></h3>
+<p>This function calculates residuals of each eta and phi crossing after time walk correction and generates the intra time of flight plots for each RPC, before and after applying the correction. The plots are saved in a specified PDF file. The function accounts for bad channels in the dataset and iteratively refines the residual calculations.</p>
+</section>
+<section id="parameters-2" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-2"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>self</strong>: An instance of the class containing the function. This instance should have the following attributes:</li>
+<li><strong>scDiffs</strong>: A 2D array to store scalar differences for each channel pairs.</li>
+<li><strong>normDiffs</strong>: A 2D array to store normalized differences for each channel.</li>
+<li><strong>residEtaLatest</strong>: A list to store the latest eta residuals.</li>
+<li><strong>residPhiLatest</strong>: A list to store the latest phi residuals.</li>
+<li><strong>outDict (dict)</strong>: A dictionary containing the output data. Expected structure:</li>
+<li><strong>diffHists</strong>: A 3D list or array containing histograms for each RPC, phi, and eta channel.</li>
+<li><strong>pdf_filename (str, optional)</strong>: The name of the PDF file to save the plots. Default is ‘plots.pdf’.</li>
+<li><strong>max_itr (int, optional)</strong>: The maximum number of iterations for residual calculations. Default is 1.</li>
+<li><h3 id="returns" class="anchored"><strong>Returns</strong></h3></li>
+<li><strong>residEtaLatest (list)</strong>: The list of the latest eta residuals.</li>
+<li><strong>residPhiLatest (list)</strong>: The list of the latest phi residuals.</li>
+</ul>
+</section>
+<section id="further-information" class="level3">
+<h3 class="anchored" data-anchor-id="further-information"><strong>Further information</strong></h3>
+<p>The residual is calculated by averaging the eta and phi offset along one strip direction, and projected into a 2D array. When iteration equals 1, eta were projected using phi, and any more iteration reprojects that to phi, eta and so on</p>
+</section>
+<section id="note" class="level3">
+<h3 class="anchored" data-anchor-id="note"><strong>Note</strong></h3>
+<p>The time walk correction is defined as</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>correction <span class="op">=</span> slope <span class="op">*</span> (eta <span class="op">-</span> phi) <span class="op">+</span> offset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where the slope and offset were defined using “magic number”. Although they should not change, if more events used, a better fit could be found for these corrections, and might require adjustment in the future</p>
+<hr>
+</section>
+<section id="tanalyser.check_eta_trigger" class="level3">
+<h3 class="anchored" data-anchor-id="tanalyser.check_eta_trigger">TAnalyser.<code>check_eta_trigger</code></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_eta_trigger(<span class="va">self</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description-3" class="level3">
+<h3 class="anchored" data-anchor-id="description-3"><strong>Description</strong></h3>
+<p>The <code>check_eta_trigger</code> function is designed to process a chunk of event data and determine if any events meet specific trigger criteria based on the number of hits recorded in RPCs per event. It identifies events where hits occur in at least four different RPCs and classifies them accordingly. The function also identifies and reports events that fail to meet the minimum criteria. The data of all triggers are also recorded through self.<code>count</code> and self.<code>rpc_involvement</code></p>
+</section>
+<section id="parameters-3" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-3"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>self</strong>: An instance of the class that contains this method. The class is expected to have the following attributes:</li>
+<li><strong>event_chunk</strong>: A list of event objects to be processed. processedEvents: A counter for the number of processed events.</li>
+<li><strong>count</strong>: A dictionary that stores lists of event numbers, keyed by the number of RPCs involved.</li>
+<li><strong>rpc_involvement</strong>: A dictionary that tracks the number of times each RPC is involved in events, keyed by the number of RPCs involved.</li>
+</ul>
+</section>
+<section id="returns-1" class="level3">
+<h3 class="anchored" data-anchor-id="returns-1"><strong>Returns</strong></h3>
+<ul>
+<li><strong>tuple</strong>: A tuple containing:</li>
+<li><strong>bool</strong>: Indicates whether all events met the criteria (i.e., True if all events had hits in at least 4 RPCs, False otherwise).</li>
+<li><strong>list</strong>: A list of tuples, each containing an event number and the corresponding count of RPCs involved, for events that did not meet the criteria (i.e., had hits in fewer than 4 RPCs).</li>
+</ul>
+</section>
+<section id="example-usage" class="level3">
+<h3 class="anchored" data-anchor-id="example-usage"><strong>Example Usage</strong></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>result, failed_events <span class="op">=</span> <span class="va">self</span>.check_eta_trigger()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All events met the criteria."</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Some events failed the criteria:"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> event_num, count <span class="kw">in</span> failed_events:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Event </span><span class="sc">{</span>event_num<span class="sc">}</span><span class="ss"> involved </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> RPC(s)."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="note-1" class="level3">
+<h3 class="anchored" data-anchor-id="note-1"><strong>Note</strong></h3>
+<p>Only good quality data are tested in the quality. This can be disabled manually or another check condition can be added.</p>
+</section>
+<section id="related-function" class="level3">
+<h3 class="anchored" data-anchor-id="related-function"><strong>Related function</strong></h3>
+<p><a href="ATools%20documentation#atoolsfind_tdc_alignment_metric">ATools.<code>tdcChanToRPCHit</code></a></p>
+<hr>
+</section>
+<section id="tanalyser.plot_rpc_involvement_histogram" class="level3">
+<h3 class="anchored" data-anchor-id="tanalyser.plot_rpc_involvement_histogram">TAnalyser.<code>plot_rpc_involvement_histogram</code></h3>
+</section>
+<section id="description-4" class="level3">
+<h3 class="anchored" data-anchor-id="description-4">Description</h3>
+<p>The <code>plot_rpc_involvement_histogram</code> function generates a histogram that visualizes the normalized involvement of each RPC in events, categorized by the number of RPCs involved in each event. The histogram helps in understanding the distribution and proportion of events involving each RPC.</p>
+</section>
+<section id="parameters-4" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-4">Parameters</h3>
+<ul>
+<li><strong>self</strong>: An instance of the class that contains this method. The class is expected to have an attribute <code>rpc_involvement</code> which is a dictionary that tracks the number of times each RPC is involved in events, keyed by the number of RPCs involved.</li>
+</ul>
+</section>
+<section id="example-usage-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-usage-1">Example Usage</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.plot_rpc_involvement_histogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

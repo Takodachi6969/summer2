@@ -1,3 +1,44 @@
+# Analysis Tools Documentation
+
+## Table of Contents
+
+- [Analysis Tools Documentation](#analysis-tools-documentation)
+  - [Table of Contents](#table-of-contents)
+    - [Class `rpcHit`](#class-rpchit)
+    - [ATools.`calcAvgAlign`](#atoolscalcavgalign)
+      - [Description:](#description)
+      - [Parameters:](#parameters)
+      - [Returns:](#returns)
+    - [ATools.`find_tdc_alignment_metric`](#atoolsfind_tdc_alignment_metric)
+      - [Description:](#description-1)
+      - [Parameters:](#parameters-1)
+      - [Returns:](#returns-1)
+    - [ATools.`testAlign`](#atoolstestalign)
+      - [Description:](#description-2)
+      - [Parameters:](#parameters-2)
+      - [Returns:](#returns-2)
+    - [ATools.`ConstructEventInsertionList`](#atoolsconstructeventinsertionlist)
+      - [Description:](#description-3)
+      - [Parameters:](#parameters-3)
+      - [Returns:](#returns-3)
+
+
+### Class `rpcHit`
+
+The `rpcHit` class is designed to represent a hit in a RPC. It stores the channel, time, eta, event number, and RPC identifier.
+
+```python
+class rpcHit():
+    def __init__(self, channel, time, eta, event_num, rpc):
+        self.rpc = rpc
+        self.time = time
+        self.channel = channel
+        self.eta = eta
+        self.event_num = event_num
+
+    def __str__(self):
+        return f"rpcHit(channel={self.channel}, time={self.time}, eta={self.eta}, event_num={self.event_num}, rpc={self.rpc})"
+```
 ### ATools.`calcAvgAlign`
 
 #### Description:
@@ -56,7 +97,7 @@ Calculates the average alignment metric for a given chunk of events by evaluatin
 #### Returns:
 - **alignment_metric**: 
   - **Type**: `float`
-  - **Description**: The average alignment metric for the event chunk. If no valid metrics are found, returns `100`.
+  - **Description**: The average alignment metric for the event chunk. If no valid metrics are found, returns `-1`.
 
 ---
 

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>rtools-documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="RTools documentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="RTools documentation_files/libs/quarto-html/quarto.js"></script>
+<script src="RTools documentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="RTools documentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="RTools documentation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="RTools documentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="RTools documentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="RTools documentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="RTools documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="RTools documentation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="reconstruction-tools-documentation" class="level1">
+<h1>Reconstruction Tools Documentation</h1>
+<section id="rtools.find_tdc_event_count" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.find_tdc_event_count">RTools.<code>find_tdc_event_count</code></h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>calculates the total number of words for each TDC (Time-to-Digital Converter) across a chunk of events. It processes the events and sums the lengths of the <code>words</code> lists for each TDC.</p>
+</section>
+<section id="parameters" class="level3">
+<h3 class="anchored" data-anchor-id="parameters">Parameters</h3>
+<ul>
+<li><strong>event_chunk</strong> (<code>list</code>): A list of proanubis event objects. Each event object contains an attribute <code>tdcEvents</code>, which is a list of TDC objects. Each TDC object has an attribute <code>words</code>, which is a list of words.</li>
+</ul>
+</section>
+<section id="returns" class="level3">
+<h3 class="anchored" data-anchor-id="returns">Returns</h3>
+<ul>
+<li><strong>event_number</strong> (<code>list</code>): A list of lists. Each inner list corresponds to a TDC and contains a single integer representing the total count of words for that TDC across all events in the given chunk.</li>
+</ul>
+</section>
+<section id="note" class="level3">
+<h3 class="anchored" data-anchor-id="note">Note</h3>
+<ul>
+<li>Function assumes exactly <strong>5</strong> TDCs</li>
+<li>The returned <code>event_number</code> list contains 5 lists, each with a single integer value representing the total count of words for the corresponding TDC.</li>
+</ul>
+</section>
+</section>
+<section id="rtools.findcoincidenthits" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.findcoincidenthits">Rtools.<code>FindCoincidentHits</code></h2>
+<section id="description-1" class="level3">
+<h3 class="anchored" data-anchor-id="description-1">Description</h3>
+<p>This function processes eta and phi hits from different RPC arrays to find coincident hits based on time windows and optional Time-of-Flight (TOF) correction.</p>
+</section>
+<section id="parameters-1" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-1"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>etaHits (list)</strong>: A list of lists containing eta hit objects for each RPC. Each hit object must have attributes time, channel, event_num, and eta.</li>
+<li><strong>phiHits (list)</strong>: A list of lists containing phi hit objects for each RPC. Each hit object must have attributes time, channel, event_num, and eta.</li>
+<li><strong>time_window (float)</strong>: The time window in which to consider hits as coincident.</li>
+<li><strong>tof_correction (bool, optional)</strong>: Whether to apply TOF correction. Default is True.</li>
+<li><strong>slope (float, optional)</strong>: Slope parameter for TOF correction. Default is 0.05426554612593516.</li>
+<li><strong>offSet (float, optional)</strong>: Offset parameter for TOF correction. Default is 15.8797407836404.</li>
+</ul>
+</section>
+<section id="returns-1" class="level3">
+<h3 class="anchored" data-anchor-id="returns-1"><strong>Returns</strong></h3>
+<ul>
+<li><strong>coincident_hits (list)</strong>: A list of lists where each sublist represents an event with coincident hits. Each sublist contains the event number, time bin, and details of the hits.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[event_num, time_bin,[[hit.rpc, hit.channel, hit.time, hit.eta] <span class="cf">for</span> hit <span class="kw">in</span> unique_hits]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="rtools.cluster" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.cluster">Rtools.<code>cluster</code></h2>
+<section id="description-2" class="level3">
+<h3 class="anchored" data-anchor-id="description-2"><strong>Description</strong></h3>
+<p>This function clusters the hits within each RPC into spatial clusters in both phi and eta directions.</p>
+</section>
+<section id="parameters-2" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-2"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>coincident_hits (list)</strong>: A list of coincident hit events. Each event is a list containing the event number, time bin, and hit details.</li>
+</ul>
+</section>
+<section id="returns-2" class="level3">
+<h3 class="anchored" data-anchor-id="returns-2"><strong>Returns</strong></h3>
+<ul>
+<li><strong>coincident_hits_clustered (list)</strong>: A list of events with clustered hits. Each event contains the event number, time bin, and clusters of hits for each RPC.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[event_num, time_bin, [rpc_phi_clusters, rpc_eta_clusters]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="rtools.extract_coords_timed_chi2" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.extract_coords_timed_chi2">Rtools.<code>extract_coords_timed_Chi2</code></h2>
+<section id="description-3" class="level3">
+<h3 class="anchored" data-anchor-id="description-3"><strong>Description</strong></h3>
+<p>Converts spatial clusters in RPCs into x and y coordinates, with z given by the RPC number.</p>
+</section>
+<section id="parameters-3" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-3"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>event (list)</strong>: A list representing an event. It contains the event number, time bin, and clusters of hits.</li>
+<li><strong>max_cluster_size (int)</strong>: Maximum allowed size for a cluster.</li>
+</ul>
+</section>
+<section id="returns-3" class="level3">
+<h3 class="anchored" data-anchor-id="returns-3"><strong>Returns</strong></h3>
+<ul>
+<li><strong>coords (list)</strong>: A list of coordinates with errors. Each entry represents an RPC and contains lists of x and y coordinates, with variances and times.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="rtools.generate_hit_coords_combo_chi2" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.generate_hit_coords_combo_chi2">Rtools.<code>generate_hit_coords_combo_Chi2</code></h2>
+<section id="description-4" class="level3">
+<h3 class="anchored" data-anchor-id="description-4"><strong>Description</strong></h3>
+<p>Generates combinations of hit coordinates across RPCs for chi-squared fitting.</p>
+</section>
+<section id="parameters-4" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-4"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>coords (list)</strong>: A list of coordinates with errors.</li>
+<li><strong>RPC_heights (list)</strong>: A list of heights for each RPC.</li>
+<li><strong>max_length (int, optional)</strong>: Maximum length of the combination.</li>
+<li><strong>exact_length (bool, optional)</strong>: Whether to generate combinations of exact length.</li>
+</ul>
+</section>
+<section id="returns-4" class="level3">
+<h3 class="anchored" data-anchor-id="returns-4">Returns</h3>
+<ul>
+<li><strong>combinations (list)</strong>: A list of hit coordinate combinations.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="rtools.extract_dt_dz_chi2" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.extract_dt_dz_chi2">Rtools.<code>extract_DT_DZ_Chi2</code></h2>
+<section id="description-5" class="level3">
+<h3 class="anchored" data-anchor-id="description-5"><strong>Description</strong></h3>
+<p>Extracts the time difference (dT) and height difference (dZ) between specified pairs of RPCs.</p>
+</section>
+<section id="parameters-5" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-5"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>coords (list)</strong>: A list of coordinates with time information for each RPC.</li>
+<li><strong>rpc_indices (list of lists)</strong>: A list of pairs of indices specifying the RPCs to compare.</li>
+</ul>
+</section>
+<section id="returns-5" class="level3">
+<h3 class="anchored" data-anchor-id="returns-5"><strong>Returns</strong></h3>
+<ul>
+<li><strong>dT_all (list)</strong>: A list of time differences for each pair of RPC indices.</li>
+<li><strong>dZ_all (list)</strong>: A list of height differences for each pair of RPC indices.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="rtools.fit_event_chi2" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.fit_event_chi2">Rtools.<code>fit_event_chi2</code></h2>
+<section id="description-6" class="level3">
+<h3 class="anchored" data-anchor-id="description-6"><strong>Description</strong></h3>
+<p>Fits a line to the event coordinates using Singular Value Decomposition (SVD) and calculates the chi-squared value.</p>
+</section>
+<section id="parameters-6" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-6"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>coordinates_with_error (list)</strong>: A list of coordinates with errors for each RPC.</li>
+<li><strong>rpc_indicies (list of lists, optional)</strong>: A list of pairs of indices specifying the RPCs to compare.</li>
+</ul>
+</section>
+</section>
+<section id="returns-6" class="level2">
+<h2 class="anchored" data-anchor-id="returns-6"><strong>Returns</strong></h2>
+<ul>
+<li><strong>p0 (list)</strong>: Centroid of the fitted line.</li>
+<li><strong>d (list)</strong>: Direction vector of the fitted line.</li>
+<li><strong>Chi2 (float)</strong>: Chi-squared value of the fit.</li>
+<li><strong>coordinates (list)</strong>: List of coordinates used in the fit.</li>
+<li><strong>dT (list)</strong>: List of time differences.</li>
+<li><strong>dZ (list)</strong>: List of height differences.</li>
+</ul>
+<hr>
+</section>
+<section id="rtools.reconstruct_timed_chi2_byrpc" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.reconstruct_timed_chi2_byrpc">Rtools.<code>reconstruct_timed_Chi2_ByRPC</code></h2>
+<section id="description-7" class="level3">
+<h3 class="anchored" data-anchor-id="description-7"><strong>Description</strong></h3>
+<p>Reconstructs an event by excluding one RPC and fitting the remaining coordinates.</p>
+</section>
+<section id="parameters-7" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-7"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>event (list)</strong>: A list representing an event.</li>
+<li><strong>max_cluster_size (int)</strong>: Maximum allowed size for a cluster.</li>
+<li><strong>RPC_excluded (int)</strong>: The RPC to exclude from the reconstruction.</li>
+<li><strong>rpc_indicies (list of lists, optional)</strong>: A list of pairs of indices specifying the RPCs to compare.</li>
+</ul>
+</section>
+<section id="returns-7" class="level3">
+<h3 class="anchored" data-anchor-id="returns-7"><strong>Returns</strong></h3>
+<ul>
+<li><strong>reconstruction_result (tuple or None)</strong>: If successful, returns a tuple containing the <strong>optimized centroid</strong>, <strong>direction vector</strong>, <strong>coordinates</strong>, <strong>combinations</strong>, <strong>chi-squared value</strong>, <strong>time differences</strong>, <strong>height differences</strong>, and <strong>test coordinates</strong>. Otherwise, returns None.</li>
+</ul>
+</section>
+<section id="explainations-and-pseudocode" class="level3">
+<h3 class="anchored" data-anchor-id="explainations-and-pseudocode"><strong>Explainations and Pseudocode</strong></h3>
+<ol type="1">
+<li><strong>Initialize Parameters and Variables</strong>:
+<ul>
+<li>Set <code>max_Chi2</code> to 10.</li>
+<li>Define <code>RPC_heights</code> as the heights of the middle point of each RPC.</li>
+</ul></li>
+<li><strong>Extract Coordinates</strong>:
+<ul>
+<li>Call <code>extract_coords_timed_Chi2</code> with <code>event</code> and <code>max_cluster_size</code>.</li>
+<li>Store the returned coordinates in <code>coords</code>.</li>
+</ul></li>
+<li><strong>Exclude Specified RPC</strong>:
+<ul>
+<li>Initialize <code>test_coords</code> to -1.</li>
+<li>If <code>RPC_excluded</code> is not -1:
+<ul>
+<li>Set <code>test_coords</code> to the coordinates of the excluded RPC (<code>coords[RPC_excluded]</code>).</li>
+<li>Set the coordinates of the excluded RPC to <code>[[], [], "N"]</code> in <code>coords</code>.</li>
+</ul></li>
+</ul></li>
+<li><strong>Check for Sufficient Data</strong>:
+<ul>
+<li>Count the number of empty RPCs in <code>coords</code>.</li>
+<li>If more than 4 RPCs are empty, return <code>None</code>.</li>
+</ul></li>
+<li><strong>Check Cross-Chamber Requirement</strong>:
+<ul>
+<li>Initialize <code>cross_chamberness</code> to 0.</li>
+<li>Check if there are sufficient clusters in the top, middle, and bottom chambers.</li>
+<li>If <code>cross_chamberness</code> is less than 2, return <code>None</code>.</li>
+</ul></li>
+<li><strong>Generate Coordinate Combinations</strong>:
+<ul>
+<li>Call <code>generate_hit_coords_combo_Chi2</code> with <code>coords</code> and <code>RPC_heights</code>.</li>
+<li>Store the returned combinations in <code>combinations</code>.</li>
+<li>If the number of combinations exceeds 20, return <code>None</code>.</li>
+</ul></li>
+<li><strong>Fit Each Combination</strong>:
+<ul>
+<li>Initialize <code>Chi2_current</code> to infinity.</li>
+<li>Initialize <code>optimised_coords</code>, <code>optimised_d</code>, and <code>optimised_centroid</code> to <code>None</code>.</li>
+<li>Initialize <code>dT</code> to a list containing <code>None</code>.</li>
+<li>Loop through each combination in <code>combinations</code>:
+<ul>
+<li>If the length of the combination is less than 5, skip to the next combination.</li>
+<li>Call <code>fit_event_chi2</code> with the combination and <code>rpc_indicies</code>.</li>
+<li>If the returned <code>Chi2</code> is less than <code>Chi2_current</code>:
+<ul>
+<li>Update <code>dZ</code>, <code>dT</code>, <code>Chi2_current</code>, <code>optimised_centroid</code>, <code>optimised_d</code>, and <code>optimised_coords</code> with the new values.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>Adjust Direction Vector Based on Time Differences</strong>:
+<ul>
+<li>If <code>dT[-1]</code> is not <code>None</code>:
+<ul>
+<li>If <code>dT[-1]</code> is greater than 0 and <code>optimised_d[2]</code> is less than 0, multiply <code>optimised_d</code> by -1.</li>
+<li>If <code>dT[-1]</code> is less than 0 and <code>optimised_d[2]</code> is greater than 0, multiply <code>optimised_d</code> by -1.</li>
+</ul></li>
+</ul></li>
+<li><strong>Check Chi-Squared Value</strong>:
+<ul>
+<li>If <code>Chi2_current</code> is less than <code>max_Chi2</code>, return the optimized results.</li>
+<li>Otherwise, return <code>None</code>.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="rtools.does_muon_hit_rpc" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.does_muon_hit_rpc">Rtools.<code>does_muon_hit_RPC</code></h2>
+<section id="description-8" class="level3">
+<h3 class="anchored" data-anchor-id="description-8"><strong>Description</strong></h3>
+<p>Checks if a reconstructed muon hits a specified RPC based on its trajectory.</p>
+</section>
+<section id="parameters-8" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-8"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>optimised_centroid (list)</strong>: Centroid of the reconstructed muon trajectory.</li>
+<li><strong>optimised_d (list)</strong>: Direction vector of the reconstructed muon trajectory.</li>
+<li><strong>RPC (int)</strong>: The RPC to check.</li>
+</ul>
+</section>
+<section id="returns-8" class="level3">
+<h3 class="anchored" data-anchor-id="returns-8"><strong>Returns</strong></h3>
+<ul>
+<li><strong>hit_coords (list or None)</strong>: If the muon hits the RPC, returns the <strong>coordinates</strong> of the hit. Otherwise, returns <strong>None</strong>.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="rtools.does_rpc_detect_muon" class="level2">
+<h2 class="anchored" data-anchor-id="rtools.does_rpc_detect_muon">Rtools.<code>does_RPC_detect_muon</code></h2>
+<section id="description-9" class="level3">
+<h3 class="anchored" data-anchor-id="description-9"><strong>Description</strong></h3>
+<p>Checks if an RPC detects a muon based on the reconstructed hit coordinates and a given tolerance.</p>
+</section>
+<section id="parameters-9" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-9"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>muon_coords (list)</strong>: Expected coordinates of the muon hit.</li>
+<li><strong>test_coords (list)</strong>: Actual coordinates reconstructed by the RPC.</li>
+<li><strong>tol (float)</strong>: Tolerance for the detection check.</li>
+</ul>
+</section>
+<section id="returns-9" class="level3">
+<h3 class="anchored" data-anchor-id="returns-9"><strong>Returns</strong></h3>
+<ul>
+<li>detection_result (bool or float): If the RPC detects the muon, returns the <strong>separation distance</strong>. Otherwise, returns <strong>False</strong>.</li>
+</ul>
+</section>
+<section id="note-1" class="level3">
+<h3 class="anchored" data-anchor-id="note-1"><strong>Note</strong></h3>
+<p>Tolerance is defines in cm as the maximum distance the algorithm look out for detected muons on the RPC.</p>
+<hr>
+</section>
+</section>
+<section id="check_event_attributes" class="level2">
+<h2 class="anchored" data-anchor-id="check_event_attributes"><strong>check_event_attributes</strong></h2>
+<section id="description-10" class="level3">
+<h3 class="anchored" data-anchor-id="description-10"><strong>Description</strong></h3>
+<p>Checks if an event meets the minimum required number of RPCs and chambers with hits.</p>
+</section>
+<section id="parameters-10" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-10"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>event (list)</strong>: A list representing an event.</li>
+<li><strong>min_chamber_number (int)</strong>: Minimum required number of chambers with hits.</li>
+<li><strong>min_RPC_number (int)</strong>: Minimum required number of RPCs with hits.</li>
+</ul>
+</section>
+<section id="returns-10" class="level3">
+<h3 class="anchored" data-anchor-id="returns-10"><strong>Returns</strong></h3>
+<ul>
+<li><strong>valid_event (bool)</strong>: <strong>True</strong> if the event meets the requirements, otherwise <strong>False</strong>.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="filter_events" class="level2">
+<h2 class="anchored" data-anchor-id="filter_events"><strong>filter_events</strong></h2>
+<section id="description-11" class="level3">
+<h3 class="anchored" data-anchor-id="description-11"><strong>Description</strong></h3>
+<p>Filters a list of events based on the minimum required number of RPCs and chambers with hits.</p>
+</section>
+<section id="parameters-11" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-11"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>events (list)</strong>: A list of events.</li>
+<li><strong>min_chamber_number (int)</strong>: Minimum required number of chambers with hits.</li>
+<li><strong>min_RPC_number (int)</strong>: Minimum required number of RPCs with hits.</li>
+</ul>
+</section>
+<section id="returns-11" class="level3">
+<h3 class="anchored" data-anchor-id="returns-11"><strong>Returns</strong></h3>
+<ul>
+<li><strong>filtered_events (list)</strong>: A list of events that meet the requirements.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="count_entries" class="level2">
+<h2 class="anchored" data-anchor-id="count_entries"><strong>count_entries</strong></h2>
+<section id="description-12" class="level3">
+<h3 class="anchored" data-anchor-id="description-12"><strong><em>Description</em></strong></h3>
+<p>Recursively counts the total number of entries in a nested list.</p>
+</section>
+<section id="parameters-12" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-12"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>lst (list)</strong>: A nested list.</li>
+</ul>
+</section>
+<section id="returns-12" class="level3">
+<h3 class="anchored" data-anchor-id="returns-12"><strong>Returns</strong></h3>
+<ul>
+<li><strong>total_count (int)</strong>: Total number of entries in the list.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="find_tdc_event_count" class="level2">
+<h2 class="anchored" data-anchor-id="find_tdc_event_count"><strong>find_tdc_event_count</strong></h2>
+<section id="description-13" class="level3">
+<h3 class="anchored" data-anchor-id="description-13"><strong>Description</strong></h3>
+<p>Calculates the total number of words for each TDC (Time-to-Digital Converter) across a chunk of events.</p>
+</section>
+<section id="parameters-13" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-13"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>event_chunk (list)</strong>: A list of event objects. Each event object contains a list of TDC objects with a words attribute.</li>
+</ul>
+</section>
+<section id="returns-13" class="level3">
+<h3 class="anchored" data-anchor-id="returns-13"><strong>Returns</strong></h3>
+<ul>
+<li><strong>event_number (list)</strong>: A list of lists. Each inner list corresponds to a TDC and contains a single integer representing the total count of words for that TDC across all events in the chunk.</li>
+</ul>
+</section>
+</section>
+<section id="compile_and_plot_tof" class="level2">
+<h2 class="anchored" data-anchor-id="compile_and_plot_tof"><strong>compile_and_plot_tof</strong></h2>
+<section id="description-14" class="level3">
+<h3 class="anchored" data-anchor-id="description-14"><strong>Description</strong></h3>
+<p>Compiles time-of-flight (TOF) data and generates Gaussian fits for specified RPC pairs, saving the results to a PDF.</p>
+</section>
+</section>
+<section id="parameters-14" class="level2">
+<h2 class="anchored" data-anchor-id="parameters-14"><strong>Parameters</strong></h2>
+<ul>
+<li>dTs (list): A list of time differences for events.</li>
+<li>rpc_indicies (list of lists): A list of pairs of RPC indices for TOF analysis.</li>
+<li>pdf_filename (str, optional): The filename for the output PDF. Default is “Data_output/compiled_tof_plots.pdf”.</li>
+</ul>
+</section>
+<section id="returns-14" class="level2">
+<h2 class="anchored" data-anchor-id="returns-14"><strong>Returns</strong></h2>
+<ul>
+<li><strong>pdf_filename (str)</strong>: The filename of the generated PDF.</li>
+<li><strong>plots</strong>: plots for the tof analysis</li>
+</ul>
+<hr>
+</section>
+<section id="compile_and_plot_tof_chunk" class="level2">
+<h2 class="anchored" data-anchor-id="compile_and_plot_tof_chunk"><strong>compile_and_plot_tof_chunk</strong></h2>
+<section id="description-15" class="level3">
+<h3 class="anchored" data-anchor-id="description-15"><strong>Description</strong></h3>
+<p>Compiles TOF data, splits it into chunks, and generates Gaussian fits for each chunk, saving the results to a PDF.</p>
+</section>
+<section id="parameters-15" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-15"><strong>Parameters</strong></h3>
+<ul>
+<li><strong>dTs (list)</strong>: A list of time differences for events.</li>
+<li><strong>rpc_indicies (list of lists)</strong>: A list of pairs of RPC indices for TOF analysis.</li>
+<li><strong>num_chunks (int, optional)</strong>: Number of chunks to split the data into. Default is 10.</li>
+<li><strong>pdf_filename (str, optional)</strong>: The filename for the output PDF. Default is “Data_output/tof_chunks.pdf”.</li>
+</ul>
+</section>
+<section id="returns-15" class="level3">
+<h3 class="anchored" data-anchor-id="returns-15"><strong>Returns</strong></h3>
+<ul>
+<li>pdf_filename (str): The filename of the generated PDF.</li>
+<li><strong>plots</strong>: plots for the tof analysis</li>
+</ul>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

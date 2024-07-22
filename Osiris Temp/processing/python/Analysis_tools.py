@@ -162,7 +162,7 @@ def calcAvgAlign(event_chunk, offSet=0, i = 1, j = 2, k = 0, l = 2, tdc1 =0, tdc
     if len(mets)>0:
         return sum(mets)/len(mets)
     else:
-        return 100
+        return -1
 
 
 def ConstructEventInsertionList(updates, order):
