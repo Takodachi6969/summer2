@@ -47,7 +47,7 @@ class fileReader():
             evts.append(self.evtBuilder.events.pop(0))
         return evts
     
-    def get_aligned_events(self, order = [[0,1], [1,2], [2,3], [3,4]], interval = 100, extract_tdc_mets = False):
+    def get_aligned_events(self, order = [(0,1), (1,2), (2,3), (3,4)], interval = 100, extract_tdc_mets = False):
         evts_chunk = []
         tdc_mets = [0 for tdc in range(5)]
         TDC_error_time = [[] for tdc in range(5)]
@@ -65,7 +65,7 @@ class fileReader():
         self.check_alignment_status(aligned, realigned) 
         self.update_adjustment_window(realigned)
         self.tdc_monitoring_event_buffer.extend(evts_chunk)
-        if self.tdc_monitoring_counter >= 250:
+        if self.tdc_monitoring_counter >= 2500:
             TDC_error_time, tdc_mets = self.monitor_tdc3_state(recordtimes=True)
             self.tdc_monitoring_event_buffer.clear()
             self.tdc_monitoring_counter = 0

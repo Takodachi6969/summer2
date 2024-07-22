@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 
+
 def tdcEventToRPCData(event,activeTDCs=[0,1,2,3,4], event_num = 0):
     rpcHits = [[] for rpc in range(6)]
     for tdc in activeTDCs:
@@ -439,3 +440,30 @@ def plot_tdc_alignment_times_custom_ranges(TDC_alignment_time, ranges, output_pd
             plt.grid(True)
             pdf.savefig()  # Save the current figure to the PDF
             plt.close()
+            
+            
+
+def show_strip_time_info(outDict, ph, et, rpc):            
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    rpcTitles = {0:"Triplet Low",1: "Triplet Mid", 2:"Triplet Top", 3:"Singlet",4:"Doublet Low",5:"Doublet Top"}
+    outDict['diffHists'][rpc][ph][et].plot1d(ax=ax, color="teal", lw=3, label='proANUBIS Data')
+
+    ax.set_xlabel('$\eta$ Hit Time - $\phi$ Hit Time (ns)')
+    yrange = ax.get_ylim()
+    ax.text(-2, 0.8*yrange[1], rpcTitles[rpc]+", $\eta$="+str(et)+" $\phi$="+str(ph), fontsize=14,
+                    verticalalignment='top')
+    #ax.set_yscale('log')
+
+    def gaus(x,a,x0,sigma):
+        return a*np.exp(-(x-x0)**2/(2*sigma**2))
+
+    # popt,pcov = curve_fit(gaus,readDict['diffHists'][rpc][ph][et].axes.centers[0],readDict['diffHists'][rpc][ph][et].values(),p0=[1,13,5])
+    # fitX = [0.1*x-10 for x in range(400)]
+    # plt.plot(fitX,gaus(fitX,*popt),'r:',label='Gaussian Fit')
+    ax.set_xlim([-100,100])
+    # ax.text(-2, 0.7*yrange[1], "Fit mean:"+str(round(popt[1],2))+", $\sigma$: "+str(round(popt[2],2)), fontsize=14,
+    #                 verticalalignment='top')
+    plt.legend()
+    plt.show()
+    

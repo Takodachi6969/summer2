@@ -12,6 +12,7 @@ sys.path.insert(1, 'Osiris Temp\processing\python')
 from itertools import groupby
 import scipy.optimize as opt
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 def find_tof_time(eta, phi, slope = 0.05426554612593516, offSet = 15.8797407836404):
     if (len(set([eta.eta, phi.eta])) == 1):
@@ -692,65 +693,124 @@ def find_tdc_event_count(event_chunk):
 
 
 
-def compile_and_plot_tof(dTs, rpc_indicies = [[0,1], [0,2], [0,3], [0,4], [0,5], [4,5]]):
+def compile_and_plot_tof(dTs, rpc_indicies=[[0,1], [0,2], [0,3], [0,4], [0,5]], pdf_filename = "Data_output/compiled_tof_plots.pdf"):
     tof = [[] for _ in range(6)]
     for dT in dTs:
-        for i in range(6):
+        for i in range(len(rpc_indicies)):
             tof[i].append(dT[i])
             
     def gauss(x, a, mu, sigma):
         return a * np.exp(-(x - mu) ** 2 / (2 * sigma ** 2))
 
-    for i in range(6):
-        mid_average = np.mean(tof[i])
-        print(f'Mid average value for RPC{i}-5: {mid_average}')
+    
+    with PdfPages(pdf_filename) as pdf:
+        for i in range(len(rpc_indicies)):
+            mid_average = np.mean(tof[i])
+            print(f'Mid average value for RPC{i}-5: {mid_average}')
 
-        # Perform Gaussian fit
-        hist, bin_edges = np.histogram(tof[i], bins=300, range=(-20, 20))
-        bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+            # Perform Gaussian fit
+            hist, bin_edges = np.histogram(tof[i], bins=300, range=(-20, 20))
+            bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
 
-        try:
-            popt, pcov = opt.curve_fit(gauss, bin_centers, hist, p0=[max(hist), 0, 10])
+            try:
+                popt, pcov = opt.curve_fit(gauss, bin_centers, hist, p0=[max(hist), 0, 10])
 
-            plt.figure()
-            plt.hist(tof[i], bins=1000, edgecolor='black', alpha=0.6, label='Data')
-            x_fit = np.linspace(-20, 40, 1000)
-            y_fit = gauss(x_fit, *popt)
-            plt.plot(x_fit, y_fit, 'r-', label='Gaussian fit')
-            plt.title(f'Systematically and tof Corrected, RPC{rpc_indicies[i]}')
-            plt.xlim(-20, 40)
-            plt.xlabel('tof / ns')
-            plt.ylabel('events')
-            plt.legend()
+                plt.figure()
+                plt.hist(tof[i], bins=1000, edgecolor='black', alpha=0.6, label='Data')
+                x_fit = np.linspace(-20, 40, 1000)
+                y_fit = gauss(x_fit, *popt)
+                plt.plot(x_fit, y_fit, 'r-', label='Gaussian fit')
+                plt.title(f'Systematically and tof Corrected, RPC{rpc_indicies[i]}')
+                plt.xlim(-20, 40)
+                plt.xlabel('tof / ns')
+                plt.ylabel('events')
+                plt.legend()
 
-            fit_params_text = f'Amplitude = {popt[0]:.2f}\nMean = {popt[1]:.2f}\nStd Dev = {popt[2]:.2f}'
-            plt.annotate(fit_params_text, xy=(0.05, 0.95), xycoords='axes fraction', verticalalignment='top')
+                fit_params_text = f'Amplitude = {popt[0]:.2f}\nMean = {popt[1]:.2f}\nStd Dev = {popt[2]:.2f}'
+                plt.annotate(fit_params_text, xy=(0.05, 0.95), xycoords='axes fraction', verticalalignment='top')
 
-            plt.show()
+                pdf.savefig()  # Save the current figure to the PDF
+                plt.close()
 
-            print(f'Gaussian fit parameters for RPC{rpc_indicies[i]}: amplitude = {popt[0]}, mean = {popt[1]}, std deviation = {popt[2]}')
+                print(f'Gaussian fit parameters for RPC{rpc_indicies[i]}: amplitude = {popt[0]}, mean = {popt[1]}, std deviation = {popt[2]}')
 
-        except RuntimeError:
-            print(f'Gaussian fit failed for RPC{rpc_indicies[i]}')
+            except RuntimeError:
+                print(f'Gaussian fit failed for RPC{rpc_indicies[i]}')
 
-    plt.figure()
-    for i in range(5):
-        hist, bin_edges = np.histogram(tof[i], bins=100, range=(-20, 20))
-        bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+        plt.figure()
+        for i in range(5):
+            hist, bin_edges = np.histogram(tof[i], bins=100, range=(-20, 20))
+            bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
 
-        try:
-            popt, pcov = opt.curve_fit(gauss, bin_centers, hist, p0=[max(hist), 0, 10])
-            x_fit = np.linspace(-20, 40, 1000)
-            y_fit = gauss(x_fit, *popt)
-            plt.plot(x_fit, y_fit, label=f'RPC{rpc_indicies[i]} fit')
+            try:
+                popt, pcov = opt.curve_fit(gauss, bin_centers, hist, p0=[max(hist), 0, 10])
+                x_fit = np.linspace(-20, 40, 1000)
+                y_fit = gauss(x_fit, *popt)
+                plt.plot(x_fit, y_fit, label=f'RPC{rpc_indicies[i]} fit')
 
-        except RuntimeError:
-            print(f'Gaussian fit failed for RPC{rpc_indicies[i]}')
+            except RuntimeError:
+                print(f'Gaussian fit failed for RPC{rpc_indicies[i]}')
 
-    plt.title('Combined Gaussian Fits for RPC0-5 to RPC4-5 larger sample of 100,000')
-    plt.xlim(-20, 40)
-    plt.xlabel('tof / ns')
-    plt.ylabel('events')
-    plt.legend()
+        plt.title('Combined Gaussian Fits for RPC0-5 to RPC4-5 larger sample of 100,000')
+        plt.xlim(-20, 40)
+        plt.xlabel('tof / ns')
+        plt.ylabel('events')
+        plt.legend()
 
-    plt.show()
+        pdf.savefig() 
+        plt.close()
+
+    return pdf_filename
+
+def compile_and_plot_tof_chunk(dTs, rpc_indicies=[[0,1], [0,2], [0,3], [0,4], [0,5]], 
+                               num_chunks=10, 
+                               pdf_filename="Data_output/tof_chunks.pdf"):
+    tof = [[] for _ in range(6)]
+    for dT in dTs:
+        for i in range(len(rpc_indicies)):
+            tof[i].append(dT[i])
+            
+    def gauss(x, a, mu, sigma):
+        return a * np.exp(-(x - mu) ** 2 / (2 * sigma ** 2))
+
+    def split_into_chunks(data, num_chunks):
+        chunk_size = len(data) // num_chunks
+        return [data[i*chunk_size:(i+1)*chunk_size] for i in range(num_chunks)]
+
+    with PdfPages(pdf_filename) as pdf:
+        for i in range(len(rpc_indicies)):
+            tof_chunks = split_into_chunks(tof[i], num_chunks)
+
+            for chunk_index, chunk in enumerate(tof_chunks):
+                mid_average = np.mean(chunk)
+                print(f'Mid average value for RPC{rpc_indicies[i]}, chunk{chunk_index + 1}: {mid_average}')
+
+                hist, bin_edges = np.histogram(chunk, bins=300, range=(-20, 20))
+                bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+
+                try:
+                    popt, pcov = opt.curve_fit(gauss, bin_centers, hist, p0=[max(hist), 0, 10])
+
+                    plt.figure(figsize=(12, 12))
+                    plt.hist(chunk, bins=1000, edgecolor='black', alpha=0.6, label='Data')
+                    x_fit = np.linspace(-20, 40, 1000)
+                    y_fit = gauss(x_fit, *popt)
+                    plt.plot(x_fit, y_fit, 'r-', label='Gaussian fit')
+                    plt.title(f'Systematically and tof Corrected, RPC{rpc_indicies[i]}, chunk{chunk_index + 1}')
+                    plt.xlim(-20, 40)
+                    plt.xlabel('tof / ns')
+                    plt.ylabel('events')
+                    plt.legend()
+
+                    fit_params_text = f'Amplitude = {popt[0]:.2f}\nMean = {popt[1]:.2f}\nStd Dev = {popt[2]:.2f}'
+                    plt.annotate(fit_params_text, xy=(0.05, 0.95), xycoords='axes fraction', verticalalignment='top')
+
+                    pdf.savefig()
+                    plt.close()
+
+                    print(f'Gaussian fit parameters for RPC{i}-{chunk_index + 1}: amplitude = {popt[0]}, mean = {popt[1]}, std deviation = {popt[2]}')
+
+                except RuntimeError:
+                    print(f'Gaussian fit failed for RPC{i}-{chunk_index + 1}')
+
+    return pdf_filename

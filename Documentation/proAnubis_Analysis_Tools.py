@@ -14,6 +14,7 @@ import Timing_tools as TTools
 importlib.reload(RTools)
 importlib.reload(TTools)
 rpcHit = ATools.rpcHit
+from scipy.optimize import curve_fit
 
 
 class rpcCoincidence():
@@ -222,6 +223,63 @@ class Reconstructor():
                 self.etaHits[rpc][i].time += residEta[rpc][etahit.channel]
             for j , phihit in enumerate(self.phiHits[rpc]):
                 self.phiHits[rpc][j].time += residPhi[rpc][phihit.channel]
+                
+                
+    def plot_tof_offset(self, rpc_comparison):
+        tof = [[] for _ in range(6)]
+        for dT in self.dT:
+            for i in range(len(rpc_comparison)):
+                tof[i].append(dT[i])
+        Test_coord = [[] for _ in range(6)]
+        for recon in self.recon:
+            distance_per_phi_channel = 2.7625 #cm
+            distance_per_eta_channel = 2.9844 #cm
+            for i in range(6):
+                recon[2][i][0] = int(recon[2][i][0] / distance_per_phi_channel)
+                recon[2][i][1] = int(recon[2][i][1] / distance_per_eta_channel)
+                Test_coord[i].append([recon[2][i][0], recon[2][i][1]])
+                
+        Coordinate = {0:[[[] for etchan in range(32)] for phchan in range(64)],
+            1:[[[] for etchan in range(32)] for phchan in range(64)],
+            2:[[[] for etchan in range(32)] for phchan in range(64)],
+            3:[[[] for etchan in range(32)] for phchan in range(64)], 
+                    4:[[[] for etchan in range(32)] for phchan in range(64)],
+                        5:[[[] for etchan in range(32)] for phchan in range(64)]}
+
+        scDiffs = [[0 for etchan in range(32)] for phchan in range(64)]
+        normDiffs = [[0 for etchan in range(32)] for phchan in range(64)]
+        rpcNames = {0:"Triplet Low",1: "Triplet Mid", 2:"Triplet Top", 3:"Singlet",4:"Doublet Low",5:"Doublet Top"}
+        for i in range(len(tof[0])):
+            for j in range(5):
+                Coordinate[j + 1][Test_coord[j + 1][i][0]][Test_coord[j + 1][i][1]].append(tof[j][i])
+
+                
+        for rpc in [1,2,3,4,5]:
+            for ph in range(64):
+                for et in range(32):
+                    # if sum(width[rpc][ph][et].counts())>0:
+                        scDiffs[ph][et]=np.mean(Coordinate[rpc][ph][et])
+            
+            fig, ax = plt.subplots(1, figsize=(16, 8), dpi=100)
+            etachannels = [x-0.5 for x in range(33)]
+            phichannels = [x-0.5 for x in range(65)]
+            etaHist = (scDiffs,np.array(phichannels),np.array(etachannels))
+            zrange = [-20,30]
+            thisHist = hep.hist2dplot(etaHist,norm=colors.Normalize(zrange[0],zrange[1]))
+            thisHist.cbar.set_label('tof with 0 as reference', rotation=270, y=0.1,labelpad=23)
+            plt.ylim(31.5,-0.5)
+            plt.ylabel("Eta Channel")
+            plt.xlabel("Phi Channel")
+            ax.set_title(rpcNames[rpc])
+            x_points = [-0.5, 64.5]
+            y_points = [7.5, 15.5, 23.5]
+            for y_point in y_points:
+                plt.plot(x_points, [y_point,y_point], 'k', linestyle='dotted')
+            y_points = [-0.5, 31.5]
+            x_points = [7.5,15.5, 23.5, 31.5, 39.5, 47.5, 55.5]
+            for x_point in x_points:
+                plt.plot([x_point,x_point], y_points, 'k', linestyle='dashed')
+            plt.show()
     
 
         
@@ -258,6 +316,8 @@ class Timing_Analyser():
         else:
             self.scDiffs = scDiffs
             self.normDiffs = normDiffs
+        self.residEtaLatest = []
+        self.residPhiLatest = []
         self.count = [[] for _ in range(7)]
         self.rpc_involvement = {i: [0] * 6 for i in range(7)}
         
@@ -288,8 +348,7 @@ class Timing_Analyser():
     def Calculate_Residual_and_plot_TDC_Time_Diffs(self, outDict, pdf_filename='plots.pdf', max_itr=1):
         badPhi = {0: [], 1: [], 2: [31], 3: [0], 4: [19], 5: [31]}
         badEta = {0: [29, 30, 31], 1: [16, 20], 2: [], 3: [20, 31], 4: [], 5: []}
-        residEtaLatest = []
-        residPhiLatest = []
+        
         rpcNames = {0: "Triplet Low", 1: "Triplet Mid", 2: "Triplet Top", 3: "Singlet", 4: "Doublet Low", 5: "Doublet Top"}
         evtCount = 0
 
@@ -387,9 +446,9 @@ class Timing_Analyser():
                                                         64. - len(badPhi[rpc]))
 
                     itr += 1
-                residEtaLatest.append([time for time in etTimes])
-                residPhiLatest.append([time for time in phTimes])
-        return residEtaLatest, residPhiLatest
+                self.residEtaLatest.append([time for time in etTimes])
+                self.residPhiLatest.append([time for time in phTimes])
+        return self.residEtaLatest, self.residPhiLatest
     
     def check_eta_trigger(self):
         etaHits = [[] for rpc in range(6)]
@@ -467,5 +526,89 @@ class Timing_Analyser():
         plt.grid(axis='y', linestyle='--', alpha=0.7)
 
         plt.show()
+        
+    def plot_and_fit_tof_corrections(self):
+        excludedEta = [31]
+        excludedPhi = [19]
+        fitPhChan = [0.5+chan for chan in range(64)]
+        fitEtChan = [0.5+chan for chan in range(32)]
+        fitDiffs = [row[:] for row in self.scDiffs]
+        distance_per_phi_channel = 2.7625 #cm
+        distance_per_eta_channel = 2.9844 #cm
+
+        for phchan in range(64):
+            for etchan in range(32):
+                if phchan in excludedPhi:
+                    fitDiffs[phchan][etchan] = self.scDiffs[phchan + 1][etchan]
+                if etchan in excludedEta:
+                    fitDiffs[phchan].pop(etchan)
+
+        for etChan in excludedEta:
+            fitEtChan.pop(etChan)
+            
+        # fitPhDist = [chan * distance_per_phi_channel for chan in fitPhChan]
+        # fitEtDist = [chan * distance_per_eta_channel for chan in fitEtChan]
+
+        def plane(xy, a, b):
+            x, y = xy
+            return (a * (x - y) + b).ravel()
+
+        x, y = np.meshgrid(fitEtChan, fitPhChan)
+
+        popt, pcov = curve_fit(plane, (x, y), np.array(fitDiffs).ravel(), p0=[0.175, 13])
+        print(popt[0], popt[1])
+
+        # Calculate fitted data and residuals
+        data_fitted = plane((x, y), *popt)
+        residuals = np.array(fitDiffs).ravel() - data_fitted
+        ss_res = np.sum(residuals**2)
+        ss_tot = np.sum((np.array(fitDiffs).ravel() - np.mean(np.array(fitDiffs).ravel()))**2)
+        r_squared = 1 - (ss_res / ss_tot)
+
+        print(f"R² value: {r_squared}")
+
+        fig, ax = plt.subplots(1, 1)
+        heatmap = ax.imshow(np.array(fitDiffs).reshape(64, len(fitEtChan)), cmap=plt.cm.jet, origin='lower',
+                            extent=(0, max(fitEtChan), 0, max(fitPhChan)), vmin=0, vmax=30)
+        plt.colorbar(heatmap, ax=ax)
+        ax.contour(x, y, data_fitted.reshape(64, len(fitEtChan)), 16, colors='w')
+        plt.xlabel('Eta channel')
+        plt.ylabel('Phi channel')
+        plt.title('Heatmap and Fitted Plane Contours')
+        plt.show()
+        
+    def plot_residual(self):
+        rpcNames = {0:"Triplet Low",1: "Triplet Mid", 2:"Triplet Top", 3:"Singlet",4:"Doublet Low",5:"Doublet Top"}
+        fig, ax = plt.subplots(1, figsize=(16, 8), dpi=100)
+        phichannels = [x-0.5 for x in range(65)]
+
+        for idx, rpc in enumerate([0,1,2,3,4,5]):
+            plotPhiResids = self.residPhiLatest[idx].copy()
+            plotPhiResids.append(plotPhiResids[-1])
+            plt.step(phichannels,plotPhiResids,linewidth=3,label=rpcNames[rpc],where='post')
+        yrange = ax.get_ylim()
+        #ax.text(40, 0.8*yrange[1], "Slope: "+str(round(popt[0],3))+" ns/channel, Offset: "+str(round(popt[1],2))+" ns", fontsize=14,
+        #               verticalalignment='top')
+        ax.set_xlabel('$\phi$ Channel')
+        ax.set_ylabel('Time Residual (ns)')
+        # ax.set_ylim([-6,6])
+        ax.set_xlim([-0.5,63.5])
+        plt.legend()
+        plt.show()
+        fig, ax = plt.subplots(1, figsize=(16, 8), dpi=100)
+        etchannels = [x-0.5 for x in range(33)]
+        for idx, rpc in enumerate([0,1,2,3,4,5]):
+            plotEtaResids = self.residEtaLatest[idx].copy()
+            plotEtaResids.append(plotEtaResids[-1])
+            plt.step(etchannels,plotEtaResids,linewidth=3,label=rpcNames[rpc],where='post')
+        yrange = ax.get_ylim()
+        #ax.text(40, 0.8*yrange[1], "Slope: "+str(round(popt[0],3))+" ns/channel, Offset: "+str(round(popt[1],2))+" ns", fontsize=14,
+        #               verticalalignment='top')
+        ax.set_xlabel('$\eta$ Channel')
+        ax.set_ylabel('Time Residual (ns)')
+        # ax.set_ylim([-6,6])
+        ax.set_xlim([-0.5,31.5])
+        plt.legend()
+        plt.show()     
     
-    
+

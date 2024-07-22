@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>atools-documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="ATools documentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ATools documentation_files/libs/quarto-html/quarto.js"></script>
+<script src="ATools documentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="ATools documentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ATools documentation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ATools documentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ATools documentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ATools documentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ATools documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ATools documentation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="atools.calcavgalign" class="level3">
+<h3 class="anchored" data-anchor-id="atools.calcavgalign">ATools.<code>calcAvgAlign</code></h3>
+<section id="description" class="level4">
+<h4 class="anchored" data-anchor-id="description">Description:</h4>
+<p>Calculates the average alignment metric for a given chunk of events by evaluating the average distance between hits across 2 RPCs operated by different TDC.</p>
+</section>
+<section id="parameters" class="level4">
+<h4 class="anchored" data-anchor-id="parameters">Parameters:</h4>
+<ul>
+<li><strong>event_chunk</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: The chunk of events to be aligned.</li>
+</ul></li>
+<li><strong>offSet</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Offset used for alignment calculation.</li>
+<li><strong>Default Value</strong>: <code>0</code></li>
+</ul></li>
+<li><strong>i</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Index for the first eta hit.</li>
+<li><strong>Default Value</strong>: <code>1</code></li>
+</ul></li>
+<li><strong>j</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Index for the second eta hit.</li>
+<li><strong>Default Value</strong>: <code>2</code></li>
+</ul></li>
+<li><strong>k</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Index for the first phi hit.</li>
+<li><strong>Default Value</strong>: <code>0</code></li>
+</ul></li>
+<li><strong>l</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Index for the second phi hit.</li>
+<li><strong>Default Value</strong>: <code>2</code></li>
+</ul></li>
+<li><strong>tdc1</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: TDC index for the first set of hits.</li>
+<li><strong>Default Value</strong>: <code>0</code></li>
+</ul></li>
+<li><strong>tdc0</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: TDC index for the second set of hits.</li>
+<li><strong>Default Value</strong>: <code>1</code></li>
+</ul></li>
+<li><strong>processedEvents</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Number of processed events.</li>
+<li><strong>Default Value</strong>: <code>0</code></li>
+</ul></li>
+<li><strong>skipChans</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: Channels to be skipped during alignment calculation.</li>
+<li><strong>Default Value</strong>: <code>[]</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="returns" class="level4">
+<h4 class="anchored" data-anchor-id="returns">Returns:</h4>
+<ul>
+<li><strong>alignment_metric</strong>:
+<ul>
+<li><strong>Type</strong>: <code>float</code></li>
+<li><strong>Description</strong>: The average alignment metric for the event chunk. If no valid metrics are found, returns <code>100</code>.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="atools.find_tdc_alignment_metric" class="level3">
+<h3 class="anchored" data-anchor-id="atools.find_tdc_alignment_metric">ATools.<code>find_tdc_alignment_metric</code></h3>
+<section id="description-1" class="level4">
+<h4 class="anchored" data-anchor-id="description-1">Description:</h4>
+<p>Determines the alignment metric indices for two given TDCs, to ensure at least 2 RPCs are crossed with the same TDC.</p>
+</section>
+<section id="parameters-1" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-1">Parameters:</h4>
+<ul>
+<li><strong>tdc0</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Index of the first TDC.</li>
+</ul></li>
+<li><strong>tdc1</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: Index of the second TDC.</li>
+</ul></li>
+</ul>
+</section>
+<section id="returns-1" class="level4">
+<h4 class="anchored" data-anchor-id="returns-1">Returns:</h4>
+<ul>
+<li><strong>alignment_indices</strong>:
+<ul>
+<li><strong>Type</strong>: <code>Tuple[int, int, int, int]</code></li>
+<li><strong>Description</strong>: Indices for eta and phi hits used in alignment. Returns <code>i, j, k, l</code> where <code>i</code> and <code>j</code> are for eta hits, and <code>k</code> and <code>l</code> are for phi hits.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="atools.testalign" class="level3">
+<h3 class="anchored" data-anchor-id="atools.testalign">ATools.<code>testAlign</code></h3>
+<section id="description-2" class="level4">
+<h4 class="anchored" data-anchor-id="description-2">Description:</h4>
+<p>Tests the alignment of hits between two RPCs by calculating the distance between two channels in eta and phi direction using minimum time.</p>
+</section>
+<section id="parameters-2" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-2">Parameters:</h4>
+<ul>
+<li><strong>rpc1Hits</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: List of hits from the first RPC.</li>
+</ul></li>
+<li><strong>rpc2Hits</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: List of hits from the second RPC.</li>
+</ul></li>
+<li><strong>skipChans</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: Channels to be skipped during alignment calculation.</li>
+<li><strong>Default Value</strong>: <code>[]</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="returns-2" class="level4">
+<h4 class="anchored" data-anchor-id="returns-2">Returns:</h4>
+<ul>
+<li><strong>time_difference</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: The absolute difference in minimum channels between the two RPCs. Returns <code>-1</code> if alignment cannot be determined.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="atools.constructeventinsertionlist" class="level3">
+<h3 class="anchored" data-anchor-id="atools.constructeventinsertionlist">ATools.<code>ConstructEventInsertionList</code></h3>
+<section id="description-3" class="level4">
+<h4 class="anchored" data-anchor-id="description-3">Description:</h4>
+<p>Constructs a list indicating the number of fake events to be inserted for each TDC based on alignment updates.</p>
+</section>
+<section id="parameters-3" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-3">Parameters:</h4>
+<ul>
+<li><strong>updates</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of int</code></li>
+<li><strong>Description</strong>: List of update values for alignment, where each value corresponds to the adjustment needed for the respective TDC.</li>
+</ul></li>
+<li><strong>order</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of Tuples</code></li>
+<li><strong>Description</strong>: Specifies the order of TDC alignment pairs. Each tuple contains two TDC indices that are being aligned.</li>
+</ul></li>
+</ul>
+</section>
+<section id="returns-3" class="level4">
+<h4 class="anchored" data-anchor-id="returns-3">Returns:</h4>
+<ul>
+<li><strong>insertion_list</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of int</code></li>
+<li><strong>Description</strong>: A list indicating the number of fake events to be inserted for each TDC. Ensures no negative values by adjusting the list with the minimum value if necessary.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

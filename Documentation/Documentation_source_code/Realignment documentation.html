@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>realignment-documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Realignment documentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Realignment documentation_files/libs/quarto-html/quarto.js"></script>
+<script src="Realignment documentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="Realignment documentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Realignment documentation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Realignment documentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Realignment documentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Realignment documentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Realignment documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Realignment documentation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="freader.get_aligned_events" class="level1">
+<h1>fReader.<code>get_aligned_events</code></h1>
+<p><strong>fReader.<code>get_aligned_events</code>(order = [(0,1), (1,2), (2,3), (3,4)], interval = 100, extract_tdc_mets = False, recordtimes = False)</strong></p>
+<section id="description" class="level4">
+<h4 class="anchored" data-anchor-id="description">Description:</h4>
+<p>output chunks of interval length events</p>
+</section>
+<section id="parameters" class="level4">
+<h4 class="anchored" data-anchor-id="parameters">Parameters:</h4>
+<ol type="1">
+<li><strong>order</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of Tuples</code></li>
+<li><strong>Description</strong>: Specifies your order.</li>
+<li><strong>Default Value</strong>: <code>[(0,1), (1,2), (2,3), (3,4)]</code></li>
+</ul></li>
+<li><strong>interval</strong>:
+<ul>
+<li><strong>Type</strong>: <code>int</code></li>
+<li><strong>Description</strong>: The number of events to process in one chunk, larger chunk leads to better alignment.</li>
+<li><strong>Default Value</strong>: <code>100</code></li>
+</ul></li>
+<li><strong>extract_tdc_mets</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Flag that determines whether to extract TDC metrics, where the TDC states will be monitored.</li>
+<li><strong>Default Value</strong>: <code>False</code></li>
+</ul></li>
+<li><strong>recordtimes</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Flag that determines whether to record the minimum time and word for each event</li>
+<li><strong>Default Value</strong>: <code>False</code></li>
+</ul></li>
+</ol>
+</section>
+<section id="returns" class="level4">
+<h4 class="anchored" data-anchor-id="returns">Returns:</h4>
+<ol type="1">
+<li><strong>When <code>extract_tdc_mets</code> is <code>True</code></strong>:
+<ul>
+<li><strong>evts_chunk</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: A list of processed events that are not necessarily globally aligned.</li>
+</ul></li>
+<li><strong>tdc_mets</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of lists</code></li>
+<li><strong>Description</strong>: A list of TDC metrics for each tdc, only outputted every 2500 events. .</li>
+<li><strong>Example Value</strong>: <code>[[TDC0 list], [TDC1 list], [TDC2 list], [TDC3 lsit], [TDC4 list]]</code></li>
+</ul></li>
+<li><strong>TDC_error_time</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of lists</code></li>
+<li><strong>Description</strong>: A list for eah TDC recording the minimum event time and event word in each event</li>
+<li><strong>Example Value</strong>: <code>[[(min_time, min_word), event number], [TDC1 list], [TDC2 list], [TDC3 lsit], [TDC4 list]]</code></li>
+</ul></li>
+</ul></li>
+<li><strong>When <code>extract_tdc_mets</code> is <code>False</code> and <code>self.global_alignment</code> is <code>True</code></strong>:
+<ul>
+<li><strong>evts_chunk</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: A list of processed events.</li>
+</ul></li>
+</ul></li>
+<li><strong>When <code>extract_tdc_mets</code> is <code>False</code> and <code>self.global_alignment</code> is <code>False</code></strong>:
+<ul>
+<li><strong>None</strong>:
+<ul>
+<li><strong>Description</strong>: The function returns <code>None</code>.</li>
+</ul></li>
+</ul></li>
+</ol>
+</section>
+<section id="usage-example" class="level3">
+<h3 class="anchored" data-anchor-id="usage-example">Usage Example:</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set your monitoring chunk size</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload the class object</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the alignment order</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>,<span class="dv">4</span>)]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the maximum number of events to process</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">100</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the counter for processed events</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Process events using a progress bar</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>   event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="see-also-analysistools-for-other-complimentary-functions-used" class="level3">
+<h3 class="anchored" data-anchor-id="see-also-analysistools-for-other-complimentary-functions-used">see also <a href="ATools%20documentation.html">AnalysisTools</a> for other complimentary functions used</h3>
+<hr>
+</section>
+<section id="self.dorealign" class="level3">
+<h3 class="anchored" data-anchor-id="self.dorealign">self.<code>doRealign</code></h3>
+<section id="description-1" class="level4">
+<h4 class="anchored" data-anchor-id="description-1">Description:</h4>
+<p>Aligns the events based on the given order and updates the alignment metrics.</p>
+</section>
+<section id="parameters-1" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-1">Parameters:</h4>
+<ul>
+<li><strong>event_chunk</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: The chunk of events to be realigned.</li>
+</ul></li>
+<li><strong>order</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of Tuples</code></li>
+<li><strong>Description</strong>: Specifies the order for alignment.</li>
+</ul></li>
+<li><strong>skipChans</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: Channels to be skipped during alignment.</li>
+<li><strong>Default Value</strong>: <code>[0]</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="returns-1" class="level4">
+<h4 class="anchored" data-anchor-id="returns-1">Returns:</h4>
+<ul>
+<li><strong>aligned</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Whether the events are aligned.</li>
+</ul></li>
+<li><strong>realigned</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Whether the events were realigned.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="self.check_alignment_status" class="level3">
+<h3 class="anchored" data-anchor-id="self.check_alignment_status">self.<code>check_alignment_status</code></h3>
+<section id="description-2" class="level4">
+<h4 class="anchored" data-anchor-id="description-2">Description:</h4>
+<p>Checks the status of the alignment and updates the global alignment and last bad status.</p>
+</section>
+<section id="parameters-2" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-2">Parameters:</h4>
+<ul>
+<li><strong>aligned</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Whether the events are aligned.</li>
+</ul></li>
+<li><strong>realigned</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Whether the events were realigned.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="self.update_adjustment_window" class="level3">
+<h3 class="anchored" data-anchor-id="self.update_adjustment_window">self.<code>update_adjustment_window</code></h3>
+<section id="description-3" class="level4">
+<h4 class="anchored" data-anchor-id="description-3">Description:</h4>
+<p>Updates the adjustment window based on the alignment status.</p>
+</section>
+<section id="parameters-3" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-3">Parameters:</h4>
+<ul>
+<li><strong>realigned</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Whether the events were realigned.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="self.monitor_tdc3_state" class="level3">
+<h3 class="anchored" data-anchor-id="self.monitor_tdc3_state">self.<code>monitor_tdc3_state</code></h3>
+<section id="description-4" class="level4">
+<h4 class="anchored" data-anchor-id="description-4">Description:</h4>
+<p>Monitors the state of the TDCs and updates TDC metrics.</p>
+</section>
+<section id="parameters-4" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-4">Parameters:</h4>
+<ul>
+<li><strong>recordtimes</strong>:
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: Flag that determines whether to record the minimum time and word for each event.</li>
+<li><strong>Default Value</strong>: <code>False</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="returns-2" class="level4">
+<h4 class="anchored" data-anchor-id="returns-2">Returns:</h4>
+<ul>
+<li><strong>TDC_error_time</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of lists</code></li>
+<li><strong>Description</strong>: A list for each TDC recording the minimum event time and event word.</li>
+</ul></li>
+<li><strong>tdc_mets</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list of lists</code></li>
+<li><strong>Description</strong>: A list of TDC metrics for each TDC.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="self.insertfakeevents" class="level3">
+<h3 class="anchored" data-anchor-id="self.insertfakeevents">self.<code>InsertFakeEvents</code></h3>
+<section id="description-5" class="level4">
+<h4 class="anchored" data-anchor-id="description-5">Description:</h4>
+<p>Inserts fake events into the event builder based on the insertion list.</p>
+</section>
+<section id="parameters-5" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-5">Parameters:</h4>
+<ul>
+<li><strong>insertion_list</strong>:
+<ul>
+<li><strong>Type</strong>: <code>list</code></li>
+<li><strong>Description</strong>: List of the number of fake events to insert for each TDC.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="code-description-get_aligned_events" class="level1">
+<h1>Code Description: <code>get_aligned_events</code></h1>
+<p>The <code>get_aligned_events</code> function is designed to process a chunk of events, align them according to the alignment metric, monitor TDC (Time-to-Digital Converter) states, and optionally extract TDC metrics.</p>
+<section id="initialization" class="level4">
+<h4 class="anchored" data-anchor-id="initialization">1. Initialization</h4>
+<ul>
+<li>The function initializes three main variables:
+<ul>
+<li><code>evts_chunk</code> to store the processed events.</li>
+<li><code>tdc_mets</code> to store TDC metrics (initialized to zero).</li>
+<li><code>TDC_error_time</code> to record error times for each TDC (initialized as empty lists).</li>
+</ul></li>
+<li>A counter <code>i</code> is set to 0 to keep track of the number of events processed.</li>
+</ul>
+</section>
+<section id="reading-and-processing-events" class="level4">
+<h4 class="anchored" data-anchor-id="reading-and-processing-events">2. Reading and Processing Events</h4>
+<ul>
+<li>The function does the following for each pair ordered</li>
+<li>The function enters a while loop, which runs until <code>i</code> reaches the specified <code>interval</code> value.</li>
+<li>Within the loop, <code>self.readBlock()</code> is called to read a block of data. If the read fails, the loop breaks.</li>
+<li>If the block contains events (<code>self.hasEvents()</code>), each event is appended to <code>evts_chunk</code>, and counters <code>i</code> and <code>self.tdc_monitoring_counter</code> are incremented.</li>
+</ul>
+</section>
+<section id="aligning-events" class="level4">
+<h4 class="anchored" data-anchor-id="aligning-events">3. Aligning Events</h4>
+<ul>
+<li>The function calls <code>self.doRealign(evts_chunk, order)</code> to align the events in <code>evts_chunk</code> according to the specified <code>order</code>.</li>
+<li><code>doRealign</code> performs the alignment by iterating through the specified <code>order</code>, calculating alignment metrics using <code>ATools.calcAvgAlign</code>, and attempting to realign events if the metrics indicate misalignment.</li>
+<li><code>ATools.calcAvgAlign</code> finds the alignment metric by choosing two different RPCs operated under different TDC. Then the minimum hit time hits are used in each event, the average separation in eta and phi channels are calculated for a length of interval events. If the events are aligned, the averaged distance would be small because they represent real particles, otherwise the average distance is large since it is purely stochastic.</li>
+<li>If realignment is found, the pairwise difference is recorded, where Atools.<code>ConstructEventInsertionList</code> is used to calculate how many fakes events needed to be inserted. fake events are inserted using <code>self.InsertFakeEvents</code> where the variable is processed internally.</li>
+</ul>
+</section>
+<section id="updating-alignment-status" class="level4">
+<h4 class="anchored" data-anchor-id="updating-alignment-status">4. Updating Alignment Status</h4>
+<ul>
+<li>After alignment, the function calls <code>self.check_alignment_status(aligned, realigned)</code> to update the global alignment status and the status of the last processed events.</li>
+</ul>
+</section>
+<section id="updating-adjustment-window" class="level4">
+<h4 class="anchored" data-anchor-id="updating-adjustment-window">5. Updating Adjustment Window</h4>
+<ul>
+<li>The function then calls <code>self.update_adjustment_window(realigned)</code> to adjust the window size used for alignment based on the recent alignment status. If the events are not aligned and no alignment were found, the window increases</li>
+</ul>
+</section>
+<section id="monitoring-tdc-state" class="level4">
+<h4 class="anchored" data-anchor-id="monitoring-tdc-state">6. Monitoring TDC State</h4>
+<ul>
+<li>The function extends <code>self.tdc_monitoring_event_buffer</code> with the newly processed events.</li>
+<li>If <code>self.tdc_monitoring_counter</code> exceeds 2500, the function calls <code>self.monitor_tdc3_state(recordtimes=True)</code> to monitor the state of the TDCs, update TDC metrics, and reset the counter and buffer.</li>
+</ul>
+</section>
+<section id="returning-results" class="level4">
+<h4 class="anchored" data-anchor-id="returning-results">7. Returning Results</h4>
+<ul>
+<li>If <code>extract_tdc_mets</code> is <code>True</code>, the function returns <code>evts_chunk</code>, <code>tdc_mets</code>, and <code>TDC_error_time</code>.</li>
+<li>If <code>extract_tdc_mets</code> is <code>False</code> and <code>self.global_alignment</code> is <code>True</code>, the function returns <code>evts_chunk</code>.</li>
+<li>Otherwise, the function returns <code>None</code>.</li>
+</ul>
+<hr>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
