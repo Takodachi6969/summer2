@@ -110,6 +110,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="timing_analyser-class-documentation" class="level1">
 <h1><code>Timing_Analyser</code> Class Documentation</h1>
+</section>
+<section id="table-of-content" class="level1">
+<h1>Table of Content</h1>
+<ul>
+<li><a href="#timing_analyser-class-documentation"><code>Timing_Analyser</code> Class Documentation</a></li>
+<li><a href="#table-of-content">Table of Content</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#class-definition">Class Definition</a>
+<ul>
+<li><a href="#initialization">Initialization</a></li>
+<li><a href="#data-structure"><strong>Data Structure</strong></a></li>
+</ul></li>
+<li><a href="#methods"><strong>Methods</strong></a>
+<ul>
+<li><a href="#tanalyserupdate_event">TAnalyser.<code>update_event</code></a></li>
+<li><a href="#description"><strong>Description</strong></a></li>
+<li><a href="#parameters"><strong>Parameters</strong>:</a></li>
+<li><a href="#tanalyserreadtdctimediffs">TAnalyser.<code>readTDCTimeDiffs</code></a></li>
+<li><a href="#description-1"><strong>Description</strong></a></li>
+<li><a href="#related_functions"><strong>Related_functions</strong></a></li>
+<li><a href="#tanalysercalculate_residual_and_plot_tdc_time_diffs">TAnalyser.<code>Calculate_Residual_and_plot_TDC_Time_Diffs</code></a></li>
+<li><a href="#description-2"><strong>Description</strong></a></li>
+<li><a href="#parameters-1"><strong>Parameters</strong></a></li>
+<li><a href="#returns"><strong>Returns</strong></a></li>
+<li><a href="#further-information"><strong>Further information</strong></a></li>
+<li><a href="#note"><strong>Note</strong></a></li>
+<li><a href="#tanalysercheck_eta_trigger">TAnalyser.<code>check_eta_trigger</code></a></li>
+<li><a href="#description-3"><strong>Description</strong></a></li>
+<li><a href="#parameters-2"><strong>Parameters</strong></a></li>
+<li><a href="#returns-1"><strong>Returns</strong></a></li>
+<li><a href="#example-usage"><strong>Example Usage</strong></a></li>
+<li><a href="#note-1"><strong>Note</strong></a></li>
+<li><a href="#related-function"><strong>Related function</strong></a></li>
+<li><a href="#tanalyserplot_rpc_involvement_histogram">TAnalyser.<code>plot_rpc_involvement_histogram</code></a></li>
+<li><a href="#description-4">Description</a></li>
+<li><a href="#parameters-3">Parameters</a></li>
+<li><a href="#example-usage-1">Example Usage</a></li>
+</ul></li>
+</ul></li>
+</ul>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>The <code>Timing_Analyser</code> class is designed to process and analyze timing data from event chunks. This class helps in calculating and visualizing time of flight analysis, residuals, and other related metrics for the pro_anubis detectors. It provides functionalities to update events, read TDC (Time-to-Digital Converter) time differences, calculate residuals, check eta trigger, and plot various data for analysis.</p>
@@ -138,12 +179,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>rpc_involvement</code>: Dictionary for tracking RPC involvement in events.</li>
 </ul>
 </section>
+<section id="data-structure" class="level3">
+<h3 class="anchored" data-anchor-id="data-structure"><strong>Data Structure</strong></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.totDiffs <span class="op">=</span> {<span class="dv">0</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)], </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)], </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">4</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">5</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)]}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.nDiffs <span class="op">=</span> {<span class="dv">0</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="dv">1</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)], </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="dv">2</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)], </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="dv">3</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="dv">4</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="dv">5</span>:[[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)]}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.diffHists <span class="op">=</span> {<span class="dv">0</span>:[[hi.Hist(hi.axis.Regular(bins<span class="op">=</span><span class="dv">376</span>, start<span class="op">=-</span><span class="fl">150.4</span>, stop<span class="op">=</span><span class="fl">150.4</span>, name<span class="op">=</span><span class="st">"rpc0etPhiDiff"</span>)) <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="dv">1</span>:[[hi.Hist(hi.axis.Regular(bins<span class="op">=</span><span class="dv">376</span>, start<span class="op">=-</span><span class="fl">150.4</span>, stop<span class="op">=</span><span class="fl">150.4</span>, name<span class="op">=</span><span class="st">"rpc1etPhiDiff"</span>)) <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="dv">2</span>:[[hi.Hist(hi.axis.Regular(bins<span class="op">=</span><span class="dv">376</span>, start<span class="op">=-</span><span class="fl">150.4</span>, stop<span class="op">=</span><span class="fl">150.4</span>, name<span class="op">=</span><span class="st">"rpc2etPhiDiff"</span>)) <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            <span class="dv">3</span>:[[hi.Hist(hi.axis.Regular(bins<span class="op">=</span><span class="dv">376</span>, start<span class="op">=-</span><span class="fl">150.4</span>, stop<span class="op">=</span><span class="fl">150.4</span>, name<span class="op">=</span><span class="st">"rpc3etPhiDiff"</span>)) <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="dv">4</span>:[[hi.Hist(hi.axis.Regular(bins<span class="op">=</span><span class="dv">376</span>, start<span class="op">=-</span><span class="fl">150.4</span>, stop<span class="op">=</span><span class="fl">150.4</span>, name<span class="op">=</span><span class="st">"rpc4etPhiDiff"</span>)) <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)],</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="dv">5</span>:[[hi.Hist(hi.axis.Regular(bins<span class="op">=</span><span class="dv">376</span>, start<span class="op">=-</span><span class="fl">150.4</span>, stop<span class="op">=</span><span class="fl">150.4</span>, name<span class="op">=</span><span class="st">"rpc5etPhiDiff"</span>)) <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)]}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.scDiffs <span class="op">=</span> [[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)]</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.normDiffs <span class="op">=</span> [[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods"><strong>Methods</strong></h2>
 <section id="tanalyser.update_event" class="level3">
 <h3 class="anchored" data-anchor-id="tanalyser.update_event">TAnalyser.<code>update_event</code></h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_event(<span class="va">self</span>, event_chunk, processed_event):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description"><strong>Description</strong></h3>
@@ -172,7 +236,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="tanalyser.calculate_residual_and_plot_tdc_time_diffs" class="level3">
 <h3 class="anchored" data-anchor-id="tanalyser.calculate_residual_and_plot_tdc_time_diffs">TAnalyser.<code>Calculate_Residual_and_plot_TDC_Time_Diffs</code></h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Calculate_Residual_and_plot_TDC_Time_Diffs(<span class="va">self</span>, outDict, pdf_filename<span class="op">=</span><span class="st">'plots.pdf'</span>, max_itr<span class="op">=</span><span class="dv">1</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="description-2" class="level3">
 <h3 class="anchored" data-anchor-id="description-2"><strong>Description</strong></h3>
@@ -202,13 +265,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="note" class="level3">
 <h3 class="anchored" data-anchor-id="note"><strong>Note</strong></h3>
 <p>The time walk correction is defined as</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>correction <span class="op">=</span> slope <span class="op">*</span> (eta <span class="op">-</span> phi) <span class="op">+</span> offset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>correction <span class="op">=</span> slope <span class="op">*</span> (eta <span class="op">-</span> phi) <span class="op">+</span> offset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where the slope and offset were defined using “magic number”. Although they should not change, if more events used, a better fit could be found for these corrections, and might require adjustment in the future</p>
 <hr>
 </section>
 <section id="tanalyser.check_eta_trigger" class="level3">
 <h3 class="anchored" data-anchor-id="tanalyser.check_eta_trigger">TAnalyser.<code>check_eta_trigger</code></h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_eta_trigger(<span class="va">self</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="description-3" class="level3">
 <h3 class="anchored" data-anchor-id="description-3"><strong>Description</strong></h3>
@@ -233,14 +295,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="example-usage" class="level3">
 <h3 class="anchored" data-anchor-id="example-usage"><strong>Example Usage</strong></h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>result, failed_events <span class="op">=</span> <span class="va">self</span>.check_eta_trigger()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All events met the criteria."</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Some events failed the criteria:"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> event_num, count <span class="kw">in</span> failed_events:</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Event </span><span class="sc">{</span>event_num<span class="sc">}</span><span class="ss"> involved </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> RPC(s)."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result, failed_events <span class="op">=</span> <span class="va">self</span>.check_eta_trigger()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All events met the criteria."</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Some events failed the criteria:"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> event_num, count <span class="kw">in</span> failed_events:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Event </span><span class="sc">{</span>event_num<span class="sc">}</span><span class="ss"> involved </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> RPC(s)."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="note-1" class="level3">
 <h3 class="anchored" data-anchor-id="note-1"><strong>Note</strong></h3>
@@ -266,7 +328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="example-usage-1" class="level3">
 <h3 class="anchored" data-anchor-id="example-usage-1">Example Usage</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.plot_rpc_involvement_histogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.plot_rpc_involvement_histogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 </section>

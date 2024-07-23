@@ -140,6 +140,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><h3 id="returns" class="anchored"><strong>Returns</strong></h3></li>
 <li><strong>tdc (int)</strong> and <strong>tdcChannel (int)</strong>: Corresponding TDC index and channel, or None if invalid combination.</li>
 </ul>
+</section>
+<section id="example-usage" class="level3">
+<h3 class="anchored" data-anchor-id="example-usage"><strong>Example usage</strong></h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tdcEvenToRPCData(<span class="dv">0</span>, <span class="dv">12</span>, <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 </section>
@@ -155,7 +159,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="usage-example" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example"><strong>Usage Example</strong></h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_times(TDC_error_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[(event_time, event_word), event_num] <span class="op">=</span> [(<span class="dv">253</span>, <span class="dv">605028605</span>), <span class="dv">1</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>TDC_error_time <span class="op">=</span> [[[(event_time, event_word), event_num]] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_times(TDC_error_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="note" class="level3">
 <h3 class="anchored" data-anchor-id="note"><strong>Note</strong></h3>
@@ -179,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="usage-example-1" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example-1"><strong>Usage Example</strong></h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_times_custom_ranges(TDC_error_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_times_custom_ranges(TDC_error_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="note-1" class="level3">
 <h3 class="anchored" data-anchor-id="note-1"><strong>Note</strong></h3>
@@ -202,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="usage-example-2" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example-2"><strong>Usage Example</strong></h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_channels(TDC_error_time, [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_channels(TDC_error_time, [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="note-2" class="level3">
 <h3 class="anchored" data-anchor-id="note-2"><strong>Note</strong></h3>
@@ -225,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>output_pdf (str, optional)</strong>: Output PDF file name. Default is TDC_error_channels.pdf.</li>
 <li><h3 id="usage-example-3" class="anchored"><strong>Usage Example</strong></h3></li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_channels_custom_ranges(TDC_error_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)], [<span class="dv">0</span>, <span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_error_channels_custom_ranges(TDC_error_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)], [<span class="dv">0</span>, <span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="note-3" class="level3">
 <h3 class="anchored" data-anchor-id="note-3"><strong>Note</strong></h3>
@@ -250,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="usage-example-4" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example-4"><strong>Usage Example</strong></h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_alignment_channels_custom_ranges(TDC_alignment_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)], [<span class="dv">0</span>, <span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_alignment_channels_custom_ranges(TDC_alignment_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)], [<span class="dv">0</span>, <span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 </section>
@@ -268,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>output_pdf (str, optional)</strong>: Output PDF file name. Default is TDC_alignment_times.pdf.</li>
 <li><h3 id="usage-example-5" class="anchored"><strong>Usage Example</strong></h3></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_alignment_times_custom_ranges(TDC_alignment_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plot_tdc_alignment_times_custom_ranges(TDC_alignment_time, [(<span class="dv">0</span>, <span class="dv">15000</span>), (<span class="dv">25000</span>, <span class="dv">40000</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 </section>
@@ -281,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="parameters-7" class="level3">
 <h3 class="anchored" data-anchor-id="parameters-7"><strong>Parameters</strong></h3>
 <ul>
-<li><strong>outDict (dict)</strong>: Output dictionary containing difference histograms.</li>
+<li><strong>outDict (dict)</strong>: Output dictionary containing difference histograms, this is populated by TAnalyser.</li>
 <li><strong>ph (int)</strong>: Phi index.</li>
 <li><strong>et (int)</strong>: Eta index.</li>
 <li><strong>rpc (int)</strong>: RPC index.</li>
@@ -289,7 +295,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="usage-example-6" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example-6"><strong>Usage Example</strong></h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>show_strip_time_info(outDict, <span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>outDict <span class="op">=</span> {<span class="st">'totDiffs'</span>:TAnalyser.totDiffs,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'nDiffs'</span>:TAnalyser.nDiffs,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'diffHists'</span>:TAnalyser.diffHists} </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>show_strip_time_info(outDict, <span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="related-functions" class="level3">
+<h3 class="anchored" data-anchor-id="related-functions"><strong>Related Functions</strong></h3>
+<p><a href="Timing_Analyser%20documentation.html">TAnlayser</a></p>
 </section>
 </section>
 </section>

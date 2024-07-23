@@ -1,3 +1,44 @@
+# Realignent Documentation
+# Overview
+This is the documentation of the realignment
+
+# Table of content
+
+- [Realignent Documentation](#realignent-documentation)
+- [Overview](#overview)
+- [Table of content](#table-of-content)
+- [fReader.`get_aligned_events`](#freaderget_aligned_events)
+      - [Description:](#description)
+      - [Parameters:](#parameters)
+      - [Returns:](#returns)
+    - [Usage Example:](#usage-example)
+    - [see also \[AnalysisTools\](ATools documentation.html) for other complimentary functions used](#see-also-analysistoolsatools-documentationhtml-for-other-complimentary-functions-used)
+    - [self.`doRealign`](#selfdorealign)
+      - [Description:](#description-1)
+      - [Parameters:](#parameters-1)
+      - [Returns:](#returns-1)
+    - [self.`check_alignment_status`](#selfcheck_alignment_status)
+      - [Description:](#description-2)
+      - [Parameters:](#parameters-2)
+    - [self.`update_adjustment_window`](#selfupdate_adjustment_window)
+      - [Description:](#description-3)
+      - [Parameters:](#parameters-3)
+    - [self.`monitor_tdc3_state`](#selfmonitor_tdc3_state)
+      - [Description:](#description-4)
+      - [Parameters:](#parameters-4)
+      - [Returns:](#returns-2)
+    - [self.`InsertFakeEvents`](#selfinsertfakeevents)
+      - [Description:](#description-5)
+      - [Parameters:](#parameters-5)
+- [Code Description: `get_aligned_events`](#code-description-get_aligned_events)
+      - [1. Initialization](#1-initialization)
+      - [2. Reading and Processing Events](#2-reading-and-processing-events)
+      - [3. Aligning Events](#3-aligning-events)
+      - [4. Updating Alignment Status](#4-updating-alignment-status)
+      - [5. Updating Adjustment Window](#5-updating-adjustment-window)
+      - [6. Monitoring TDC State](#6-monitoring-tdc-state)
+      - [7. Returning Results](#7-returning-results)
+
 # fReader.`get_aligned_events`
 **fReader.`get_aligned_events`(order = [(0,1), (1,2), (2,3), (3,4)], interval = 100, extract_tdc_mets = False, recordtimes = False)**
 

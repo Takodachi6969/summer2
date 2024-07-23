@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>reconstructor</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="reconstructor_files/libs/clipboard/clipboard.min.js"></script>
+<script src="reconstructor_files/libs/quarto-html/quarto.js"></script>
+<script src="reconstructor_files/libs/quarto-html/popper.min.js"></script>
+<script src="reconstructor_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="reconstructor_files/libs/quarto-html/anchor.min.js"></script>
+<link href="reconstructor_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="reconstructor_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="reconstructor_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="reconstructor_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="reconstructor_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="reconstructor-class-documentation" class="level1">
+<h1>Reconstructor Class Documentation</h1>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>The rpcCoincidence and Reconstructor classes are designed to process and analyze data from proAnubis setup. It uses heavly the <a href="RTools%20documentation.html">RTools</a></p>
+</section>
+<section id="table-of-contents" class="level1">
+<h1>Table of Contents</h1>
+<ul>
+<li><a href="#reconstructor-class-documentation">Reconstructor Class Documentation</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#rpccoincidence-class"><code>rpcCoincidence</code> Class</a>
+<ul>
+<li><a href="#initialization">Initialization</a></li>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#methods">Methods</a></li>
+<li><a href="#description">Description</a></li>
+</ul></li>
+<li><a href="#reconstructor-class">Reconstructor Class</a>
+<ul>
+<li><a href="#initialization-1">Initialization</a></li>
+<li><a href="#parameters-1">Parameters</a></li>
+<li><a href="#attributes">Attributes</a></li>
+<li><a href="#methods-1">Methods</a>
+<ul>
+<li><a href="#selfpopulate_hits">self.<code>populate_hits</code></a></li>
+<li><a href="#selfupdate_event">self.<code>update_event</code></a>
+<ul>
+<li><a href="#description-1">Description</a></li>
+<li><a href="#parameters-2">Parameters</a></li>
+</ul></li>
+<li><a href="#selfmake_cluster">self.<code>make_cluster</code></a></li>
+<li><a href="#description-2">Description</a></li>
+<li><a href="#returns">Returns</a></li>
+<li><a href="#related-functions">Related Functions</a></li>
+<li><a href="#selfreconstruct_and_extrapolate">self.<code>reconstruct_and_extrapolate</code></a></li>
+<li><a href="#description-3">Description</a></li>
+<li><a href="#parameters-3">Parameters</a></li>
+<li><a href="#related-functions-1">Related Functions</a></li>
+<li><a href="#selfreconstruct_and_findtof">self.<code>reconstruct_and_findtof</code></a></li>
+<li><a href="#description-4">Description</a></li>
+<li><a href="#parameters-4">Parameters</a></li>
+<li><a href="#selfextract_angles_phi_eta_timed_dz_modified">self.<code>extract_angles_phi_eta_timed_DZ_modified</code></a></li>
+<li><a href="#description-5">Description</a></li>
+<li><a href="#parameters-5">Parameters</a></li>
+<li><a href="#selfapply_systematic_correction">self.<code>apply_systematic_correction</code></a></li>
+<li><a href="#description-6">Description</a></li>
+<li><a href="#parameters-6">Parameters</a></li>
+</ul></li>
+<li><a href="#usage-example">Usage Example</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="rpccoincidence-class" class="level1">
+<h1><code>rpcCoincidence</code> Class</h1>
+<section id="initialization" class="level2">
+<h2 class="anchored" data-anchor-id="initialization">Initialization</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, event_num, time_bin, hits):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<ul>
+<li><strong>event_num (int)</strong>: The event number.</li>
+<li><strong>time_bin (int)</strong>: The time bin associated with the event.</li>
+<li><strong>hits (list)</strong>: The list of hits recorded in the event.</li>
+</ul>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p><code>__str__</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<p>Returns a string representation of the rpcCoincidence object.</p>
+</section>
+</section>
+<section id="reconstructor-class" class="level1">
+<h1>Reconstructor Class</h1>
+<section id="initialization-1" class="level2">
+<h2 class="anchored" data-anchor-id="initialization-1">Initialization</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, event_chunk, processsed_event, tolerance<span class="op">=</span><span class="va">None</span>, coincidence_window<span class="op">=</span><span class="dv">15</span>, tof_correction<span class="op">=</span><span class="va">True</span>):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parameters-1" class="level2">
+<h2 class="anchored" data-anchor-id="parameters-1">Parameters</h2>
+<ul>
+<li><strong>event_chunk (list)</strong>: List of events to be processed.</li>
+<li><strong>processsed_event (int)</strong>: The number of processed events.</li>
+<li><strong>tolerance (list, optional)</strong>: List of tolerance values for reconstruction. Defaults to a range of 20 values if not provided.</li>
+<li><strong>coincidence_window (int, optional)</strong>: The window size for coincidence detection. Default is 15.</li>
+<li><strong>tof_correction (bool, optional)</strong>: Boolean to apply time-of-flight correction. Default is True.</li>
+</ul>
+</section>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<ul>
+<li><strong>event_chunk (list)</strong>: List of events to be processed.</li>
+<li><strong>etaHits (list)</strong>: List of eta hits for each RPC.</li>
+<li><strong>phiHits (list)</strong>: List of phi hits for each RPC.</li>
+<li><strong>window_size (int)</strong>: Window size for coincidence detection.</li>
+<li><strong>tof_correction (bool)</strong>: Boolean to apply time-of-flight correction.</li>
+<li><strong>processedEvents (int)</strong>: Number of processed events.</li>
+<li><strong>tol (list)</strong>: List of tolerance values.</li>
+<li><strong>dT (list)</strong>: List of time differences.</li>
+<li><strong>recon (list)</strong>: List of reconstructions.</li>
+<li><strong>possible_reconstructions (list)</strong>: List of possible reconstructions per RPC.</li>
+<li><strong>successful_reconstructions (list)</strong>: List of successful reconstructions per RPC for each tolerance value.</li>
+<li><strong>successful_reconstructed_coords (dict)</strong>: Dictionary of successful reconstructed coordinates for each RPC.</li>
+<li><strong>failed_reconstructed_coords (dict)</strong>: Dictionary of failed reconstructed coordinates for each RPC.</li>
+<li><strong>possible_reconstructions_coords (dict)</strong>: Dictionary of possible reconstructed coordinates for each RPC.</li>
+<li><strong>eta_histogram (numpy array)</strong>: Histogram for eta angles.</li>
+<li><strong>phi_histogram (numpy array)</strong>: Histogram for phi angles.</li>
+<li><strong>solid_theta_histogram (numpy array)</strong>: Histogram for solid theta angles.</li>
+<li><strong>solid_phi_histogram (numpy array)</strong>: Histogram for solid phi angles.</li>
+<li><strong>tdcstatus (list)</strong>: Status of the TDCs.</li>
+</ul>
+</section>
+<section id="methods-1" class="level2">
+<h2 class="anchored" data-anchor-id="methods-1">Methods</h2>
+<section id="self.populate_hits" class="level3">
+<h3 class="anchored" data-anchor-id="self.populate_hits">self.<code>populate_hits</code></h3>
+<p>Populates the eta and phi hits from the event chunk.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> populate_hits(<span class="va">self</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.etaHits <span class="op">=</span> [[] <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.phiHits <span class="op">=</span> [[] <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        skip_event <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, event <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.event_chunk):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> event.tdcEvents[tdc].qual <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                    skip_event <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> skip_event:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span> </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> word <span class="kw">in</span> event.tdcEvents[tdc].words:</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                    rpc, thisHit <span class="op">=</span> ATools.tdcChanToRPCHit(word,tdc, <span class="va">self</span>.processedEvents <span class="op">+</span> idx)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> thisHit.channel <span class="op">==</span> [<span class="dv">0</span>]:</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">continue</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> thisHit.eta:</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                        <span class="va">self</span>.etaHits[rpc].append(thisHit)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                        <span class="va">self</span>.phiHits[rpc].append(thisHit)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="self.update_event" class="level3">
+<h3 class="anchored" data-anchor-id="self.update_event">self.<code>update_event</code></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_event(<span class="va">self</span>, event_chunk, processed_event):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.event_chunk <span class="op">=</span> event_chunk</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.processedEvents <span class="op">=</span> processed_event</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.etaHits <span class="op">=</span> [[] <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.phiHits <span class="op">=</span> [[] <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="description-1" class="level4">
+<h4 class="anchored" data-anchor-id="description-1">Description</h4>
+<p>Updates the event data to a new chunk without changing other stored instances.</p>
+</section>
+<section id="parameters-2" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-2">Parameters</h4>
+<ul>
+<li><strong>event_chunk (list)</strong>: List of new events to be processed.</li>
+<li><strong>processedEvents (int)</strong>: Number of new processed events.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="self.make_cluster" class="level3">
+<h3 class="anchored" data-anchor-id="self.make_cluster">self.<code>make_cluster</code></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_cluster(<span class="va">self</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        coincident_hits <span class="op">=</span> RTools.FindCoincidentHits(<span class="va">self</span>.etaHits, <span class="va">self</span>.phiHits, <span class="va">self</span>.window_size, tof_correction<span class="op">=</span><span class="va">self</span>.tof_correction)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        clustered <span class="op">=</span> RTools.cluster(coincident_hits)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> clustered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description-2" class="level3">
+<h3 class="anchored" data-anchor-id="description-2">Description</h3>
+<p>Creates clusters of coincident hits from the eta and phi hits.</p>
+</section>
+<section id="returns" class="level3">
+<h3 class="anchored" data-anchor-id="returns">Returns</h3>
+<ul>
+<li>clustered (list): List of clustered hits.</li>
+</ul>
+</section>
+<section id="related-functions" class="level3">
+<h3 class="anchored" data-anchor-id="related-functions">Related Functions</h3>
+<p><a href="Rtools%20documentation.html#rtoolsfindcoincidenthits">FindCoincidentHits</a> <a href="Rtools%20documentation.html#rtoolscluster">Cluster</a></p>
+<hr>
+</section>
+<section id="self.reconstruct_and_extrapolate" class="level3">
+<h3 class="anchored" data-anchor-id="self.reconstruct_and_extrapolate">self.<code>reconstruct_and_extrapolate</code></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reconstruct_and_extrapolate(<span class="va">self</span>, dataset, chi2_region <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">100</span>]):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Ensure RPC is a list, even if it's a single integer</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.tdcstatus[<span class="dv">3</span>] <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(dataset):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> RTools.count_entries(data) <span class="op">&lt;</span> <span class="dv">100</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                        E_recon <span class="op">=</span> RTools.reconstruct_timed_Chi2_ByRPC(data, <span class="dv">3</span>, rpc)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> E_recon:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">if</span> <span class="bu">len</span>(E_recon[<span class="dv">2</span>]) <span class="op">&gt;=</span> <span class="dv">5</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                                <span class="cf">if</span> E_recon[<span class="dv">4</span>] <span class="op">&gt;</span> chi2_region[<span class="dv">0</span>] <span class="kw">and</span> E_recon[<span class="dv">4</span>] <span class="op">&lt;</span> chi2_region[<span class="dv">1</span>]:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                                    muon_coords <span class="op">=</span> RTools.does_muon_hit_RPC(E_recon[<span class="dv">0</span>], E_recon[<span class="dv">1</span>], rpc)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="cf">if</span> muon_coords:</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="va">self</span>.possible_reconstructions[rpc] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                                        <span class="va">self</span>.possible_reconstructions_coords[rpc][<span class="bu">int</span>(muon_coords[<span class="dv">0</span>] <span class="op">/</span> <span class="fl">2.7625</span>)][<span class="bu">int</span>(muon_coords[<span class="dv">1</span>] <span class="op">/</span> <span class="fl">2.9844</span>)] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                                        <span class="cf">for</span> idx, t <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.tol):</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>                                            check <span class="op">=</span> RTools.does_RPC_detect_muon(muon_coords, E_recon[<span class="dv">7</span>], t)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                                            <span class="cf">if</span> check:</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                                                <span class="va">self</span>.successful_reconstructions[rpc][idx] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                                                <span class="va">self</span>.successful_reconstructed_coords[rpc][<span class="bu">int</span>(muon_coords[<span class="dv">0</span>] <span class="op">/</span> <span class="fl">2.7625</span>)][<span class="bu">int</span>(muon_coords[<span class="dv">1</span>] <span class="op">/</span> <span class="fl">2.9844</span>)] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                                            <span class="cf">else</span>:</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                                                <span class="va">self</span>.failed_reconstructed_coords[rpc][<span class="bu">int</span>(muon_coords[<span class="dv">0</span>] <span class="op">/</span> <span class="fl">2.7625</span>)][<span class="bu">int</span>(muon_coords[<span class="dv">1</span>] <span class="op">/</span> <span class="fl">2.9844</span>)] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description-3" class="level3">
+<h3 class="anchored" data-anchor-id="description-3">Description</h3>
+<p>Performs reconstruction and extrapolation of the dataset.</p>
+</section>
+<section id="parameters-3" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-3">Parameters</h3>
+<ul>
+<li><strong>dataset (list)</strong>: List of data to be reconstructed.</li>
+<li><strong>chi2_region (list, optional)</strong>: Chi-squared region for filtering. Default is [0, 100].</li>
+</ul>
+</section>
+<section id="related-functions-1" class="level3">
+<h3 class="anchored" data-anchor-id="related-functions-1">Related Functions</h3>
+<p><a href="RTools%20documentation.html">RTools</a></p>
+<hr>
+</section>
+<section id="self.reconstruct_and_findtof" class="level3">
+<h3 class="anchored" data-anchor-id="self.reconstruct_and_findtof">self.<code>reconstruct_and_findtof</code></h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reconstruct_and_findtof(<span class="va">self</span>, dataset, rpc_comparisons):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(dataset):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> RTools.count_entries(data) <span class="op">&lt;</span> <span class="dv">100</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                E_recon <span class="op">=</span> RTools.reconstruct_timed_Chi2_ByRPC(data, <span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, rpc_indicies<span class="op">=</span>rpc_comparisons)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> E_recon:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">len</span>(E_recon[<span class="dv">2</span>]) <span class="op">&gt;=</span> <span class="dv">6</span>:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                        <span class="va">self</span>.dT.append(E_recon[<span class="dv">5</span>])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                        <span class="va">self</span>.recon.append(E_recon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description-4" class="level3">
+<h3 class="anchored" data-anchor-id="description-4">Description</h3>
+<p>Performs reconstruction and finds the time-of-flight differences. ### Parameters - <strong>dataset (list)</strong>: List of data to be reconstructed. - <strong>rpc_comparisons (list)</strong>: List of RPC comparisons for the reconstruction.</p>
+</section>
+<section id="self.extract_angles_phi_eta_timed_dz_modified" class="level3">
+<h3 class="anchored" data-anchor-id="self.extract_angles_phi_eta_timed_dz_modified">self.<code>extract_angles_phi_eta_timed_DZ_modified</code></h3>
+</section>
+<section id="description-5" class="level3">
+<h3 class="anchored" data-anchor-id="description-5">Description</h3>
+<p>Extracts and analyzes angles and time differences from filtered events. The structure is very similar to <code>reconstruct_and_extrapolate</code>, with extra steps to turn the reconstructed line into angles</p>
+</section>
+<section id="parameters-4" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-4">Parameters</h3>
+<ul>
+<li><strong>filtered_events (list)</strong>: List of filtered events.</li>
+<li><strong>max_length (int, optional)</strong>: Maximum length for reconstruction. Default is None.</li>
+<li><strong>exact_length (bool, optional)</strong>: Flag to enforce exact length in reconstruction. Default is False.</li>
+</ul>
+<hr>
+</section>
+<section id="self.apply_systematic_correction" class="level3">
+<h3 class="anchored" data-anchor-id="self.apply_systematic_correction">self.<code>apply_systematic_correction</code></h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_systematic_correction(<span class="va">self</span>, residEta, residPhi):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, etahit <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.etaHits[rpc]):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.etaHits[rpc][i].time <span class="op">+=</span> residEta[rpc][etahit.channel]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j , phihit <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.phiHits[rpc]):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.phiHits[rpc][j].time <span class="op">+=</span> residPhi[rpc][phihit.channel]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="description-6" class="level3">
+<h3 class="anchored" data-anchor-id="description-6">Description</h3>
+<p>Applies systematic corrections to the eta and phi hits.</p>
+</section>
+<section id="parameters-5" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-5">Parameters</h3>
+<ul>
+<li><strong>residEta (list)</strong>: List of eta residuals for correction.</li>
+<li><strong>residPhi (list)</strong>: List of phi residuals for correction.</li>
+</ul>
+</section>
+</section>
+<section id="usage-example" class="level2">
+<h2 class="anchored" data-anchor-id="usage-example">Usage Example</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an event chunk and processed event number</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>event_chunk <span class="op">=</span> [...]  <span class="co"># List of events</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>processed_event <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Reconstructor object</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>reconstructor <span class="op">=</span> Reconstructor(event_chunk, processed_event)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Populate hits from the event chunk</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>reconstructor.populate_hits()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Update event data</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>new_event_chunk <span class="op">=</span> [...]  <span class="co"># New list of events</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>new_processed_event <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>reconstructor.update_event(new_event_chunk, new_processed_event)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create clusters of coincident hits</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> reconstructor.make_cluster()</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform reconstruction and extrapolation</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>reconstructor.reconstruct_and_extrapolate(clusters)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform reconstruction and find time-of-flight differences</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>rpc_comparisons <span class="op">=</span> [...]  <span class="co"># List of RPC comparisons</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>reconstructor.reconstruct_and_findtof(clusters, rpc_comparisons)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract angles and time differences</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>filtered_clusters <span class="op">=</span> [...]  <span class="co"># List of filtered events</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>reconstructor.extract_angles_phi_eta_timed_DZ_modified(filtered_clusters)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply systematic corrections</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>residEta <span class="op">=</span> [...]  <span class="co"># List of eta residuals</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>residPhi <span class="op">=</span> [...]  <span class="co"># List of phi residuals</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>reconstructor.apply_systematic_correction(residEta, residPhi)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot time-of-flight offsets</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>reconstructor.plot_tof_offset(rpc_comparisons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -345,7 +345,7 @@ class Timing_Analyser():
                     self.diffHists[rpc][minPhiHit.channel][minEtaHit.channel].fill(minEtaHit.time-minPhiHit.time)
 
     
-    def Calculate_Residual_and_plot_TDC_Time_Diffs(self, outDict, pdf_filename='plots.pdf', max_itr=1):
+    def Calculate_Residual_and_plot_TDC_Time_Diffs(self, pdf_filename='plots.pdf', max_itr=1):
         badPhi = {0: [], 1: [], 2: [31], 3: [0], 4: [19], 5: [31]}
         badEta = {0: [29, 30, 31], 1: [16, 20], 2: [], 3: [20, 31], 4: [], 5: []}
         
@@ -358,10 +358,10 @@ class Timing_Analyser():
                 offSet = 16.101626655986728
                 for ph in range(64):
                     for et in range(32):
-                        if sum(outDict['diffHists'][rpc][ph][et].counts()) > 0:
+                        if sum(self.diffHists[rpc][ph][et].counts()) > 0:
                             self.scDiffs[ph][et] = sum(
-                                [thisVal * outDict['diffHists'][rpc][ph][et].axes.centers[0][idx] for idx, thisVal in
-                                enumerate(outDict['diffHists'][rpc][ph][et])]) / sum(outDict['diffHists'][rpc][ph][et].counts())
+                                [thisVal * self.diffHists[rpc][ph][et].axes.centers[0][idx] for idx, thisVal in
+                                enumerate(self.diffHists[rpc][ph][et])]) / sum(self.diffHists[rpc][ph][et].counts())
                             self.normDiffs[ph][et] = self.scDiffs[ph][et] + slope * (ph - et) - offSet
 
                 fig, ax = plt.subplots(1, figsize=(16, 8), dpi=100)

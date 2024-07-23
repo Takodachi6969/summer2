@@ -26,6 +26,10 @@ This function maps RPC hits to TDC channels.
 ### **Returns**
 - **tdc (int)** and **tdcChannel (int)**: Corresponding TDC index and channel, or None if invalid combination.
 
+### **Example usage**
+```python
+tdcEvenToRPCData(0, 12, True)
+```
 ---
 
 ## TTools.`plot_tdc_error_times`
@@ -39,6 +43,8 @@ This function plots histograms of min_time for all TDCs.
 ### **Usage Example**
 
 ```python
+[(event_time, event_word), event_num] = [(253, 605028605), 1]
+TDC_error_time = [[[(event_time, event_word), event_num]] for _ in range(5)]
 plot_tdc_error_times(TDC_error_time)
 ```
 
@@ -146,17 +152,22 @@ plot_tdc_alignment_times_custom_ranges(TDC_alignment_time, [(0, 15000), (25000, 
 
 ## TTools.`show_strip_time_info`
 ### **Description**
-This function displays the strip time information by plotting the difference between eta and phi hit times.
+This function displays the strip time information by plotting the difference between eta and phi hit times. 
 
 ### **Parameters**
-- **outDict (dict)**: Output dictionary containing difference histograms.
+- **outDict (dict)**: Output dictionary containing difference histograms, this is populated by TAnalyser.
 - **ph (int)**: Phi index.
 - **et (int)**: Eta index.
 - **rpc (int)**: RPC index.
 
 ### **Usage Example**
 ```python
+outDict = {'totDiffs':TAnalyser.totDiffs,
+                    'nDiffs':TAnalyser.nDiffs,
+                    'diffHists':TAnalyser.diffHists} 
 show_strip_time_info(outDict, 12, 22, 0)
 
 ```
+### **Related Functions**
+[TAnlayser](Timing_Analyser documentation.html)
 

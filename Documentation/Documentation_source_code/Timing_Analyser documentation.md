@@ -1,4 +1,38 @@
 # `Timing_Analyser` Class Documentation
+# Table of Content
+
+- [`Timing_Analyser` Class Documentation](#timing_analyser-class-documentation)
+- [Table of Content](#table-of-content)
+  - [Overview](#overview)
+  - [Class Definition](#class-definition)
+    - [Initialization](#initialization)
+    - [**Data Structure**](#data-structure)
+  - [**Methods**](#methods)
+    - [TAnalyser.`update_event`](#tanalyserupdate_event)
+    - [**Description**](#description)
+    - [**Parameters**:](#parameters)
+    - [TAnalyser.`readTDCTimeDiffs`](#tanalyserreadtdctimediffs)
+    - [**Description**](#description-1)
+    - [**Related\_functions**](#related_functions)
+    - [TAnalyser.`Calculate_Residual_and_plot_TDC_Time_Diffs`](#tanalysercalculate_residual_and_plot_tdc_time_diffs)
+    - [**Description**](#description-2)
+    - [**Parameters**](#parameters-1)
+    - [**Returns**](#returns)
+    - [**Further information**](#further-information)
+    - [**Note**](#note)
+    - [TAnalyser.`check_eta_trigger`](#tanalysercheck_eta_trigger)
+    - [**Description**](#description-3)
+    - [**Parameters**](#parameters-2)
+    - [**Returns**](#returns-1)
+    - [**Example Usage**](#example-usage)
+    - [**Note**](#note-1)
+    - [**Related function**](#related-function)
+    - [TAnalyser.`plot_rpc_involvement_histogram`](#tanalyserplot_rpc_involvement_histogram)
+    - [Description](#description-4)
+    - [Parameters](#parameters-3)
+    - [Example Usage](#example-usage-1)
+
+
 ## Overview
 The `Timing_Analyser` class is designed to process and analyze timing data from event chunks. This class helps in calculating and visualizing time of flight analysis, residuals, and other related metrics for the pro_anubis detectors. It provides functionalities to update events, read TDC (Time-to-Digital Converter) time differences, calculate residuals, check eta trigger, and plot various data for analysis.
 
@@ -25,12 +59,33 @@ def __init__(self, event_chunk, processsed_event, diffHists=None, scDiffs=None, 
 - `count`: List for storing event counts.
 - `rpc_involvement`: Dictionary for tracking RPC involvement in events.
 
+### **Data Structure**
+```python
+self.totDiffs = {0:[[0 for etchan in range(32)] for phchan in range(64)],
+        1:[[0 for etchan in range(32)] for phchan in range(64)], 
+        2:[[0 for etchan in range(32)] for phchan in range(64)], 
+        3:[[0 for etchan in range(32)] for phchan in range(64)],
+        4:[[0 for etchan in range(32)] for phchan in range(64)],
+        5:[[0 for etchan in range(32)] for phchan in range(64)]}
+self.nDiffs = {0:[[0 for etchan in range(32)] for phchan in range(64)],
+            1:[[0 for etchan in range(32)] for phchan in range(64)], 
+            2:[[0 for etchan in range(32)] for phchan in range(64)], 
+            3:[[0 for etchan in range(32)] for phchan in range(64)],
+            4:[[0 for etchan in range(32)] for phchan in range(64)],
+            5:[[0 for etchan in range(32)] for phchan in range(64)]}
+
+self.diffHists = {0:[[hi.Hist(hi.axis.Regular(bins=376, start=-150.4, stop=150.4, name="rpc0etPhiDiff")) for etchan in range(32)] for phchan in range(64)],
+            1:[[hi.Hist(hi.axis.Regular(bins=376, start=-150.4, stop=150.4, name="rpc1etPhiDiff")) for etchan in range(32)] for phchan in range(64)],
+            2:[[hi.Hist(hi.axis.Regular(bins=376, start=-150.4, stop=150.4, name="rpc2etPhiDiff")) for etchan in range(32)] for phchan in range(64)],
+            3:[[hi.Hist(hi.axis.Regular(bins=376, start=-150.4, stop=150.4, name="rpc3etPhiDiff")) for etchan in range(32)] for phchan in range(64)],
+            4:[[hi.Hist(hi.axis.Regular(bins=376, start=-150.4, stop=150.4, name="rpc4etPhiDiff")) for etchan in range(32)] for phchan in range(64)],
+            5:[[hi.Hist(hi.axis.Regular(bins=376, start=-150.4, stop=150.4, name="rpc5etPhiDiff")) for etchan in range(32)] for phchan in range(64)]}
+self.scDiffs = [[0 for etchan in range(32)] for phchan in range(64)]
+self.normDiffs = [[0 for etchan in range(32)] for phchan in range(64)]
+```
 
 ## **Methods**
 ### TAnalyser.`update_event`
-```python
-def update_event(self, event_chunk, processed_event):
-```
 ### **Description**
 Updates the event data to a new chunk, without changing other stored instances
 
@@ -51,9 +106,6 @@ This method processes the event chunk to calculate the time differences between 
 ---
 
 ### TAnalyser.`Calculate_Residual_and_plot_TDC_Time_Diffs`
-```python
-def Calculate_Residual_and_plot_TDC_Time_Diffs(self, outDict, pdf_filename='plots.pdf', max_itr=1):
-```
 ### **Description**
 This function calculates residuals of each eta and phi crossing after time walk correction and generates the intra time of flight plots for each RPC, before and after applying the correction. The plots are saved in a specified PDF file. The function accounts for bad channels in the dataset and iteratively refines the residual calculations.
 
@@ -85,9 +137,6 @@ where the slope and offset were defined using "magic number". Although they shou
 ---
 
 ### TAnalyser.`check_eta_trigger`
-```python
-def check_eta_trigger(self):
-```
 ### **Description**
 The `check_eta_trigger` function is designed to process a chunk of event data and determine if any events meet specific trigger criteria based on the number of hits recorded in RPCs per event. It identifies events where hits occur in at least four different RPCs and classifies them accordingly. The function also identifies and reports events that fail to meet the minimum criteria. The data of all triggers are also recorded through self.`count` and self.`rpc_involvement`
 
