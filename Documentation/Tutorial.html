@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tutorial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Tutorial_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Tutorial_files/libs/quarto-html/quarto.js"></script>
+<script src="Tutorial_files/libs/quarto-html/popper.min.js"></script>
+<script src="Tutorial_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Tutorial_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Tutorial_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Tutorial_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Tutorial_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Tutorial_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Tutorial_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="data-analysis-tutorial" class="level1">
+<h1>Data Analysis Tutorial</h1>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>You’ll need to know a bit of Python. For a refresher, see the <a href="https://docs.python.org/3/tutorial/">Python tutorial</a></p>
+<section id="osiris-version" class="level3">
+<h3 class="anchored" data-anchor-id="osiris-version">Osiris Version</h3>
+<p>The version of Osiris is slightly different to Michael’s version. This version contains the realigner built into the fReader. Hence please use the version of Osiris I have provided. For versions compatible to the original Osiris, consult the labnotes.</p>
+</section>
+<section id="python-version" class="level3">
+<h3 class="anchored" data-anchor-id="python-version">Python Version</h3>
+<p>Python 3.x (Ensure you have a compatible version of Python 3.x installed. Python 2.x is not supported.)</p>
+</section>
+<section id="required-libraries-and-modules" class="level3">
+<h3 class="anchored" data-anchor-id="required-libraries-and-modules">Required Libraries and Modules</h3>
+<p>The following libraries and modules are required to run the provided code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install numpy hist matplotlib mplhep pandas plotly scipy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sys.path.insert(<span class="dv">1</span>, <span class="st">'..\Osiris Temp\processing\python'</span>) <span class="co"># Insert your path to Osiris</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Analysis_tools <span class="im">as</span> ATools</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rawFileReader</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> proAnubis_Analysis_Tools</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Reconstruction_tools <span class="im">as</span> RTools</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mplhep <span class="im">as</span> hep</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Timing_tools <span class="im">as</span> TTools</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Reconstruction_tools <span class="im">as</span> RTools</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>hep.style.use([hep.style.ATLAS])</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">'../../Data/proAnubis_240716_2142.raw'</span> <span class="co"># insert your file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:4: SyntaxWarning: invalid escape sequence '\O'
+&lt;&gt;:4: SyntaxWarning: invalid escape sequence '\O'
+C:\Users\Peter\AppData\Local\Temp\ipykernel_19204\619255930.py:4: SyntaxWarning: invalid escape sequence '\O'
+  sys.path.insert(1, '..\Osiris Temp\processing\python') # Insert your path to Osiris</code></pre>
+</div>
+</div>
+</section>
+<section id="tutorial-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="tutorial-coverage">Tutorial Coverage</h3>
+<p>This is a quick start tutorial example. In this tutorial you will find</p>
+<ol type="1">
+<li>Example usage of various functions, with high level explainations</li>
+<li>How data gathered from rawfileReader, how data are processed with each other</li>
+<li>Reproducing all essential results obtained so far</li>
+<li>Comments on limitations and warnings for usage</li>
+<li>Tutorial on Timing Analysis, Reconstruction and Realigner</li>
+</ol>
+<p>Results including alignment metric, TDC status metric, Reconstruction, time of flight analysis, and how to integrate these systems together</p>
+<p><span style="color:green">For a documentation styled explaination for each function, see other notebook</span>.</p>
+</section>
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h3>
+<p>After this tutorial, you should be able to understand how the data are extracted from the Raw file, how these data are then used in each function to do their designated tasks.</p>
+<p>Understand the data structure, and how to use these data outputs to plot certain plots.</p>
+<p>Using class functions and decorators to extract internal variables (Or use PyCharm…)</p>
+</section>
+<section id="used-data" class="level3">
+<h3 class="anchored" data-anchor-id="used-data">Used Data</h3>
+<p>All example data used are latest data proAnubis_240716_2142 The Reconstruction algorithm was adapted to the latest data behavior where noise bursts were seen, so for the sake of speed, noise bursts were ignored.</p>
+</section>
+<section id="usage-warning" class="level3">
+<h3 class="anchored" data-anchor-id="usage-warning">Usage Warning</h3>
+<p>The code was adapted to analyse data in any situations, so the data structures were written prioritising mutability and easy extraction. This also means that for certain tasks, you might need to adjust low level functions’ behavior.</p>
+</section>
+</section>
+</section>
+<section id="the-basics" class="level1">
+<h1>The Basics</h1>
+<p>The rawFileReader.py is used to read the content of .raw files that stores the data from runs of proAnubis setup. .raw files contains uncompressed binary datas that requires the rawFileReader to decode and turn into useful analysis.</p>
+<p>The Pro_Anubis is run using triggers, which triggers data taking for 1250ns if there are 4 eta side strips triggered within a fixed time frame. Each trigger is called an <span style="color:cyan">event</span>.</p>
+<p>An event contains a <span style="color:cyan">header</span>, which details the content of the event, then the events are written in binary <span style="color:cyan">words</span>, and n <span style="color:cyan">End of block</span> signals a termination of an <span style="color:cyan">event</span></p>
+<p>The <span style="color:cyan">event</span> are written as <code>proAnubEvent</code> object, which contains <code>tdcEvent</code> objects.</p>
+<section id="tdcevent-class" class="level3">
+<h3 class="anchored" data-anchor-id="tdcevent-class">tdcEvent Class</h3>
+<section id="overview" class="level4">
+<h4 class="anchored" data-anchor-id="overview">Overview</h4>
+<p>The <code>tdcEvent</code> class is what the output from rawfileReaders are</p>
+</section>
+<section id="class-variables" class="level4">
+<h4 class="anchored" data-anchor-id="class-variables">Class Variables</h4>
+<section id="header" class="level5">
+<h5 class="anchored" data-anchor-id="header"><code>header</code></h5>
+<ul>
+<li><strong>Type:</strong> <code>Any</code></li>
+<li><strong>Description:</strong> Represents the header word of the event.</li>
+</ul>
+</section>
+<section id="words" class="level5">
+<h5 class="anchored" data-anchor-id="words"><code>words</code></h5>
+<ul>
+<li><strong>Type:</strong> <code>List[Any]</code></li>
+<li><strong>Default:</strong> <code>[]</code></li>
+<li><strong>Description:</strong> A list containing words for each event. These words represent the hits.</li>
+</ul>
+</section>
+<section id="time" class="level5">
+<h5 class="anchored" data-anchor-id="time"><code>time</code></h5>
+<ul>
+<li><strong>Type:</strong> <code>Any</code></li>
+<li><strong>Description:</strong> Holds the timing information for the event, a time stamp in Daytime format.</li>
+</ul>
+</section>
+<section id="eob" class="level5">
+<h5 class="anchored" data-anchor-id="eob"><code>EOB</code></h5>
+<ul>
+<li><strong>Type:</strong> <code>Any</code></li>
+<li><strong>Default:</strong> <code>None</code></li>
+<li><strong>Description:</strong> Represents the end of block indicator. This is used to signify the end of a data block within a trigger.</li>
+</ul>
+</section>
+<section id="qual" class="level5">
+<h5 class="anchored" data-anchor-id="qual"><code>qual</code></h5>
+<ul>
+<li><strong>Type:</strong> <code>int</code></li>
+<li><strong>Default:</strong> <code>0</code></li>
+<li><strong>Description:</strong> A quality check indicator. The <code>qual</code> value provides information on data integrity:
+<ul>
+<li>If <code>qual == 0</code>, it means the data has not experienced corruption that required corrections in the raw file reader.</li>
+<li>If <code>qual != 0</code>, it indicates that data corruption occurred and was captured by the system.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="constructor" class="level4">
+<h4 class="anchored" data-anchor-id="constructor">Constructor</h4>
+<p>The <code>__init__</code> method initializes the <code>tdcEvent</code> class with the provided parameters:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, header, time, words <span class="op">=</span> [], eob<span class="op">=</span><span class="va">None</span>, qual<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.header <span class="op">=</span> header</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.words <span class="op">=</span> words</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.time <span class="op">=</span> time</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.EOB <span class="op">=</span> eob</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.qual <span class="op">=</span> qual</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="data-extraction" class="level1">
+<h1>Data Extraction</h1>
+<p>To extract the data from raw files, the <code>get_aligned_events</code> function is used. At default, it will output globally aligned events until the end of the file. Usually the file is very large, hence an event loop is suggested to end early</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># reload in the classs object</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>,<span class="dv">4</span>)] <span class="co"># Order what you want to align</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">100</span> <span class="co"># End the loop early</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 100/100 [00:01&lt;00:00, 53.42Events/s]</code></pre>
+</div>
+</div>
+<section id="internal-variable-extraction" class="level2">
+<h2 class="anchored" data-anchor-id="internal-variable-extraction">Internal variable extraction</h2>
+<p>some internal variables might be interesting and worth studying. There are a variety of ways to extract them, the simplest way is to go back to the code, and add an extra class variable and record all the information in an instance. This however, is unsustainable and you shouldn’t rewrite a working system just to extract some variables you will probably only require once. Usually we call it: try not to disturb a working system</p>
+<section id="decorators" class="level3">
+<h3 class="anchored" data-anchor-id="decorators">Decorators</h3>
+<p>Decorators are a great tool to extract and capture information within the event run time without altering the original code. please read <a href="https://realpython.com/primer-on-python-decorators/">Decorators tutorial</a> for more information Please note you need to restart the environment if the function rewrote by the decorator runs into issue, because the function will not return to original state</p>
+<p>An example decorator for printing out the alignment insertions done without altering the original function in fReader is printed here</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Example Decorators to capture things in the loop so you don't need to redo any calculations later......</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> debug_decorator(processedEvents):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> inner_decorator(func):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            insertion_list <span class="op">=</span> result</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            update <span class="op">=</span> args[<span class="dv">0</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> insertion_list <span class="op">!=</span> [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f'New alignment, Event chunk </span><span class="sc">{</span>processedEvents<span class="sc">}</span><span class="ss">, insertions </span><span class="sc">{</span>insertion_list<span class="sc">}</span><span class="ss">, Updates: </span><span class="sc">{</span>update<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> result</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inner_decorator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Jupyter notebook doesn't reload your import even when the content of the file is changed. This is crucial</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#The interval is the amount of chunks you want to do realignment analysis with. This also determines the size of the chunk your output is.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Order is the alignment comparisons you need to specify. for each sublist in order is a pairwise comparison between 2 TDCs.</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>,<span class="dv">4</span>)] <span class="co">#Your order to the TDC alignment</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># max_process_event_chunk is used to terminate early in the file reading loop. Your total number of events read will be defined as interval * max_proess_event_chunk</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># some initialisation to store things</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>events <span class="op">=</span> []</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Remember the original function</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>original_ConstructEventInsertionList <span class="op">=</span> ATools.ConstructEventInsertionList </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># condition to end event loop early</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Apply your decorator to change the function</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    ATools.ConstructEventInsertionList  <span class="op">=</span> debug_decorator(processedEvents)(original_ConstructEventInsertionList)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    event <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#reset afterwards</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>ATools.ConstructEventInsertionList  <span class="op">=</span> original_ConstructEventInsertionList</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>New alignment, Event chunk 302, insertions [0, 1, 1, 0, 1], Updates: [-1, 0, 1, -1]
+New alignment, Event chunk 476, insertions [1, 1, 1, 0, 0], Updates: [0, 0, 1, 0]
+New alignment, Event chunk 477, insertions [0, 0, 0, 0, 1], Updates: [0, 0, 0, -1]
+New alignment, Event chunk 516, insertions [0, 1, 1, 0, 0], Updates: [-1, 0, 1, 0]
+New alignment, Event chunk 700, insertions [0, 0, 0, 1, 0], Updates: [0, 0, -1, 1]
+New alignment, Event chunk 701, insertions [1, 0, 0, 0, 0], Updates: [1, 0, 0, 0]
+New alignment, Event chunk 830, insertions [0, 0, 0, 1, 0], Updates: [0, 0, -1, 1]
+New alignment, Event chunk 888, insertions [1, 1, 1, 0, 0], Updates: [0, 0, 1, 0]
+New alignment, Event chunk 889, insertions [0, 0, 1, 1, 1], Updates: [0, -1, 0, 0]</code></pre>
+</div>
+</div>
+<p>You probably have noticed that we are constructing the insertion list and inserting the required amount of insertions in each TDC. This was done to ensure we don’t over insert events, although this isn’t really a problem with the current iteration, but if a large insertion is needed for each content of your order, you could end up with a very long list of empty events, which causes the next chunk to not perform nearly as well.</p>
+</section>
+<section id="re_calculation" class="level3">
+<h3 class="anchored" data-anchor-id="re_calculation">Re_calculation</h3>
+<p>Athough some calculations are processed internally, it might be easier to reprocess the output event list again by redoing the necessary calculations. This will result in redundant calculations, and not possible for all calculations, such as TDC monitoring metric and realignment words used.</p>
+<p>Both fReader and this code is written to ensure the data is calculated in chunks, this avoids memory overflow, and allow the program to start and terminate anywhere one desires.</p>
+<p>When the event chunk is loaded in to the instance, calculation has to be done within this instance, and saved into an external variable. Below is an example of using the function RTools.<code>find_tdc_event_count</code> to calculate the number of headers in each TDC and writing into a buffer <code>tdc_event_count_buffer</code> for that instance, then the information from the buffer is tranfered into an external memory storage <code>tdc_event_count</code> outside the process loop</p>
+<p>Similarly, the alignment metric can be calculated from ATools.<code>calcAvgAlign</code> (for more information refer to documentation).</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># reload in the classs object</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>,<span class="dv">4</span>)] <span class="co"># Order what you want to align</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">100</span> <span class="co"># End the loop early</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Initialise variables to store the results</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>mets <span class="op">=</span> [[] <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>empty_header <span class="op">=</span> <span class="dv">0</span> <span class="co"># Counting the number of empty headers</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>emtpy_events_with_header <span class="op">=</span> [[], []] <span class="co"># prepare two lists of same dimensions for line graph plotting</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>tdc_event_count <span class="op">=</span> [[] <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]<span class="co"># prepare for histogram plotting</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval) <span class="co"># get the aligned events</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        tdc_event_count_buffer <span class="op">=</span> RTools.find_tdc_event_count(event_chunk) <span class="co"># finding the number of headers</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        [tdc_event_count[i].append(tdc_event_count_buffer[i]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)] <span class="co"># write from buffer to memory</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, (i, j) <span class="kw">in</span> <span class="bu">enumerate</span>(order):</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>            x, y, l, m <span class="op">=</span> ATools.find_tdc_alignment_metric(i, j) <span class="co"># determining which RPCs to use for aignment metric</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>            alignMet <span class="op">=</span> ATools.calcAvgAlign(event_chunk, <span class="dv">0</span>, x, y, l, m, i, j, processedEvents) <span class="co"># determine the alignment metric</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            empty_header <span class="op">+=</span> (alignMet <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>) <span class="co"># Calculating the number of empty headers</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>            emtpy_events_with_header[<span class="dv">0</span>].append(empty_header) <span class="co"># write to memory</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>            emtpy_events_with_header[<span class="dv">1</span>].append(processedEvents)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>            mets[idx].append(alignMet) <span class="co"># write to memory</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 100/100 [00:02&lt;00:00, 46.74Events/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, item <span class="kw">in</span> <span class="bu">enumerate</span>(order):</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    met <span class="op">=</span> mets[idx]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    i, j <span class="op">=</span> item</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    binsx <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(met))]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ax.plot(binsx, met, label<span class="op">=</span><span class="ss">f'TDC</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> and TDC</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">, offset 0'</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, max_process_event_chunk)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">40</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Alignment graph'</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Average $\sqrt{d\eta^2+d\phi^2}$'</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Processed Event chunks'</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:15: SyntaxWarning: invalid escape sequence '\s'
+&lt;&gt;:15: SyntaxWarning: invalid escape sequence '\s'
+C:\Users\Peter\AppData\Local\Temp\ipykernel_22812\4261640906.py:15: SyntaxWarning: invalid escape sequence '\s'
+  ax.set_ylabel('Average $\sqrt{d\eta^2+d\phi^2}$')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(emtpy_events_with_header[<span class="dv">1</span>], emtpy_events_with_header[<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Processed Events'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Only Header'</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Only Header vs Processed Events'</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    met <span class="op">=</span> tdc_event_count[tdc]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    binsx <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(met))]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(binsx, met, label<span class="op">=</span><span class="ss">f'TDC</span><span class="sc">{</span>tdc<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, max_process_event_chunk)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_ylim(-1, 100)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'TDC number of events recorded'</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'num of events'</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Processed Event'</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>fReader doesn’t have many instances for storing metric, they are typically thrown out after use, hence it is very difficult to extract these out. However, it becomes easier as we move to Timing Analyser and Reconstructor where the class instances can be called directly to extract and record data.</p>
+<p>The general idea is, if the data is in Osiris, they are NOT stored so that it will run smoothly always. Other data like reconstructio and timing analyser will be stored in class instances, which will remain in memory as long you as you don’t reload them</p>
+</section>
+</section>
+<section id="the-timing-analyser" class="level1">
+<h1>The <code>Timing Analyser</code></h1>
+<p>The <code>Timing_Analyser</code> class is designed to process and analyze timing data from event chunks. This class helps in calculating and visualizing time of flight analysis, residuals, and other related metrics for the pro_anubis detectors. It provides functionalities to update events, read TDC (Time-to-Digital Converter) time differences, calculate residuals, check eta trigger, and plot various data for analysis.</p>
+<p>When using any class from <code>proAnubis_analysis_tools</code>, it is important that a new event loop format is used. The loop involves an initialisation, which clears all instances. When the event loop is entered, calculations are done through internal instances, meaning one must not TAnalyser, but to update the event_chunk through TAnalyser.<code>update_event</code></p>
+<p>One of the most useful metric to determine the corruption status is TAnalyser.<code>check_eta_trigger</code>. This function checks if each chunk has corruption and also count the total number of corrupted events with which RPC was involved in the corruption within the class instance</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># load in the classs object</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">2</span>,<span class="dv">3</span>], [<span class="dv">3</span>,<span class="dv">4</span>]] <span class="co"># Order what you want to align</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">150</span> <span class="co"># End the loop early</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>TAnalyser <span class="op">=</span> proAnubis_Analysis_Tools.Timing_Analyser(initial_event_chunk,processedEvents)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> event_chunk:</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>            TAnalyser.update_event(event_chunk, processedEvents)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            status, failure <span class="op">=</span> TAnalyser.check_eta_trigger()</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 150/150 [00:03&lt;00:00, 49.90Events/s]</code></pre>
+</div>
+</div>
+<p>To plot these on a graph, note we are calling from TAnalyser to obtain the information we needed</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>event_counts_windows <span class="op">=</span> [<span class="bu">len</span>(TAnalyser.count[count]) <span class="cf">for</span> count <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">7</span>)]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>total_windows <span class="op">=</span> <span class="bu">sum</span>(event_counts_windows)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>normalized_windows <span class="op">=</span> [count <span class="op">/</span> total_windows <span class="cf">for</span> count <span class="kw">in</span> event_counts_windows]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>normalized_windows.append(normalized_windows[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">7</span>)) <span class="op">+</span> [<span class="fl">6.5</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.step(r1, normalized_linux, color='mediumseagreen', linestyle='-', linewidth=2, markersize=6, label='0-15000', alpha=1, where='mid')</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.step(r1, normalized_windows, color<span class="op">=</span><span class="st">'dodgerblue'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">6</span>, label<span class="op">=</span><span class="st">'0-15000?'</span>, alpha<span class="op">=</span><span class="dv">1</span>, where<span class="op">=</span><span class="st">'mid'</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Trigger Number'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Events Normalized'</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Normalized Event Count'</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="fl">6.5</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">7</span>))</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As an example, one can also plot directly from class accessing the class variable. This makes no difference fundamentally, but it does make the code much clearer and immediately clear what you are plotting</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>TAnalyser.plot_rpc_involvement_histogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="tdc-monitoring" class="level2">
+<h2 class="anchored" data-anchor-id="tdc-monitoring">TDC monitoring</h2>
+<p>The TDC monitoring script is innatly written in the fReader. Every 2500 events, the TDC status is monitored. This TDC status metric counts the number of events where the first time is within the “bad region” with an event time&gt; 300 ns compare to the “good region” where the event time &lt;300ns. It was typicaly found that the TDC is in an error state when the fraction is larger than 0.2</p>
+<p>As a complementary output, TDC_info is also outputted to show the first hit time and first hit channels on each TDC.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># load in the classs object</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">2</span>,<span class="dv">3</span>], [<span class="dv">3</span>,<span class="dv">4</span>]] <span class="co"># Order what you want to align</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">30</span> <span class="co"># End the loop early</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Initialisation</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>tdc_mets <span class="op">=</span> [[] <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>Tot_TDC_info <span class="op">=</span> [[] <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        event_chunk, tdc_met, TDC_info <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval, extract_tdc_mets <span class="op">=</span> <span class="va">True</span>) </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># get_aligned_events have a choice to output the tdc metric and tdc information by setting extract_tdc_mets to be True</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        [tdc_mets[i].append(tdc_met[i]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>) <span class="cf">if</span> tdc_met[i] <span class="op">!=</span> <span class="dv">0</span>]</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        [Tot_TDC_info[i].extend(TDC_info[i]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>) <span class="cf">if</span> TDC_info[i]]</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 30/30 [00:00&lt;00:00, 31.98Events/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'blue'</span>, <span class="st">'green'</span>, <span class="st">'red'</span>, <span class="st">'purple'</span>, <span class="st">'orange'</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    met <span class="op">=</span> tdc_mets[tdc]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    binsx <span class="op">=</span> [x <span class="op">*</span> <span class="dv">25</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(met))]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(binsx,met, label <span class="op">=</span> <span class="ss">f'tdc </span><span class="sc">{</span>tdc<span class="sc">}</span><span class="ss">'</span>, color <span class="op">=</span> colors[tdc])</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>,max_process_event_chunk)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_ylim(0,1)</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'TDC monitoring metric'</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'bad time behavior / nominal time behavior'</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'processed Event'</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>By plotting these out, one will see the first hit time and first hit channels vary between the good and bad regions</p>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(TTools)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>TTools.plot_tdc_error_times(Tot_TDC_info)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>TTools.plot_tdc_error_times_custom_ranges(Tot_TDC_info, [(<span class="dv">0</span>, <span class="dv">100</span>), (<span class="dv">100</span>, <span class="dv">200</span>)], output_pdf<span class="op">=</span><span class="st">'Data_output/TDC_first_hit_time.pdf'</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>TTools.plot_tdc_error_channels(Tot_TDC_info)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>TTools.plot_tdc_error_channels_custom_ranges(Tot_TDC_info, [(<span class="dv">0</span>, <span class="dv">100</span>), (<span class="dv">100</span>, <span class="dv">200</span>)], tdcs_to_plot<span class="op">=</span><span class="va">None</span>, output_pdf<span class="op">=</span><span class="st">'Data_output/TDC_first_hit_time_channel.pdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Getting the variables used to calculate the alignment metric is even more difficult, since the output data is not representative to what the code used to compute the alignment metric, hence we need decorators to capture the variable in question during the program’s run time, record them, and plot them. Below is an example decorator designed to capture the event words used when doing realignments.</p>
+<p>Essentially it access the function in question, capturing its’ input and output, and calculating the the min channels after the original calculation.</p>
+<p>You may ask why do I do this, well this is because the functino calculating this is step 4 deep in the code, you need to pretty much add this extra check in every functino it passes through, eventually extracting it to the top level. And you probably shouldn’t mess with fReader that much..</p>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Capturer:</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.TDC_alignment_time <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.processedEvents <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> extra_calculation_decorator(<span class="va">self</span>, func):</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>            minTimes <span class="op">=</span> [<span class="dv">300</span>, <span class="dv">300</span>]</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>            minChans <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>            minRPC <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>            minWord <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            tdc <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            eta <span class="op">=</span> [<span class="va">True</span>, <span class="va">True</span>]</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            rpc1Hits <span class="op">=</span> args[<span class="dv">0</span>]</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            rpc2Hits <span class="op">=</span> args[<span class="dv">1</span>]</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>            skipChans <span class="op">=</span> kwargs.get(<span class="st">'skipChans'</span>, [])</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>            result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> result <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> result</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> hit <span class="kw">in</span> rpc1Hits:</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> hit.time <span class="op">&lt;</span> minTimes[<span class="dv">0</span>] <span class="kw">and</span> hit.channel <span class="kw">not</span> <span class="kw">in</span> skipChans:</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>                    minTimes[<span class="dv">0</span>] <span class="op">=</span> hit.time</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>                    minChans[<span class="dv">0</span>] <span class="op">=</span> hit.channel</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>                    minRPC[<span class="dv">0</span>] <span class="op">=</span> hit.rpc</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>                    eta[<span class="dv">0</span>] <span class="op">=</span> hit.eta</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> hit <span class="kw">in</span> rpc2Hits:</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> hit.time <span class="op">&lt;</span> minTimes[<span class="dv">1</span>] <span class="kw">and</span> hit.channel <span class="kw">not</span> <span class="kw">in</span> skipChans:</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>                    minTimes[<span class="dv">1</span>] <span class="op">=</span> hit.time</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>                    minChans[<span class="dv">1</span>] <span class="op">=</span> hit.channel</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>                    minRPC[<span class="dv">1</span>] <span class="op">=</span> hit.rpc</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>                    eta[<span class="dv">1</span>] <span class="op">=</span> hit.eta</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">in</span> minChans:</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>            a <span class="op">=</span> TTools.rpcHitToTdcChan(minRPC[<span class="dv">0</span>], minChans[<span class="dv">0</span>], eta[<span class="dv">0</span>])</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>            b <span class="op">=</span> TTools.rpcHitToTdcChan(minRPC[<span class="dv">1</span>], minChans[<span class="dv">1</span>], eta[<span class="dv">1</span>])</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>            tdc[<span class="dv">0</span>], minWord[<span class="dv">0</span>] <span class="op">=</span> a</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>            tdc[<span class="dv">1</span>], minWord[<span class="dv">1</span>] <span class="op">=</span> b</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.TDC_alignment_time[tdc[<span class="dv">0</span>]].append((minTimes[<span class="dv">0</span>], a, <span class="va">self</span>.processedEvents))</span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.TDC_alignment_time[tdc[<span class="dv">1</span>]].append((minTimes[<span class="dv">1</span>], b, <span class="va">self</span>.processedEvents))</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> result</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(TTools)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>Capturer <span class="op">=</span> Capturer()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the decorator</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>original_testAlign <span class="op">=</span> ATools.testAlign</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ATools.testAlign <span class="op">=</span> Capturer.extra_calculation_decorator(ATools.testAlign)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Main loop</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span>  <span class="co"># Set your monitoring chunk size</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path)  <span class="co"># Load in the class object</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]  <span class="co"># Order what you want to align</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">200</span>  <span class="co"># End the loop early</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Initialization</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>tdc_mets <span class="op">=</span> [[] <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>Tot_TDC_info <span class="op">=</span> [[] <span class="cf">for</span> tdc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        Capturer.processedEvents <span class="op">=</span> processedEvents</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Return to original, or restart kernal</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>ATools.testAlign <span class="op">=</span> original_testAlign</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 200/200 [00:03&lt;00:00, 59.52Events/s]</code></pre>
+</div>
+</div>
+<p>Hence you can find which channels and which timing are used for alignment metric calculation</p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(TTools)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>TTools.plot_tdc_alignment_channels_custom_ranges(Capturer.TDC_alignment_time, [(<span class="dv">0</span>, <span class="dv">50</span>), (<span class="dv">50</span>, <span class="dv">100</span>)], output_pdf<span class="op">=</span><span class="st">'Data_output/TDC_alignment_channels_used.pdf'</span> )</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>TTools.plot_tdc_alignment_times_custom_ranges(Capturer.TDC_alignment_time, [(<span class="dv">0</span>, <span class="dv">50</span>), (<span class="dv">50</span>, <span class="dv">100</span>)], output_pdf<span class="op">=</span><span class="st">'Data_output/TDC_alignment_time_used.pdf'</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="time-walk-effect" class="level3">
+<h3 class="anchored" data-anchor-id="time-walk-effect">time walk effect</h3>
+<p>It was found that signals takes time to travel from the FEB to the TDC, and on top of that, a systematic timing offset on each channel was also observed. Below is a tool written by Michael to read the timing difference between eta and phi channels, and averaging them across the entire chunk, and finally plotting them.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># load in the classs object</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">2</span>,<span class="dv">3</span>], [<span class="dv">3</span>,<span class="dv">4</span>]] <span class="co"># Order what you want to align</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">1000</span> <span class="co"># End the loop early</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>TAnalyser <span class="op">=</span> proAnubis_Analysis_Tools.Timing_Analyser(initial_event_chunk,processedEvents)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> event_chunk:</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>        TAnalyser.update_event(event_chunk, processedEvents)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        TAnalyser.readTDCTimeDiffs()</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>outDict <span class="op">=</span> {<span class="st">'totDiffs'</span>:TAnalyser.totDiffs,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'nDiffs'</span>:TAnalyser.nDiffs,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'diffHists'</span>:TAnalyser.diffHists} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The residual is calculated by applying the time walk correction, then averaging across the whole strip to a 2D plane. You should be able to see the time walk effect gone after applying the correction, and we are left with systematic corrections only</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>residEta, residPhi <span class="op">=</span> TAnalyser.Calculate_Residual_and_plot_TDC_Time_Diffs( </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                                                     pdf_filename<span class="op">=</span><span class="st">'Data_output/TDC_time_diffs.pdf'</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                                     max_itr <span class="op">=</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None</code></pre>
+</div>
+</div>
+<p>If you look at TAnalyser.<code>Calculate_Residual_and_plot_TDC_Time_Diffs</code>, there is a magic number for slope and offset, which is curve fitted by the function below. feel free to change it after fitting a larger amount of data set</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>TAnalyser.plot_and_fit_tof_corrections()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.15415730778671458 16.159064658832435
+R² value: 0.6248481250576245</code></pre>
+</div>
+</div>
+<p>To look at each individual strip, one can use this function</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(TTools)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>TTools.show_strip_time_info(outDict, <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also plot the residual through this function</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>TAnalyser.plot_residual()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conclusion-1" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-1">Conclusion</h3>
+<p>The Timing analysis class contains all the functions needed to analyse the time walk effect, capturing timing corruptions in TDCs, and also monitoring tdcs as well. A general idea is that anything designed to run smoothly to produce the most useful result is written in TAnalyser with all instances stored internally. Analysis on individual bits will be in TTools.</p>
+</section>
+</section>
+</section>
+<section id="reconstructor" class="level1">
+<h1>Reconstructor</h1>
+<p>Very similar to the Timing Analyser, the Reconstructor’s main goal is to reconstruct muon paths from the given data. The details of the code can be found under the documentation under the function RTools.<code>reconstruct_timed_Chi2_ByRPC</code></p>
+<p>below is an example of finding the efficiency of each RPC. The test RPC is removed, and a line is reconstructed using other 5 RPCs. This line is then extrapolated to the test RPCs’ location, and a area of certain radius called the <code>tolerance</code> is probed for the hits. the success and failure together with their location is recorded</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># load in the classs object</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">2</span>,<span class="dv">3</span>], [<span class="dv">3</span>,<span class="dv">4</span>]] <span class="co"># Order what you want to align</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">400</span> <span class="co"># End the loop early</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>reconstructor <span class="op">=</span> proAnubis_Analysis_Tools.Reconstructor(initial_event_chunk, processedEvents, tolerance <span class="op">=</span> [i <span class="op">/</span> <span class="dv">5</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>)])</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Zone of Reconstruction</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> event_chunk:</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># We need to update the event like TAnalyser as well</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>            reconstructor.update_event(event_chunk, processedEvents)</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>            <span class="co"># populate_hits turns TDC bit wise information into their corresponding strips</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>            reconstructor.populate_hits()</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>            <span class="co"># This is obtionnal, and requires the residual of eta and phi</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>            reconstructor.apply_systematic_correction(residEta, residPhi)</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># make_cluster does temporal and spatial coincidence between the stips, and reconstruction is done</span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>            cluster <span class="op">=</span> reconstructor.make_cluster()</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Finally, recontruction is done using cluster information</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>            reconstructor.reconstruct_and_extrapolate(cluster)</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># This is for a test I am doing, you can ignore it for now Jonas</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>            reconstructor.append_efficiency_to_memory()</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 400/400 [01:49&lt;00:00,  3.65Events/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>reconstructor.plot_efficiency_heatmap()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plotting the efficiency</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> RPC <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reconstructor.possible_reconstructions[RPC] <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        efficiency <span class="op">=</span> [<span class="dv">0</span> <span class="cf">for</span> x <span class="kw">in</span> reconstructor.successful_reconstructions[RPC]]</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        efficiency <span class="op">=</span> [x <span class="op">/</span> reconstructor.possible_reconstructions[RPC] <span class="cf">for</span> x <span class="kw">in</span> reconstructor.successful_reconstructions[RPC]]</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(reconstructor.tol, efficiency, label<span class="op">=</span><span class="ss">f'RPC </span><span class="sc">{</span>RPC<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Tolerance'</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Efficiency'</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'idc what the title is'</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(reconstructor.possible_reconstructions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[2155, 2117, 2706, 2557, 3187, 2369]</code></pre>
+</div>
+</div>
+<p>You can also plot a heat map using the information obtained from the reconstruction</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> colors</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.backends.backend_pdf <span class="im">import</span> PdfPages</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>rpcNames <span class="op">=</span> {<span class="dv">0</span>: <span class="st">"Triplet Low"</span>, <span class="dv">1</span>: <span class="st">"Triplet Mid"</span>, <span class="dv">2</span>: <span class="st">"Triplet Top"</span>, <span class="dv">3</span>: <span class="st">"Singlet"</span>, <span class="dv">4</span>: <span class="st">"Doublet Low"</span>, <span class="dv">5</span>: <span class="st">"Doublet Top"</span>}</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>success_events <span class="op">=</span> [[<span class="dv">0</span> <span class="cf">for</span> etchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>)] <span class="cf">for</span> phchan <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>)]</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> PdfPages(<span class="st">'Data_output/reconstruction_heatmap_plots.pdf'</span>) <span class="im">as</span> pdf:</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rpc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> ph <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">64</span>):</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> et <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>):</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> reconstructor.successful_reconstructed_coords[rpc][ph][et] <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>                    total_successful <span class="op">=</span> reconstructor.successful_reconstructed_coords[rpc][ph][et]</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>                    total_events <span class="op">=</span> reconstructor.possible_reconstructions_coords[rpc][ph][et]</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> total_events <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>                        success_events[ph][et] <span class="op">=</span> total_successful <span class="op">/</span> total_events</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>                        success_events[ph][et] <span class="op">=</span> <span class="dv">0</span>  <span class="co"># No events, efficiency is 0</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">8</span>), dpi<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>        etachannels <span class="op">=</span> [x <span class="op">-</span> <span class="fl">0.5</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">33</span>)]</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>        phichannels <span class="op">=</span> [x <span class="op">-</span> <span class="fl">0.5</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">65</span>)]</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>        etaHist <span class="op">=</span> (success_events, np.array(phichannels), np.array(etachannels))</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>        zrange <span class="op">=</span> [<span class="dv">0</span>, <span class="bu">max</span>(<span class="bu">max</span>(row) <span class="cf">for</span> row <span class="kw">in</span> success_events)]</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>        thisHist <span class="op">=</span> hep.hist2dplot(etaHist, norm<span class="op">=</span>colors.Normalize(zrange[<span class="dv">0</span>], zrange[<span class="dv">1</span>]))</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>        thisHist.cbar.set_label(<span class="st">'Successful reconstructions / Possible reconstructions'</span>, rotation<span class="op">=</span><span class="dv">270</span>, y<span class="op">=</span><span class="fl">0.3</span>, labelpad<span class="op">=</span><span class="dv">23</span>)</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>        plt.ylim(<span class="fl">31.5</span>, <span class="op">-</span><span class="fl">0.5</span>)</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>        plt.ylabel(<span class="st">"Eta Channel"</span>)</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>        plt.xlabel(<span class="st">"Phi Channel"</span>)</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>        ax.set_title(rpcNames[rpc])</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Draw lines</span></span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>        x_points <span class="op">=</span> [<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">64.5</span>]</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>        y_points <span class="op">=</span> [<span class="fl">7.5</span>, <span class="fl">15.5</span>, <span class="fl">23.5</span>]</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> y_point <span class="kw">in</span> y_points:</span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>            plt.plot(x_points, [y_point, y_point], <span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">'dotted'</span>)</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>        y_points <span class="op">=</span> [<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">31.5</span>]</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>        x_points <span class="op">=</span> [<span class="fl">7.5</span>, <span class="fl">15.5</span>, <span class="fl">23.5</span>, <span class="fl">31.5</span>, <span class="fl">39.5</span>, <span class="fl">47.5</span>, <span class="fl">55.5</span>]</span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> x_point <span class="kw">in</span> x_points:</span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>            plt.plot([x_point, x_point], y_points, <span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>)</span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>        pdf.savefig(fig)</span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a>        plt.close(fig)</span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PDF created successfully."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+PDF created successfully.</code></pre>
+</div>
+</div>
+<section id="extracting-angle-information" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-angle-information">Extracting angle information</h3>
+<p>One side product of reconstruction algorithm is the extraction of angles. This uses all 6 RPCs to reconstruct tracks, and find their angular distribution. The reason why a separate function is used to the efficiency calculation will be made clear later in the detailed explaination section</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># load in the classs object</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">2</span>,<span class="dv">3</span>], [<span class="dv">3</span>,<span class="dv">4</span>]] <span class="co"># Order what you want to align</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">150</span> <span class="co"># End the loop early</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>reconstructor <span class="op">=</span> proAnubis_Analysis_Tools.Reconstructor(initial_event_chunk, processedEvents, tof_correction<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>TAnalyser <span class="op">=</span> proAnubis_Analysis_Tools.Timing_Analyser(initial_event_chunk,processedEvents)</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> event_chunk:</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>            reconstructor.update_event(event_chunk, processedEvents)</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if processedEvents &lt; 250:</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>            <span class="co">#     pbar.update(1)</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>            <span class="co">#     continue</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>            reconstructor.populate_hits()</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>            reconstructor.apply_systematic_correction(residEta, residPhi)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>            cluster <span class="op">=</span> reconstructor.make_cluster()</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>            filtered_events <span class="op">=</span> RTools.filter_events(cluster,<span class="dv">1</span>,<span class="dv">6</span>)     </span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>            reconstructor.extract_angles_phi_eta_timed_DZ_modified(filtered_events)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 150/150 [00:17&lt;00:00,  8.38Events/s]</code></pre>
+</div>
+</div>
+<p>I was about to make this into a function, but then i need to write documentation for a code purely for plotting, might as well write it out here</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3, ax4) <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">20</span>))</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>bin_edges <span class="op">=</span> np.arange(<span class="op">-</span><span class="fl">90.5</span>, <span class="fl">91.5</span>, <span class="dv">1</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>phi_edges <span class="op">=</span> np.arange(<span class="op">-</span><span class="fl">180.5</span>, <span class="fl">181.5</span>, <span class="dv">1</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>ax1.bar(bin_edges[:<span class="op">-</span><span class="dv">1</span>], reconstructor.eta_histogram, width<span class="op">=</span><span class="dv">1</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, align<span class="op">=</span><span class="st">'edge'</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'eta Angles Histogram chunk3'</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'eta Angle (degrees)'</span>)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Counts'</span>)</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>ax2.bar(bin_edges[:<span class="op">-</span><span class="dv">1</span>], reconstructor.phi_histogram, width<span class="op">=</span><span class="dv">1</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, align<span class="op">=</span><span class="st">'edge'</span>)</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'phi Angles Histogram chunk3'</span>)</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'phi Angle (degrees)'</span>)</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Counts'</span>)</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>ax3.bar(phi_edges[:<span class="op">-</span><span class="dv">1</span>], reconstructor.solid_theta_histogram, width<span class="op">=</span><span class="dv">1</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, align<span class="op">=</span><span class="st">'edge'</span>)</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>ax3.set_title(<span class="st">'solid theta Angles Histogram chunk3'</span>)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'solid theta Angle (degrees)'</span>)</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>ax3.set_ylabel(<span class="st">'Counts'</span>)</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>ax4.bar(phi_edges[:<span class="op">-</span><span class="dv">1</span>], reconstructor.solid_phi_histogram, width<span class="op">=</span><span class="dv">1</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, align<span class="op">=</span><span class="st">'edge'</span>)</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>ax4.set_title(<span class="st">'solid phi Angles Histogram chunk3'</span>)</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>ax4.set_xlabel(<span class="st">'solid phi Angle (degrees)'</span>)</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>ax4.set_ylabel(<span class="st">'Counts'</span>)</span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="time-of-flight-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="time-of-flight-analysis">Time of Flight analysis</h2>
+<p>Now we can do the recontruction and find the time of flight information across RPCs to determine our time resolution and also potential errors. This is another function called <code>reconstruct_and_findtof</code>, which records the hit time difference of the reconstructed paths by specifying which set of RPC one needs to compare</p>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(ATools)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>interval <span class="op">=</span> <span class="dv">100</span> <span class="co"># Set your monitoring chunck size</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>fReader <span class="op">=</span> rawFileReader.fileReader(file_path) <span class="co"># load in the classs object</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">2</span>], [<span class="dv">2</span>,<span class="dv">3</span>], [<span class="dv">3</span>,<span class="dv">4</span>]] <span class="co"># Order what you want to align</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>rpc_comparison <span class="op">=</span> [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">2</span>], [<span class="dv">0</span>,<span class="dv">3</span>], [<span class="dv">0</span>,<span class="dv">4</span>], [<span class="dv">0</span>,<span class="dv">5</span>]]</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>max_process_event_chunk <span class="op">=</span> <span class="dv">150</span> <span class="co"># End the loop early</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>processedEvents <span class="op">=</span> <span class="dv">0</span> <span class="co"># Initialisation</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>initial_event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>reconstructor <span class="op">=</span> proAnubis_Analysis_Tools.Reconstructor(initial_event_chunk, processedEvents, tof_correction<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tqdm(total<span class="op">=</span>max_process_event_chunk, desc<span class="op">=</span><span class="st">"Processing Events"</span>, unit<span class="op">=</span><span class="st">'Events'</span>) <span class="im">as</span> pbar:</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>        processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>        event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> event_chunk:</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>            reconstructor.update_event(event_chunk, processedEvents)</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if processedEvents &lt; 250:</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>            <span class="co">#     pbar.update(1)</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>            <span class="co">#     continue</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>            reconstructor.populate_hits()</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>            reconstructor.apply_systematic_correction(residEta, residPhi)</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>            cluster <span class="op">=</span> reconstructor.make_cluster()</span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>            reconstructor.reconstruct_and_findtof(cluster, rpc_comparisons<span class="op">=</span>rpc_comparison)</span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>        pbar.update(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Processing Events: 100%|██████████| 150/150 [00:24&lt;00:00,  6.05Events/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(RTools)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>RTools.compile_and_plot_tof(reconstructor.dT,rpc_comparison, pdf_filename<span class="op">=</span><span class="st">'Data_output/tof.pdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\Users\Peter\OneDrive - University of Cambridge\Desktop\summer2\Documentation\Reconstruction_tools.py:11: SyntaxWarning: invalid escape sequence '\p'
+  sys.path.insert(1, 'Osiris Temp\processing\python')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mid average value for RPC0-5: 1.1988900362149975
+Gaussian fit parameters for RPC[0, 1]: amplitude = 49.381479909205886, mean = 1.0273674458394983, std deviation = 1.0679953129059105
+Mid average value for RPC1-5: 0.9242464286135823
+Gaussian fit parameters for RPC[0, 2]: amplitude = 51.73059772838432, mean = 0.6851203461356671, std deviation = -1.031793000500714
+Mid average value for RPC2-5: 3.4430684151142663
+Gaussian fit parameters for RPC[0, 3]: amplitude = 48.25755059952136, mean = 3.1513194907531163, std deviation = 1.0048204005991517
+Mid average value for RPC3-5: 5.71393662844103
+Gaussian fit parameters for RPC[0, 4]: amplitude = 43.31381369825579, mean = 6.724989114447141, std deviation = 1.0977647179354555
+Mid average value for RPC4-5: 5.347299454410857
+Gaussian fit parameters for RPC[0, 5]: amplitude = 42.015526902022536, mean = 5.758250471389722, std deviation = 1.1522278002826838</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>'Data_output/tof.pdf'</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(RTools)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>RTools.compile_and_plot_tof_chunk(reconstructor.dT,rpc_comparison, <span class="dv">10</span>, pdf_filename<span class="op">=</span><span class="st">'Data_output/tof_chunks.pdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\Users\Peter\OneDrive - University of Cambridge\Desktop\summer2\Documentation\Reconstruction_tools.py:11: SyntaxWarning: invalid escape sequence '\p'
+  sys.path.insert(1, 'Osiris Temp\processing\python')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mid average value for RPC[0, 1], chunk1: 0.8787143954183173
+Gaussian fit parameters for RPC0-1: amplitude = 5.4110226680105455, mean = 0.837397167418056, std deviation = -0.9509791571884038
+Mid average value for RPC[0, 1], chunk2: 1.3453856035766494
+Gaussian fit parameters for RPC0-2: amplitude = 6.2783667987945, mean = 1.0159418789281054, std deviation = -0.7971999116915058
+Mid average value for RPC[0, 1], chunk3: 1.129327343008428
+Gaussian fit parameters for RPC0-3: amplitude = 5.47113860763438, mean = 1.292520661119769, std deviation = -0.9519835821941943
+Mid average value for RPC[0, 1], chunk4: 1.0984937404001336
+Gaussian fit parameters for RPC0-4: amplitude = 5.143038128419009, mean = 1.0826311959706776, std deviation = -1.0120360919491358
+Mid average value for RPC[0, 1], chunk5: 1.1660957565742778
+Gaussian fit parameters for RPC0-5: amplitude = 4.859664672491032, mean = 1.1032570085016473, std deviation = 1.1170097673576056
+Mid average value for RPC[0, 1], chunk6: 1.2199430686291637
+Gaussian fit parameters for RPC0-6: amplitude = 4.521964344538038, mean = 0.9699351172166414, std deviation = -1.2149069870653553
+Mid average value for RPC[0, 1], chunk7: 1.311586377430841
+Gaussian fit parameters for RPC0-7: amplitude = 4.173463414019191, mean = 1.009593970776228, std deviation = 1.2437254533701176
+Mid average value for RPC[0, 1], chunk8: 1.350083232181585
+Gaussian fit parameters for RPC0-8: amplitude = 5.295208207733258, mean = 1.0268362641617184, std deviation = -0.9113586671308279
+Mid average value for RPC[0, 1], chunk9: 1.0930582403859572
+Gaussian fit parameters for RPC0-9: amplitude = 5.791974591131905, mean = 0.7480240968223376, std deviation = 0.8033288784491307
+Mid average value for RPC[0, 1], chunk10: 1.4406242656680643
+Gaussian fit parameters for RPC0-10: amplitude = 4.26345246129594, mean = 1.0808841111003118, std deviation = -1.266580455896671
+Mid average value for RPC[0, 2], chunk1: 0.7040000094280597
+Gaussian fit parameters for RPC1-1: amplitude = 4.533151432516212, mean = 0.7141068230031851, std deviation = 1.2122963472324553
+Mid average value for RPC[0, 2], chunk2: 1.00555373753712
+Gaussian fit parameters for RPC1-2: amplitude = 6.062041784722359, mean = 0.6937309570918653, std deviation = -0.8596730523417295
+Mid average value for RPC[0, 2], chunk3: 0.8376127816693307
+Gaussian fit parameters for RPC1-3: amplitude = 5.05401792134967, mean = 0.8121709127929796, std deviation = -1.0786773049892966
+Mid average value for RPC[0, 2], chunk4: 0.8150587284924679
+Gaussian fit parameters for RPC1-4: amplitude = 5.6015126914212985, mean = 0.8525342367167744, std deviation = -0.9515709957575975
+Mid average value for RPC[0, 2], chunk5: 0.9363585155457829
+Gaussian fit parameters for RPC1-5: amplitude = 4.431361101573476, mean = 0.7228862529194556, std deviation = -1.2281645957516827
+Mid average value for RPC[0, 2], chunk6: 0.8622215961130504
+Gaussian fit parameters for RPC1-6: amplitude = 5.004815605303564, mean = 0.568945372564068, std deviation = -1.088766700510993
+Mid average value for RPC[0, 2], chunk7: 1.1357376982318246
+Gaussian fit parameters for RPC1-7: amplitude = 5.610295226528597, mean = 0.6252902647309262, std deviation = -0.8877713212040684
+Mid average value for RPC[0, 2], chunk8: 1.1246735075754606
+Gaussian fit parameters for RPC1-8: amplitude = 5.118757767894883, mean = 0.6141958535090466, std deviation = -1.0267881914023935
+Mid average value for RPC[0, 2], chunk9: 0.6277558476138543
+Gaussian fit parameters for RPC1-9: amplitude = 5.25419660776131, mean = 0.5999515037876715, std deviation = -1.0044461227892458
+Mid average value for RPC[0, 2], chunk10: 1.1985401597090835
+Gaussian fit parameters for RPC1-10: amplitude = 5.386865149748653, mean = 0.6321040194355115, std deviation = -0.9584382529368074
+Mid average value for RPC[0, 3], chunk1: 1.9138286887140012
+Gaussian fit parameters for RPC2-1: amplitude = 2.144545985291012, mean = 2.339014253908959, std deviation = 2.5304467700401303
+Mid average value for RPC[0, 3], chunk2: 3.5067909751273048
+Gaussian fit parameters for RPC2-2: amplitude = 4.365776050425147, mean = 2.962973003073849, std deviation = 0.9048551650432882
+Mid average value for RPC[0, 3], chunk3: 3.1268841320298293
+Gaussian fit parameters for RPC2-3: amplitude = 4.961655489186266, mean = 3.3971163838882563, std deviation = 1.0548162976770847
+Mid average value for RPC[0, 3], chunk4: 2.7254846678680247
+Gaussian fit parameters for RPC2-4: amplitude = 4.670890554943102, mean = 3.34983710335678, std deviation = 1.0678510677142725
+Mid average value for RPC[0, 3], chunk5: 3.859685761489394
+Gaussian fit parameters for RPC2-5: amplitude = 5.807175502017767, mean = 3.178582559842308, std deviation = 0.8929212038712734
+Mid average value for RPC[0, 3], chunk6: 3.8410408936109204
+Gaussian fit parameters for RPC2-6: amplitude = 5.569513616927376, mean = 2.8449318485115445, std deviation = 0.8811028787263188
+Mid average value for RPC[0, 3], chunk7: 4.0663811208930065
+Gaussian fit parameters for RPC2-7: amplitude = 4.357396792135329, mean = 3.3900553461038205, std deviation = 1.1416820884405452
+Mid average value for RPC[0, 3], chunk8: 3.5296864446898137
+Gaussian fit parameters for RPC2-8: amplitude = 6.406450466457148, mean = 3.160502270396229, std deviation = 0.7135841753291048
+Mid average value for RPC[0, 3], chunk9: 3.9004145019299186
+Gaussian fit parameters for RPC2-9: amplitude = 5.1092128247684325, mean = 3.0662769030574575, std deviation = 1.0023821504101962
+Mid average value for RPC[0, 3], chunk10: 3.9577939729502063
+Gaussian fit parameters for RPC2-10: amplitude = 5.753644627392687, mean = 3.0952290879293805, std deviation = 0.8166674178805013
+Mid average value for RPC[0, 4], chunk1: 3.5993055411003527
+Gaussian fit parameters for RPC3-1: amplitude = 3.101593763017183, mean = 6.193279322643094, std deviation = 1.0819872370882821
+Mid average value for RPC[0, 4], chunk2: 4.641442739929755
+Gaussian fit parameters for RPC3-2: amplitude = 4.170284922894981, mean = 6.817193820136887, std deviation = 0.9359943912868196
+Mid average value for RPC[0, 4], chunk3: 6.202359049363107
+Gaussian fit parameters for RPC3-3: amplitude = 4.915068523859538, mean = 6.727903932485739, std deviation = -1.0225591770638112
+Mid average value for RPC[0, 4], chunk4: 5.946136679929751
+Gaussian fit parameters for RPC3-4: amplitude = 5.03806573077592, mean = 7.086067601756717, std deviation = 0.9047639358963065
+Mid average value for RPC[0, 4], chunk5: 5.756935179142148
+Gaussian fit parameters for RPC3-5: amplitude = 5.5261294643418335, mean = 6.935765104691811, std deviation = -0.8788754774603281
+Mid average value for RPC[0, 4], chunk6: 5.867552578879089
+Gaussian fit parameters for RPC3-6: amplitude = 3.803935003204147, mean = 6.437117051767166, std deviation = 1.4214138374257141
+Mid average value for RPC[0, 4], chunk7: 5.810103427491246
+Gaussian fit parameters for RPC3-7: amplitude = 4.211305025554643, mean = 6.541614996082778, std deviation = 1.1967611705447656
+Mid average value for RPC[0, 4], chunk8: 5.794200637158148
+Gaussian fit parameters for RPC3-8: amplitude = 4.557493724840543, mean = 6.727907567310583, std deviation = 1.058304648994646
+Mid average value for RPC[0, 4], chunk9: 6.290746225668131
+Gaussian fit parameters for RPC3-9: amplitude = 4.406467425485173, mean = 6.743935271552181, std deviation = -1.1970350134660184
+Mid average value for RPC[0, 4], chunk10: 7.064680841450163
+Gaussian fit parameters for RPC3-10: amplitude = 5.730374092340062, mean = 6.673197022065157, std deviation = -0.7882278979353421
+Mid average value for RPC[0, 5], chunk1: 2.868205292599833
+Gaussian fit parameters for RPC4-1: amplitude = 3.051730441176784, mean = 5.459016951991076, std deviation = 1.1975158623414406
+Mid average value for RPC[0, 5], chunk2: 5.031612346380177
+Gaussian fit parameters for RPC4-2: amplitude = 3.445713019100676, mean = 5.943996753833149, std deviation = 1.1882866144467217
+Mid average value for RPC[0, 5], chunk3: 5.479001501566249
+Gaussian fit parameters for RPC4-3: amplitude = 4.1619211826968225, mean = 5.554948076625697, std deviation = 1.2501955512889888
+Mid average value for RPC[0, 5], chunk4: 5.043731250363024
+Gaussian fit parameters for RPC4-4: amplitude = 4.607344629014207, mean = 5.904804394947945, std deviation = 1.0335487224584556
+Mid average value for RPC[0, 5], chunk5: 5.861461326851802
+Gaussian fit parameters for RPC4-5: amplitude = 4.104455343972606, mean = 5.914352051342541, std deviation = 1.2247527774664084
+Mid average value for RPC[0, 5], chunk6: 5.327597183775303
+Gaussian fit parameters for RPC4-6: amplitude = 5.570113436782218, mean = 5.52756900979262, std deviation = 0.8755328919626132
+Mid average value for RPC[0, 5], chunk7: 5.79101133508219
+Gaussian fit parameters for RPC4-7: amplitude = 4.198093686399377, mean = 5.749816473061721, std deviation = 1.1681402084558639
+Mid average value for RPC[0, 5], chunk8: 5.696124677656652
+Gaussian fit parameters for RPC4-8: amplitude = 4.747154059005033, mean = 5.850946557634407, std deviation = 1.0227200853720855
+Mid average value for RPC[0, 5], chunk9: 5.570215862880335
+Gaussian fit parameters for RPC4-9: amplitude = 4.85570098726154, mean = 5.7096125097249315, std deviation = -1.0992111864834968
+Mid average value for RPC[0, 5], chunk10: 6.704613934127548
+Gaussian fit parameters for RPC4-10: amplitude = 4.252058677022187, mean = 5.884275589590985, std deviation = 1.181383463338961</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>'Data_output/tof_chunks.pdf'</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(proAnubis_Analysis_Tools)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>reconstructor.plot_tof_offset(rpc_comparison)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\Users\Peter\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\_core\fromnumeric.py:3596: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+c:\Users\Peter\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\_core\_methods.py:138: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None
+Warning: &lt;class 'uhi.numpy_plottable.NumPyPlottableHistogram'&gt; is not allowed to get flow bins, flow bin option set to None</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

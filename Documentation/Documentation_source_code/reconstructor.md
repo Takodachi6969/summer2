@@ -22,22 +22,22 @@ It uses heavly the [RTools](RTools documentation.html)
       - [Description](#description-1)
       - [Parameters](#parameters-2)
     - [self.`make_cluster`](#selfmake_cluster)
-    - [Description](#description-2)
-    - [Returns](#returns)
-    - [Related Functions](#related-functions)
+      - [Description](#description-2)
+      - [Returns](#returns)
+      - [Related Functions](#related-functions)
     - [self.`reconstruct_and_extrapolate`](#selfreconstruct_and_extrapolate)
-    - [Description](#description-3)
-    - [Parameters](#parameters-3)
-    - [Related Functions](#related-functions-1)
+      - [Description](#description-3)
+      - [Parameters](#parameters-3)
+      - [Related Functions](#related-functions-1)
     - [self.`reconstruct_and_findtof`](#selfreconstruct_and_findtof)
-    - [Description](#description-4)
-    - [Parameters](#parameters-4)
+      - [Description](#description-4)
+      - [Parameters](#parameters-4)
     - [self.`extract_angles_phi_eta_timed_DZ_modified`](#selfextract_angles_phi_eta_timed_dz_modified)
-    - [Description](#description-5)
-    - [Parameters](#parameters-5)
+      - [Description](#description-5)
+      - [Parameters](#parameters-5)
     - [self.`apply_systematic_correction`](#selfapply_systematic_correction)
-    - [Description](#description-6)
-    - [Parameters](#parameters-6)
+      - [Description](#description-6)
+      - [Parameters](#parameters-6)
   - [Usage Example](#usage-example)
 
 
@@ -153,13 +153,13 @@ def make_cluster(self):
         return clustered
 ```
 
-### Description
+#### Description
 Creates clusters of coincident hits from the eta and phi hits.
 
-### Returns
+#### Returns
 - clustered (list): List of clustered hits.
 
-### Related Functions
+#### Related Functions
 [FindCoincidentHits](Rtools documentation.html#rtoolsfindcoincidenthits)
 [Cluster](Rtools documentation.html#rtoolscluster)
 
@@ -192,14 +192,14 @@ def reconstruct_and_extrapolate(self, dataset, chi2_region = [0, 100]):
                                                 self.failed_reconstructed_coords[rpc][int(muon_coords[0] / 2.7625)][int(muon_coords[1] / 2.9844)] += 1
 
 ```
-### Description
+#### Description
 Performs reconstruction and extrapolation of the dataset.
 
-### Parameters
+#### Parameters
 - **dataset (list)**: List of data to be reconstructed.
 - **chi2_region (list, optional)**: Chi-squared region for filtering. Default is [0, 100].
 
-### Related Functions
+#### Related Functions
 [RTools](RTools documentation.html)
 
 ---
@@ -216,18 +216,18 @@ def reconstruct_and_findtof(self, dataset, rpc_comparisons):
                         self.recon.append(E_recon)
 ```
 
-### Description
+#### Description
 Performs reconstruction and finds the time-of-flight differences.
-### Parameters
+#### Parameters
 - **dataset (list)**: List of data to be reconstructed.
 - **rpc_comparisons (list)**: List of RPC comparisons for the reconstruction.
 
 ### self.`extract_angles_phi_eta_timed_DZ_modified`
 
-### Description
+#### Description
 Extracts and analyzes angles and time differences from filtered events. The structure is very similar to `reconstruct_and_extrapolate`, with extra steps to turn the reconstructed line into angles
 
-### Parameters
+#### Parameters
 - **filtered_events (list)**: List of filtered events.
 - **max_length (int, optional)**: Maximum length for reconstruction. Default is None.
 - **exact_length (bool, optional)**: Flag to enforce exact length in reconstruction. Default is False.
@@ -245,10 +245,10 @@ def apply_systematic_correction(self, residEta, residPhi):
                 self.phiHits[rpc][j].time += residPhi[rpc][phihit.channel]
 ```
 
-### Description
+#### Description
 Applies systematic corrections to the eta and phi hits.
 
-### Parameters
+#### Parameters
 - **residEta (list)**: List of eta residuals for correction.
 - **residPhi (list)**: List of phi residuals for correction.
 

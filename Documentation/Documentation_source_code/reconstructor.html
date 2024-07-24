@@ -141,23 +141,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#description-1">Description</a></li>
 <li><a href="#parameters-2">Parameters</a></li>
 </ul></li>
-<li><a href="#selfmake_cluster">self.<code>make_cluster</code></a></li>
+<li><a href="#selfmake_cluster">self.<code>make_cluster</code></a>
+<ul>
 <li><a href="#description-2">Description</a></li>
 <li><a href="#returns">Returns</a></li>
 <li><a href="#related-functions">Related Functions</a></li>
-<li><a href="#selfreconstruct_and_extrapolate">self.<code>reconstruct_and_extrapolate</code></a></li>
+</ul></li>
+<li><a href="#selfreconstruct_and_extrapolate">self.<code>reconstruct_and_extrapolate</code></a>
+<ul>
 <li><a href="#description-3">Description</a></li>
 <li><a href="#parameters-3">Parameters</a></li>
 <li><a href="#related-functions-1">Related Functions</a></li>
-<li><a href="#selfreconstruct_and_findtof">self.<code>reconstruct_and_findtof</code></a></li>
+</ul></li>
+<li><a href="#selfreconstruct_and_findtof">self.<code>reconstruct_and_findtof</code></a>
+<ul>
 <li><a href="#description-4">Description</a></li>
 <li><a href="#parameters-4">Parameters</a></li>
-<li><a href="#selfextract_angles_phi_eta_timed_dz_modified">self.<code>extract_angles_phi_eta_timed_DZ_modified</code></a></li>
+</ul></li>
+<li><a href="#selfextract_angles_phi_eta_timed_dz_modified">self.<code>extract_angles_phi_eta_timed_DZ_modified</code></a>
+<ul>
 <li><a href="#description-5">Description</a></li>
 <li><a href="#parameters-5">Parameters</a></li>
-<li><a href="#selfapply_systematic_correction">self.<code>apply_systematic_correction</code></a></li>
+</ul></li>
+<li><a href="#selfapply_systematic_correction">self.<code>apply_systematic_correction</code></a>
+<ul>
 <li><a href="#description-6">Description</a></li>
 <li><a href="#parameters-6">Parameters</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#usage-example">Usage Example</a></li>
 </ul></li>
@@ -283,21 +293,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        coincident_hits <span class="op">=</span> RTools.FindCoincidentHits(<span class="va">self</span>.etaHits, <span class="va">self</span>.phiHits, <span class="va">self</span>.window_size, tof_correction<span class="op">=</span><span class="va">self</span>.tof_correction)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        clustered <span class="op">=</span> RTools.cluster(coincident_hits)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> clustered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="description-2" class="level3">
-<h3 class="anchored" data-anchor-id="description-2">Description</h3>
+<section id="description-2" class="level4">
+<h4 class="anchored" data-anchor-id="description-2">Description</h4>
 <p>Creates clusters of coincident hits from the eta and phi hits.</p>
 </section>
-<section id="returns" class="level3">
-<h3 class="anchored" data-anchor-id="returns">Returns</h3>
+<section id="returns" class="level4">
+<h4 class="anchored" data-anchor-id="returns">Returns</h4>
 <ul>
 <li>clustered (list): List of clustered hits.</li>
 </ul>
 </section>
-<section id="related-functions" class="level3">
-<h3 class="anchored" data-anchor-id="related-functions">Related Functions</h3>
+<section id="related-functions" class="level4">
+<h4 class="anchored" data-anchor-id="related-functions">Related Functions</h4>
 <p><a href="Rtools%20documentation.html#rtoolsfindcoincidenthits">FindCoincidentHits</a> <a href="Rtools%20documentation.html#rtoolscluster">Cluster</a></p>
 <hr>
+</section>
 </section>
 <section id="self.reconstruct_and_extrapolate" class="level3">
 <h3 class="anchored" data-anchor-id="self.reconstruct_and_extrapolate">self.<code>reconstruct_and_extrapolate</code></h3>
@@ -324,22 +334,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                                                <span class="va">self</span>.successful_reconstructed_coords[rpc][<span class="bu">int</span>(muon_coords[<span class="dv">0</span>] <span class="op">/</span> <span class="fl">2.7625</span>)][<span class="bu">int</span>(muon_coords[<span class="dv">1</span>] <span class="op">/</span> <span class="fl">2.9844</span>)] <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                                            <span class="cf">else</span>:</span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                                                <span class="va">self</span>.failed_reconstructed_coords[rpc][<span class="bu">int</span>(muon_coords[<span class="dv">0</span>] <span class="op">/</span> <span class="fl">2.7625</span>)][<span class="bu">int</span>(muon_coords[<span class="dv">1</span>] <span class="op">/</span> <span class="fl">2.9844</span>)] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="description-3" class="level3">
-<h3 class="anchored" data-anchor-id="description-3">Description</h3>
+<section id="description-3" class="level4">
+<h4 class="anchored" data-anchor-id="description-3">Description</h4>
 <p>Performs reconstruction and extrapolation of the dataset.</p>
 </section>
-<section id="parameters-3" class="level3">
-<h3 class="anchored" data-anchor-id="parameters-3">Parameters</h3>
+<section id="parameters-3" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-3">Parameters</h4>
 <ul>
 <li><strong>dataset (list)</strong>: List of data to be reconstructed.</li>
 <li><strong>chi2_region (list, optional)</strong>: Chi-squared region for filtering. Default is [0, 100].</li>
 </ul>
 </section>
-<section id="related-functions-1" class="level3">
-<h3 class="anchored" data-anchor-id="related-functions-1">Related Functions</h3>
+<section id="related-functions-1" class="level4">
+<h4 class="anchored" data-anchor-id="related-functions-1">Related Functions</h4>
 <p><a href="RTools%20documentation.html">RTools</a></p>
 <hr>
+</section>
 </section>
 <section id="self.reconstruct_and_findtof" class="level3">
 <h3 class="anchored" data-anchor-id="self.reconstruct_and_findtof">self.<code>reconstruct_and_findtof</code></h3>
@@ -351,26 +361,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">len</span>(E_recon[<span class="dv">2</span>]) <span class="op">&gt;=</span> <span class="dv">6</span>:</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                        <span class="va">self</span>.dT.append(E_recon[<span class="dv">5</span>])</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                        <span class="va">self</span>.recon.append(E_recon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="description-4" class="level4">
+<h4 class="anchored" data-anchor-id="description-4">Description</h4>
+<p>Performs reconstruction and finds the time-of-flight differences. #### Parameters - <strong>dataset (list)</strong>: List of data to be reconstructed. - <strong>rpc_comparisons (list)</strong>: List of RPC comparisons for the reconstruction.</p>
 </section>
-<section id="description-4" class="level3">
-<h3 class="anchored" data-anchor-id="description-4">Description</h3>
-<p>Performs reconstruction and finds the time-of-flight differences. ### Parameters - <strong>dataset (list)</strong>: List of data to be reconstructed. - <strong>rpc_comparisons (list)</strong>: List of RPC comparisons for the reconstruction.</p>
 </section>
 <section id="self.extract_angles_phi_eta_timed_dz_modified" class="level3">
 <h3 class="anchored" data-anchor-id="self.extract_angles_phi_eta_timed_dz_modified">self.<code>extract_angles_phi_eta_timed_DZ_modified</code></h3>
-</section>
-<section id="description-5" class="level3">
-<h3 class="anchored" data-anchor-id="description-5">Description</h3>
+<section id="description-5" class="level4">
+<h4 class="anchored" data-anchor-id="description-5">Description</h4>
 <p>Extracts and analyzes angles and time differences from filtered events. The structure is very similar to <code>reconstruct_and_extrapolate</code>, with extra steps to turn the reconstructed line into angles</p>
 </section>
-<section id="parameters-4" class="level3">
-<h3 class="anchored" data-anchor-id="parameters-4">Parameters</h3>
+<section id="parameters-4" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-4">Parameters</h4>
 <ul>
 <li><strong>filtered_events (list)</strong>: List of filtered events.</li>
 <li><strong>max_length (int, optional)</strong>: Maximum length for reconstruction. Default is None.</li>
 <li><strong>exact_length (bool, optional)</strong>: Flag to enforce exact length in reconstruction. Default is False.</li>
 </ul>
 <hr>
+</section>
 </section>
 <section id="self.apply_systematic_correction" class="level3">
 <h3 class="anchored" data-anchor-id="self.apply_systematic_correction">self.<code>apply_systematic_correction</code></h3>
@@ -380,17 +390,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.etaHits[rpc][i].time <span class="op">+=</span> residEta[rpc][etahit.channel]</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j , phihit <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.phiHits[rpc]):</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.phiHits[rpc][j].time <span class="op">+=</span> residPhi[rpc][phihit.channel]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="description-6" class="level3">
-<h3 class="anchored" data-anchor-id="description-6">Description</h3>
+<section id="description-6" class="level4">
+<h4 class="anchored" data-anchor-id="description-6">Description</h4>
 <p>Applies systematic corrections to the eta and phi hits.</p>
 </section>
-<section id="parameters-5" class="level3">
-<h3 class="anchored" data-anchor-id="parameters-5">Parameters</h3>
+<section id="parameters-5" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-5">Parameters</h4>
 <ul>
 <li><strong>residEta (list)</strong>: List of eta residuals for correction.</li>
 <li><strong>residPhi (list)</strong>: List of phi residuals for correction.</li>
 </ul>
+</section>
 </section>
 </section>
 <section id="usage-example" class="level2">

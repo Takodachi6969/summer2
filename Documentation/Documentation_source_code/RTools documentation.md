@@ -4,107 +4,128 @@ This package contains everything needed to do recontruction algorithm in the pro
 # Table of content
 - [Reconstruction Tools Documentation](#reconstruction-tools-documentation)
 - [Table of content](#table-of-content)
+- [Data structure cheat sheet](#data-structure-cheat-sheet)
+- [Methods](#methods)
   - [RTools.`find_tdc_event_count`](#rtoolsfind_tdc_event_count)
-    - [**Description**](#description)
-    - [**Parameters**](#parameters)
-    - [**Returns**](#returns)
-    - [**Note**](#note)
-    - [**related function**](#related-function)
+    - [Description](#description)
+    - [Parameters](#parameters)
+    - [Returns](#returns)
+    - [Note](#note)
+    - [related function](#related-function)
   - [RTools.`find_tof_time`](#rtoolsfind_tof_time)
-    - [**Definition**](#definition)
+    - [Definition](#definition)
   - [Rtools.`FindCoincidentHits`](#rtoolsfindcoincidenthits)
-    - [**Description**](#description-1)
-    - [**Parameters**](#parameters-1)
-    - [**Returns**](#returns-1)
-    - [**related functions**](#related-functions)
+    - [Description](#description-1)
+    - [Parameters](#parameters-1)
+    - [Returns](#returns-1)
+    - [related functions](#related-functions)
   - [find\_tof\_time](#find_tof_time)
   - [Rtools.`cluster`](#rtoolscluster)
-    - [**Description**](#description-2)
-    - [**Parameters**](#parameters-2)
-    - [**Returns**](#returns-2)
-    - [**Note**](#note-1)
-  - [The weird data structure was designed to adapt to the reconstruction fit, which was written by someone else...](#the-weird-data-structure-was-designed-to-adapt-to-the-reconstruction-fit-which-was-written-by-someone-else)
+    - [Description](#description-2)
+    - [Parameters](#parameters-2)
+    - [Returns](#returns-2)
+    - [Note](#note-1)
   - [Rtools.`extract_coords_timed_Chi2`](#rtoolsextract_coords_timed_chi2)
-    - [**Description**](#description-3)
-    - [**Parameters**](#parameters-3)
-    - [**Returns**](#returns-3)
+    - [Description](#description-3)
+    - [Parameters](#parameters-3)
+    - [Returns](#returns-3)
   - [Rtools.`generate_hit_coords_combo_Chi2`](#rtoolsgenerate_hit_coords_combo_chi2)
-    - [**Description**](#description-4)
-    - [**Definition**](#definition-1)
-    - [**Parameters**](#parameters-4)
+    - [Description](#description-4)
+    - [Definition](#definition-1)
+    - [Parameters](#parameters-4)
     - [Returns](#returns-4)
   - [Rtools.`extract_DT_DZ_Chi2`](#rtoolsextract_dt_dz_chi2)
-    - [**Description**](#description-5)
-    - [**Parameters**](#parameters-5)
-    - [**Returns**](#returns-5)
-    - [**Note**](#note-2)
-  - [This function contains magic number for the speed of signal propagation, which needs to be changed if the fit is different](#this-function-contains-magic-number-for-the-speed-of-signal-propagation-which-needs-to-be-changed-if-the-fit-is-different)
+    - [Description](#description-5)
+    - [Parameters](#parameters-5)
+    - [Returns](#returns-5)
+    - [Note](#note-2)
   - [Rtools.`fit_event_chi2`](#rtoolsfit_event_chi2)
-    - [**Description**](#description-6)
-    - [**Parameters**](#parameters-6)
-  - [**Returns**](#returns-6)
+    - [Description](#description-6)
+    - [Parameters](#parameters-6)
+  - [Returns](#returns-6)
     - [External links](#external-links)
   - [Rtools.`reconstruct_timed_Chi2_ByRPC`](#rtoolsreconstruct_timed_chi2_byrpc)
-    - [**Description**](#description-7)
-    - [**Parameters**](#parameters-7)
-    - [**Returns**](#returns-7)
-    - [**Explainations and Pseudocode**](#explainations-and-pseudocode)
+    - [Description](#description-7)
+    - [Parameters](#parameters-7)
+    - [Returns](#returns-7)
+    - [Explainations and Pseudocode](#explainations-and-pseudocode)
   - [Rtools.`does_muon_hit_RPC`](#rtoolsdoes_muon_hit_rpc)
-    - [**Description**](#description-8)
-    - [**Parameters**](#parameters-8)
-    - [**Returns**](#returns-8)
+    - [Description](#description-8)
+    - [Parameters](#parameters-8)
+    - [Returns](#returns-8)
+    - [related function](#related-function-1)
   - [Rtools.`does_RPC_detect_muon`](#rtoolsdoes_rpc_detect_muon)
-    - [**Description**](#description-9)
-    - [**Parameters**](#parameters-9)
-    - [**Returns**](#returns-9)
-    - [**Note**](#note-3)
+    - [Description](#description-9)
+    - [Parameters](#parameters-9)
+    - [Returns](#returns-9)
+    - [Note](#note-3)
   - [Rtools.`check_event_attributes`](#rtoolscheck_event_attributes)
-    - [**Description**](#description-10)
-    - [**Parameters**](#parameters-10)
-    - [**Returns**](#returns-10)
+    - [Description](#description-10)
+    - [Parameters](#parameters-10)
+    - [Returns](#returns-10)
   - [Rtools.`filter_events`](#rtoolsfilter_events)
-    - [**Description**](#description-11)
-    - [**Parameters**](#parameters-11)
-    - [**Returns**](#returns-11)
+    - [Description](#description-11)
+    - [Parameters](#parameters-11)
+    - [Returns](#returns-11)
   - [Rtools.`count_entries`](#rtoolscount_entries)
-    - [***Description***](#description-12)
-    - [**Parameters**](#parameters-12)
-    - [**Returns**](#returns-12)
+    - [Description](#description-12)
+    - [Parameters](#parameters-12)
+    - [Returns](#returns-12)
   - [Rtools.`find_tdc_event_count`](#rtoolsfind_tdc_event_count-1)
-    - [**Description**](#description-13)
-    - [**Parameters**](#parameters-13)
-    - [**Returns**](#returns-13)
+    - [Description](#description-13)
+    - [Parameters](#parameters-13)
+    - [Returns](#returns-13)
   - [Rtools.`compile_and_plot_tof`](#rtoolscompile_and_plot_tof)
-    - [**Description**](#description-14)
-  - [**Parameters**](#parameters-14)
-  - [**Returns**](#returns-14)
+    - [Description](#description-14)
+  - [Parameters](#parameters-14)
+  - [Returns](#returns-14)
   - [Rtools.`compile_and_plot_tof_chunk`](#rtoolscompile_and_plot_tof_chunk)
-    - [**Description**](#description-15)
-    - [**Parameters**](#parameters-15)
-    - [**Returns**](#returns-15)
+    - [Description](#description-15)
+    - [Parameters](#parameters-15)
+    - [Returns](#returns-15)
   - [Example Usage](#example-usage)
+  - [Important information](#important-information)
+
+# Data structure cheat sheet
+- Events are proAnubis_event objects, which can be found in [realiagnment](Realiagnment documentation.html)
+- Clusters are the output from [reconstructor.make_cluster](reconstructor.html#selfmake_cluster) in the format of
+```python
+['Event x',TIMEBIN, [[[RPC1_PHI_CLUSTERS],[RPC1_ETA_CLUSTERS]],[[...],[...]],...]]
+```
+- Coords are the output from [extract_coords_timed_Chi2](#rtoolsextract_coords_timed_chi2)
+
+```python
+[x_coords] = [[x,err_x,x_time],...]
+
+RPC_coords = [x_coords,y_coords]
+
+coords = [[RPC1_coords],[RPC2_coords],[RPC3_coords],...]
+
+```
+
+# Methods
 
 ## RTools.`find_tdc_event_count`
 
 
-### **Description**
+### Description
 calculates the total number of words for each TDC across a chunk of events. It processes the events and sums the lengths of the `words` lists for each TDC.
 
-### **Parameters**
+### Parameters
 - **event_chunk** (`list`): A list of proanubis event objects. Each event object contains an attribute `tdcEvents`, which is a list of TDC objects. Each TDC object has an attribute `words`, which is a list of words.
 
-### **Returns**
+### Returns
 - **event_number** (`list`): A list of lists. Each inner list corresponds to a TDC and contains a single integer representing the total count of words for that TDC across all events in the given chunk.
 
-### **Note**
+### Note
 - Function assumes exactly **5** TDCs
 - The returned `event_number` list contains 5 lists, each with a single integer value representing the total count of words for the corresponding TDC.
 
-### **related function**
+### related function
 [Realigner](Realignment documentation.html)
 
 ## RTools.`find_tof_time`
-### **Definition**
+### Definition
 ```python
 def find_tof_time(eta, phi, slope = 0.05426554612593516, offSet = 15.8797407836404):
     if (len(set([eta.eta, phi.eta])) == 1):
@@ -118,10 +139,10 @@ def find_tof_time(eta, phi, slope = 0.05426554612593516, offSet = 15.87974078364
 
 ## Rtools.`FindCoincidentHits`
 
-### **Description**
+### Description
 This function processes eta and phi hits from different RPC arrays to find coincident hits based on time windows and optional Time-of-Flight (TOF) correction.
 
-### **Parameters**
+### Parameters
 - **etaHits (list)**: A list of lists containing eta RPChit objects for each RPC. Each hit object must have attributes time, channel, event_num, and eta.
 - **phiHits (list)**: A list of lists containing phi RPChit objects for each RPC. Each hit object must have attributes time, channel, event_num, and eta.
 - **time_window (float)**: The time window in which to consider hits as coincident.
@@ -129,46 +150,47 @@ This function processes eta and phi hits from different RPC arrays to find coinc
 - **slope (float, optional)**: Slope parameter for TOF correction. Default is 0.05426554612593516.
 - **offSet (float, optional)**: Offset parameter for TOF correction. Default is 15.8797407836404.
 
-### **Returns**
+### Returns
 - **coincident_hits (list)**: A list of lists where each sublist represents an event with coincident hits. Each sublist contains the event number, time bin, and details of the hits.
 ``` python
 [event_num, time_bin,[[hit.rpc, hit.channel, hit.time, hit.eta] for hit in unique_hits]]
 ```
 
-### **related functions**
+### related functions
 (#populatehits)
 [rpcHits](ATools documentation.html#class-rpchit)
 [find_tof_time](#rtoolsfind_tof_time)
 ---
 
 ## Rtools.`cluster`
-### **Description**
+### Description
 This function clusters the hits within each RPC into spatial clusters in both phi and eta directions. Putting all adjacent strips together
 
-### **Parameters**
+### Parameters
 - **coincident_hits (list)**: A list of coincident hit events. Each event is a list containing the event number, time bin, and hit details.
 
-### **Returns**
+### Returns
 - **coincident_hits_clustered (list)**: A list of events with clustered hits. Each event contains the event number, time bin, and clusters of hits for each RPC.
 ```python
 #rpc_phi_clusters is a list of sublists [hit.rpc, hit.channel, hit.time, hit.eta]
 [event_num, time_bin, [rpc_phi_clusters, rpc_eta_clusters]]
 ```
 
-### **Note**
+### Note
 The weird data structure was designed to adapt to the reconstruction fit, which was written by someone else...
+
 ---
 
 ## Rtools.`extract_coords_timed_Chi2`
 
-### **Description**
+### Description
 Converts spatial clusters in RPCs into x and y coordinates, with z given by the RPC number.
 
-### **Parameters**
+### Parameters
 - **clusters (list)**: A list representing a cluster, the output of function [cluster](#rtoolscluster). It contains the event number, time bin, and clusters of hits.
 - **max_cluster_size (int)**: Maximum allowed size for a cluster.
   
-### **Returns**
+### Returns
 - **coords (list)**: A list of coordinates with errors. Each entry represents an RPC and contains lists of x and y coordinates, with variances and times.
 ```python
     [x_coords] = [[x,err_x,x_time],...]
@@ -181,10 +203,10 @@ Converts spatial clusters in RPCs into x and y coordinates, with z given by the 
 
 
 ## Rtools.`generate_hit_coords_combo_Chi2`
-### **Description**
+### Description
 Generates combinations of hit coordinates across RPCs for chi-squared fitting.
 
-### **Definition**
+### Definition
 ```python
 def generate_hit_coords_combo_Chi2(coords, RPC_heights, max_length=None, exact_length=False, combinations=None, hit_coords=None, depth=0):
     if combinations is None:
@@ -219,7 +241,7 @@ def generate_hit_coords_combo_Chi2(coords, RPC_heights, max_length=None, exact_l
     return combinations
 ```
 
-### **Parameters**
+### Parameters
 - **coords (list)**: A list of coordinates with errors.
 - **RPC_heights (list)**: A list of heights for each RPC.
 - **max_length (int, optional)**: Maximum length of the combination.
@@ -231,30 +253,31 @@ def generate_hit_coords_combo_Chi2(coords, RPC_heights, max_length=None, exact_l
 ---
 
 ## Rtools.`extract_DT_DZ_Chi2`
-### **Description**
+### Description
 Extracts the time difference (dT) and height difference (dZ) between specified pairs of RPCs.
 
-### **Parameters**
+### Parameters
 - **coords (list)**: A list of coordinates with time information for each RPC.
 - **rpc_indices (list of lists)**: A list of pairs of indices specifying the RPCs to compare.
 
-### **Returns**
+### Returns
 - **dT_all (list)**: A list of time differences for each pair of RPC indices.
 - **dZ_all (list)**: A list of height differences for each pair of RPC indices.
 
-### **Note**
+### Note
 This function contains magic number for the speed of signal propagation, which needs to be changed if the fit is different
+
 ---
 
 ## Rtools.`fit_event_chi2`
-### **Description**
+### Description
 Fits a line to the event coordinates using Singular Value Decomposition (SVD) and calculates the chi-squared value.
 
-### **Parameters**
+### Parameters
 - **combo (list)**: A list of coordinates with errors for each RPC, output from [generate_hit_coords_combo_chi2](#rtoolsgenerate_hit_coords_combo_chi2).
 - **rpc_indicies (list of lists, optional)**: A list of pairs of indices specifying the RPCs to compare.
 
-## **Returns**
+## Returns
 - **p0 (list)**: Centroid of the fitted line.
 - **d (list)**: Direction vector of the fitted line.
 - **Chi2 (float)**: Chi-squared value of the fit.
@@ -268,19 +291,19 @@ Fits a line to the event coordinates using Singular Value Decomposition (SVD) an
 ---
 
 ## Rtools.`reconstruct_timed_Chi2_ByRPC`
-### **Description**
+### Description
 Reconstructs an event by excluding one RPC and fitting the remaining coordinates.
 
-### **Parameters**
-- **event (list)**: A list representing an event.
+### Parameters
+- **Cluster (list)**: A list representing an Cluster.
 - **max_cluster_size (int)**: Maximum allowed size for a cluster.
 - **RPC_excluded (int)**: The RPC to exclude from the reconstruction.
 - **rpc_indicies (list of lists, optional)**: A list of pairs of indices specifying the RPCs to compare.
 
-### **Returns**
+### Returns
 - **reconstruction_result (tuple or None)**: If successful, returns a tuple containing the **optimized centroid**, **direction vector**, **coordinates**, **combinations**, **chi-squared value**, **time differences**, **height differences**, and **test coordinates**. Otherwise, returns None.
 
-### **Explainations and Pseudocode**
+### Explainations and Pseudocode
 
 1. **Initialize Parameters and Variables**:
     - Set `max_Chi2` to 10.
@@ -333,32 +356,35 @@ Reconstructs an event by excluding one RPC and fitting the remaining coordinates
 
 
 ## Rtools.`does_muon_hit_RPC`
-### **Description**
+### Description
 Checks if a reconstructed muon hits a specified RPC based on its trajectory.
 
-### **Parameters**
+### Parameters
 - **optimised_centroid (list)**: Centroid of the reconstructed muon trajectory.
 - **optimised_d (list)**: Direction vector of the reconstructed muon trajectory.
 - **RPC (int)**: The RPC to check.
 
-### **Returns**
+### Returns
 - **hit_coords (list or None)**: If the muon hits the RPC, returns the **coordinates** of the hit. Otherwise, returns **None**.
+
+### related function
+[reconstruct_timed_chi2_ByRPC](#rtoolsreconstruct_timed_chi2_byrpc)
 
 ---
 
 ## Rtools.`does_RPC_detect_muon`
-### **Description**
+### Description
 Checks if an RPC detects a muon based on the reconstructed hit coordinates and a given tolerance.
 
-### **Parameters**
+### Parameters
 - **muon_coords (list)**: Expected coordinates of the muon hit.
 - **test_coords (list)**: Actual coordinates reconstructed by the RPC.
 - **tol (float)**: Tolerance for the detection check.
 
-### **Returns**
+### Returns
 - detection_result (bool or float): If the RPC detects the muon, returns the **separation distance**. Otherwise, returns **False**.
 
-### **Note**
+### Note
 
 Tolerance is defines in cm as the maximum distance the algorithm look out for detected muons on the RPC. 
 
@@ -366,81 +392,81 @@ Tolerance is defines in cm as the maximum distance the algorithm look out for de
 ---
 
 ## Rtools.`check_event_attributes`
-### **Description**
+### Description
 Checks if an event meets the minimum required number of RPCs and chambers with hits.
 
-### **Parameters**
-- **event (list)**: A list representing an event.
+### Parameters
+- **Cluster (list)**: A list representing an Cluster.
 - **min_chamber_number (int)**: Minimum required number of chambers with hits.
 - **min_RPC_number (int)**: Minimum required number of RPCs with hits.
 
-### **Returns**
+### Returns
 - **valid_event (bool)**: **True** if the event meets the requirements, otherwise **False**.
 
 ---
 
 ## Rtools.`filter_events`
-### **Description**
+### Description
 Filters a list of events based on the minimum required number of RPCs and chambers with hits.
 
-### **Parameters**
-- **events (list)**: A list of events.
+### Parameters
+- **Cluster (list)**: A list of Clusters.
 - **min_chamber_number (int)**: Minimum required number of chambers with hits.
 - **min_RPC_number (int)**: Minimum required number of RPCs with hits.
 
-### **Returns**
+### Returns
 - **filtered_events (list)**: A list of events that meet the requirements.
 
 ---
 
 ## Rtools.`count_entries`
-### ***Description***
+### Description
 Recursively counts the total number of entries in a nested list.
 
-### **Parameters**
+### Parameters
 - **lst (list)**: A nested list.
 
-### **Returns**
+### Returns
 - **total_count (int)**: Total number of entries in the list.
 
 ---
 
 ## Rtools.`find_tdc_event_count`
-### **Description**
+### Description
 Calculates the total number of words for each TDC (Time-to-Digital Converter) across a chunk of events.
 
-### **Parameters**
+### Parameters
 - **event_chunk (list)**: A list of event objects. Each event object contains a list of TDC objects with a words attribute.
 
-### **Returns**
+### Returns
 - **event_number (list)**: A list of lists. Each inner list corresponds to a TDC and contains a single integer representing the total count of words for that TDC across all events in the chunk.
 
 ## Rtools.`compile_and_plot_tof`
-### **Description**
+### Description
 Compiles time-of-flight (TOF) data and generates Gaussian fits for specified RPC pairs, saving the results to a PDF.
 
-## **Parameters**
+## Parameters
 - dTs (list): A list of time differences for events.
 - rpc_indicies (list of lists): A list of pairs of RPC indices for TOF analysis.
 - pdf_filename (str, optional): The filename for the output PDF. Default is "Data_output/compiled_tof_plots.pdf".
 
-## **Returns**
+## Returns
 - **pdf_filename (str)**: The filename of the generated PDF.
 - **plots**: plots for the tof analysis
 ---
 
 
 ## Rtools.`compile_and_plot_tof_chunk`
-### **Description**
+### Description
 Compiles TOF data, splits it into chunks, and generates Gaussian fits for each chunk, saving the results to a PDF.
 
-### **Parameters**
+### Parameters
 - **dTs (list)**: A list of time differences for events.
 - **rpc_indicies (list of lists)**: A list of pairs of RPC indices for TOF analysis.
 - **num_chunks (int, optional)**: Number of chunks to split the data into. Default is 10.
 - **pdf_filename (str, optional)**: The filename for the output PDF. Default is "Data_output/tof_chunks.pdf".
 
-### **Returns**
+### Returns
 - pdf_filename (str): The filename of the generated PDF.
 - **plots**: plots for the tof analysis
 
@@ -501,3 +527,6 @@ def reconstruct_and_extrapolate(self, dataset, chi2_region = [0, 100]):
                                             else:
                                                 self.failed_reconstructed_coords[rpc][int(muon_coords[0] / 2.7625)][int(muon_coords[1] / 2.9844)] += 1
 ```
+
+## Important information
+The original code which was first developed by some one else used inconsistant working, usually interchanging clusters with events. This documentation is specifically written that events are specifically proAnubis_events from the raw file reader, and clusters are temporal and spatial coincidented hit points, while coords are the coordinates of these said clusters.

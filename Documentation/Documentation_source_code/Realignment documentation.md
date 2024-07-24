@@ -7,12 +7,11 @@ This is the documentation of the realignment
 - [Realignent Documentation](#realignent-documentation)
 - [Overview](#overview)
 - [Table of content](#table-of-content)
-- [fReader.`get_aligned_events`](#freaderget_aligned_events)
+    - [fReader.`get_aligned_events`](#freaderget_aligned_events)
       - [Description:](#description)
       - [Parameters:](#parameters)
       - [Returns:](#returns)
-    - [Usage Example:](#usage-example)
-    - [see also \[AnalysisTools\](ATools documentation.html) for other complimentary functions used](#see-also-analysistoolsatools-documentationhtml-for-other-complimentary-functions-used)
+      - [Usage Example:](#usage-example)
     - [self.`doRealign`](#selfdorealign)
       - [Description:](#description-1)
       - [Parameters:](#parameters-1)
@@ -30,7 +29,7 @@ This is the documentation of the realignment
     - [self.`InsertFakeEvents`](#selfinsertfakeevents)
       - [Description:](#description-5)
       - [Parameters:](#parameters-5)
-- [Code Description: `get_aligned_events`](#code-description-get_aligned_events)
+    - [Code Description: `get_aligned_events`](#code-description-get_aligned_events)
       - [1. Initialization](#1-initialization)
       - [2. Reading and Processing Events](#2-reading-and-processing-events)
       - [3. Aligning Events](#3-aligning-events)
@@ -39,7 +38,7 @@ This is the documentation of the realignment
       - [6. Monitoring TDC State](#6-monitoring-tdc-state)
       - [7. Returning Results](#7-returning-results)
 
-# fReader.`get_aligned_events`
+### fReader.`get_aligned_events`
 **fReader.`get_aligned_events`(order = [(0,1), (1,2), (2,3), (3,4)], interval = 100, extract_tdc_mets = False, recordtimes = False)**
 
 #### Description:
@@ -90,7 +89,7 @@ output chunks of interval length events
     - **None**: 
       - **Description**: The function returns `None`.
 
-### Usage Example:
+#### Usage Example:
 
 ```python
 import importlib
@@ -118,7 +117,7 @@ while processedEvents < max_process_event_chunk:
    event_chunk = fReader.get_aligned_events(order=order, interval=interval)
 ```
 
-### see also [AnalysisTools](ATools documentation.html) for other complimentary functions used
+ see also [AnalysisTools](ATools documentation.html) for other complimentary functions used
 
 ---
 
@@ -214,7 +213,7 @@ Inserts fake events into the event builder based on the insertion list.
 
 
 
-# Code Description: `get_aligned_events`
+### Code Description: `get_aligned_events`
 
 The `get_aligned_events` function is designed to process a chunk of events, align them according to the alignment metric, monitor TDC (Time-to-Digital Converter) states, and optionally extract TDC metrics.
 

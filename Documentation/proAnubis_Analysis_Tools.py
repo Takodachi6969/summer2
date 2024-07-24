@@ -68,8 +68,64 @@ class Reconstructor():
         self.solid_theta_histogram = np.zeros(len(np.arange(-180.5, 181.5, 1)) - 1)
         self.solid_phi_histogram = np.zeros(len(np.arange(-180.5, 181.5, 1)) - 1)
         self.tdcstatus = [True for tdc in range(5)]
+        self.efficiency_memory = {rpc: [] for rpc in range(6)}
+        self.processed_events_memory = []
 
-        
+    
+    
+    def append_efficiency_to_memory(self):
+        # Record the current number of processed events
+        self.processed_events_memory.append(self.processedEvents)
+
+        for rpc in range(6):
+            if self.possible_reconstructions[rpc] == 0:
+                efficiency = [0 for _ in self.tol]
+            else:
+                efficiency = [x / self.possible_reconstructions[rpc] for x in self.successful_reconstructions[rpc]]
+            
+            # Append the current efficiency values to memory
+            self.efficiency_memory[rpc].append(efficiency)
+
+    def plot_efficiency_heatmap(self):
+
+        fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+
+        for rpc in range(6):
+            ax = axes[rpc // 3, rpc % 3]
+
+            if len(self.efficiency_memory[rpc]) == 0 or len(self.processed_events_memory) == 0:
+                print(f"No data for RPC {rpc}. Skipping...")
+                continue
+
+            # Prepare data for the heatmap
+            data = np.array(self.efficiency_memory[rpc])
+            events = np.array(self.processed_events_memory)
+            tol = np.array(self.tol)
+
+            if len(events) != data.shape[0]:
+                print(f"Mismatch in lengths for RPC {rpc}: events ({len(events)}), data ({data.shape[0]})")
+                continue
+
+            events_bins = np.append(events, events[-1] + (events[-1] - events[-2]))
+            tol_bins = np.append(tol, tol[-1] + (tol[-1] - tol[-2]))
+
+            if len(events_bins) != data.shape[0] + 1:
+                print(f"Mismatch in events_bins length for RPC {rpc}: events_bins ({len(events_bins)}), data ({data.shape[0]})")
+                continue
+
+            if len(tol_bins) != data.shape[1] + 1:
+                print(f"Mismatch in tol_bins length for RPC {rpc}: tol_bins ({len(tol_bins)}), data ({data.shape[1]})")
+                continue
+
+            c = ax.pcolormesh(events_bins, tol_bins, data.T, cmap='viridis', norm=colors.Normalize(0, 0.5))
+            fig.colorbar(c, ax=ax)
+
+            ax.set_title(f'RPC {rpc}')
+            ax.set_xlabel('Processed Events')
+            ax.set_ylabel('Tolerance')
+
+        plt.tight_layout()
+        plt.show()
 
     def populate_hits(self):
         self.etaHits = [[] for rpc in range(6)]

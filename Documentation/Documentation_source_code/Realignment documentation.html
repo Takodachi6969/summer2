@@ -120,11 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><a href="#realignent-documentation">Realignent Documentation</a></li>
 <li><a href="#overview">Overview</a></li>
-<li><a href="#table-of-content">Table of content</a></li>
-<li><a href="#freaderget_aligned_events">fReader.<code>get_aligned_events</code></a> - <a href="#description">Description:</a> - <a href="#parameters">Parameters:</a> - <a href="#returns">Returns:</a>
+<li><a href="#table-of-content">Table of content</a>
 <ul>
+<li><a href="#freaderget_aligned_events">fReader.<code>get_aligned_events</code></a>
+<ul>
+<li><a href="#description">Description:</a></li>
+<li><a href="#parameters">Parameters:</a></li>
+<li><a href="#returns">Returns:</a></li>
 <li><a href="#usage-example">Usage Example:</a></li>
-<li><a href="#see-also-analysistoolsatools-documentationhtml-for-other-complimentary-functions-used">see also [AnalysisTools](ATools documentation.html) for other complimentary functions used</a></li>
+</ul></li>
 <li><a href="#selfdorealign">self.<code>doRealign</code></a>
 <ul>
 <li><a href="#description-1">Description:</a></li>
@@ -152,12 +156,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#description-5">Description:</a></li>
 <li><a href="#parameters-5">Parameters:</a></li>
 </ul></li>
+<li><a href="#code-description-get_aligned_events">Code Description: <code>get_aligned_events</code></a>
+<ul>
+<li><a href="#1-initialization">1. Initialization</a></li>
+<li><a href="#2-reading-and-processing-events">2. Reading and Processing Events</a></li>
+<li><a href="#3-aligning-events">3. Aligning Events</a></li>
+<li><a href="#4-updating-alignment-status">4. Updating Alignment Status</a></li>
+<li><a href="#5-updating-adjustment-window">5. Updating Adjustment Window</a></li>
+<li><a href="#6-monitoring-tdc-state">6. Monitoring TDC State</a></li>
+<li><a href="#7-returning-results">7. Returning Results</a></li>
 </ul></li>
-<li><a href="#code-description-get_aligned_events">Code Description: <code>get_aligned_events</code></a> - <a href="#1-initialization">1. Initialization</a> - <a href="#2-reading-and-processing-events">2. Reading and Processing Events</a> - <a href="#3-aligning-events">3. Aligning Events</a> - <a href="#4-updating-alignment-status">4. Updating Alignment Status</a> - <a href="#5-updating-adjustment-window">5. Updating Adjustment Window</a> - <a href="#6-monitoring-tdc-state">6. Monitoring TDC State</a> - <a href="#7-returning-results">7. Returning Results</a></li>
+</ul></li>
 </ul>
-</section>
-<section id="freader.get_aligned_events" class="level1">
-<h1>fReader.<code>get_aligned_events</code></h1>
+<section id="freader.get_aligned_events" class="level3">
+<h3 class="anchored" data-anchor-id="freader.get_aligned_events">fReader.<code>get_aligned_events</code></h3>
 <p><strong>fReader.<code>get_aligned_events</code>(order = [(0,1), (1,2), (2,3), (3,4)], interval = 100, extract_tdc_mets = False, recordtimes = False)</strong></p>
 <section id="description" class="level4">
 <h4 class="anchored" data-anchor-id="description">Description:</h4>
@@ -232,8 +244,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ol>
 </section>
-<section id="usage-example" class="level3">
-<h3 class="anchored" data-anchor-id="usage-example">Usage Example:</h3>
+<section id="usage-example" class="level4">
+<h4 class="anchored" data-anchor-id="usage-example">Usage Example:</h4>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(rawFileReader) <span class="co"># Reload fReader</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -257,10 +269,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> processedEvents <span class="op">&lt;</span> max_process_event_chunk:</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   processedEvents <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>   event_chunk <span class="op">=</span> fReader.get_aligned_events(order<span class="op">=</span>order, interval<span class="op">=</span>interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="see-also-analysistools-for-other-complimentary-functions-used" class="level3">
-<h3 class="anchored" data-anchor-id="see-also-analysistools-for-other-complimentary-functions-used">see also <a href="ATools%20documentation.html">AnalysisTools</a> for other complimentary functions used</h3>
+<p>see also <a href="ATools%20documentation.html">AnalysisTools</a> for other complimentary functions used</p>
 <hr>
+</section>
 </section>
 <section id="self.dorealign" class="level3">
 <h3 class="anchored" data-anchor-id="self.dorealign">self.<code>doRealign</code></h3>
@@ -398,9 +409,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section>
 </section>
-</section>
-<section id="code-description-get_aligned_events" class="level1">
-<h1>Code Description: <code>get_aligned_events</code></h1>
+<section id="code-description-get_aligned_events" class="level3">
+<h3 class="anchored" data-anchor-id="code-description-get_aligned_events">Code Description: <code>get_aligned_events</code></h3>
 <p>The <code>get_aligned_events</code> function is designed to process a chunk of events, align them according to the alignment metric, monitor TDC (Time-to-Digital Converter) states, and optionally extract TDC metrics.</p>
 <section id="initialization" class="level4">
 <h4 class="anchored" data-anchor-id="initialization">1. Initialization</h4>
@@ -459,6 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Otherwise, the function returns <code>None</code>.</li>
 </ul>
 <hr>
+</section>
 </section>
 </section>
 
